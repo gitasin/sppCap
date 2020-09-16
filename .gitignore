@@ -5,4 +5,5 @@
 connection.properties
 
 
-# mta_archives/
+mta_archives/
+srv/target
