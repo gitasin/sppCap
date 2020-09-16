@@ -1,0 +1,6 @@
+db/src/gen/.hdiconfig
+db/src/gen/.hdinamespace
+db/src/gen/SampleService.Samples.hdbview
+db/src/gen/xx.Sample.hdbtable
+srv/src/main/resources/edmx/SampleService.xml
+srv/src/main/resources/edmx/csn.json
