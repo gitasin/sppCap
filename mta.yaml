@@ -20,7 +20,7 @@ modules:
  # --------------------- SERVER MODULE ------------------------
  - name: sppCap_srv_dev
  # ------------------------------------------------------------
-   type: nodejs
+   type: java
    path: srv
    requires:
     # Resources extracted from CAP configuration
@@ -34,6 +34,17 @@ modules:
       properties:
         srv-url: ${default-url}
 
+ # -------------------- SIDECAR MODULE ------------------------
+ - name: sppCap_db_dev
+ # ------------------------------------------------------------
+   type: hdb
+   path: db  
+   parameters:
+    # buildpack: nodejs_buildpack
+    app-name: sppCap_db_dev
+   requires:
+    # 'hana' and 'xsuaa' resources extracted from CAP configuration
+    - name: sppDb_hdi_dev
 
 resources:
  # services extracted from CAP configuration
