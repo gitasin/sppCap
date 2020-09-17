@@ -7,3 +7,4 @@ connection.properties
 
 mta_archives/
 srv/target
+db/src/gen

@@ -1,0 +1,8 @@
+VIEW XX_SAMPLE_VIEW AS 
+SELECT   A.ID
+        ,A.CD
+        ,A.NAME
+        ,CASE WHEN A.NAME IS NULL THEN A.CD
+                ELSE A.NAME
+        END AS NAME_CD
+FROM    XX_SAMPLE A;
