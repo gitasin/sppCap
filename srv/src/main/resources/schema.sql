@@ -1,3 +1,4 @@
+DROP VIEW IF EXISTS SampleInfoService_SampleDetail;
 DROP VIEW IF EXISTS SampleInfoService_SampleMaster;
 DROP VIEW IF EXISTS SampleService_Samples;
 
@@ -26,6 +27,13 @@ CREATE TABLE xx_Sample_Master (
   name NVARCHAR(5000),
   PRIMARY KEY(master_id)
 );
+
+CREATE VIEW SampleInfoService_SampleDetail AS SELECT
+  Sample_Detail_0.detail_id,
+  Sample_Detail_0.master_id,
+  Sample_Detail_0.cd,
+  Sample_Detail_0.name
+FROM xx_Sample_Detail AS Sample_Detail_0;
 
 CREATE VIEW SampleInfoService_SampleMaster AS SELECT
   Sample_Master_0.master_id,

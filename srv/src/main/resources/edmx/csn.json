@@ -5,6 +5,39 @@
       "@source": "srv/cds/xx/xx_sampleInfo-service.cds",
       "kind": "service"
     },
+    "SampleInfoService.SampleDetail": {
+      "kind": "entity",
+      "@cds.persistence.name": "SAMPLEINFOSERVICE_SAMPLEDETAIL",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "xx.Sample_Detail"
+            ]
+          }
+        }
+      },
+      "elements": {
+        "detail_id": {
+          "@cds.persistence.name": "DETAIL_ID",
+          "key": true,
+          "type": "cds.Integer64"
+        },
+        "master_id": {
+          "@cds.persistence.name": "MASTER_ID",
+          "type": "cds.Integer64"
+        },
+        "cd": {
+          "@cds.persistence.name": "CD",
+          "type": "cds.String"
+        },
+        "name": {
+          "@cds.persistence.name": "NAME",
+          "type": "cds.String"
+        }
+      },
+      "$syntax": "projection"
+    },
     "SampleInfoService.SampleMaster": {
       "kind": "entity",
       "@cds.persistence.name": "SAMPLEINFOSERVICE_SAMPLEMASTER",
