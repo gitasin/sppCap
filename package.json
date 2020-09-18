@@ -17,6 +17,24 @@
       "db": {
         "kind": "hana"
       }
+    },
+    "folders": {
+      "db": [
+        "db/",
+        "db/cds/",
+        "db/cds/xx/"
+      ],
+      "srv": [
+        "srv/",
+        "srv/cds/",
+        "srv/cds/xx/"
+      ],
+      "app": "app/"
     }
-  }
+  },
+  "files": [
+    "db",
+    "srv",
+    "app"
+  ]
 }

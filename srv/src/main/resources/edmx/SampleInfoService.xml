@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+  <edmx:DataServices>
+    <Schema Namespace="SampleInfoService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+      <EntityContainer Name="EntityContainer">
+        <EntitySet Name="SampleMaster" EntityType="SampleInfoService.SampleMaster"/>
+      </EntityContainer>
+      <EntityType Name="SampleMaster">
+        <Key>
+          <PropertyRef Name="master_id"/>
+        </Key>
+        <Property Name="master_id" Type="Edm.Int64" Nullable="false"/>
+        <Property Name="cd" Type="Edm.String"/>
+        <Property Name="name" Type="Edm.String"/>
+      </EntityType>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

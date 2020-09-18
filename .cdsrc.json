@@ -8,8 +8,11 @@
                 "options": {
                     "model": [
                         "db",
+                        "db/cds",
+                        "db/cds/xx",
                         "srv",
-                        "app"
+                        "srv/cds",
+                        "srv/cds/xx"
                     ]
                 }
             },
@@ -19,8 +22,11 @@
                 "options": {
                     "model": [
                         "db",
+                        "db/cds",
+                        "db/cds/xx",
                         "srv",
-                        "app"
+                        "srv/cds",
+                        "srv/cds/xx"
                     ]
                 }
             }

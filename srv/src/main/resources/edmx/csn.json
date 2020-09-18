@@ -1,8 +1,41 @@
 {
   "namespace": "xx",
   "definitions": {
+    "SampleInfoService": {
+      "@source": "srv/cds/xx/xx_sampleInfo-service.cds",
+      "kind": "service"
+    },
+    "SampleInfoService.SampleMaster": {
+      "kind": "entity",
+      "@cds.persistence.name": "SAMPLEINFOSERVICE_SAMPLEMASTER",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "xx.Sample_Master"
+            ]
+          }
+        }
+      },
+      "elements": {
+        "master_id": {
+          "@cds.persistence.name": "MASTER_ID",
+          "key": true,
+          "type": "cds.Integer64"
+        },
+        "cd": {
+          "@cds.persistence.name": "CD",
+          "type": "cds.String"
+        },
+        "name": {
+          "@cds.persistence.name": "NAME",
+          "type": "cds.String"
+        }
+      },
+      "$syntax": "projection"
+    },
     "SampleService": {
-      "@source": "srv/xx_sample-service.cds",
+      "@source": "srv/cds/xx/xx_sample-service.cds",
       "kind": "service"
     },
     "SampleService.Samples": {
@@ -40,6 +73,48 @@
       "elements": {
         "id": {
           "@cds.persistence.name": "ID",
+          "key": true,
+          "type": "cds.Integer64"
+        },
+        "cd": {
+          "@cds.persistence.name": "CD",
+          "type": "cds.String"
+        },
+        "name": {
+          "@cds.persistence.name": "NAME",
+          "type": "cds.String"
+        }
+      }
+    },
+    "xx.Sample_Detail": {
+      "kind": "entity",
+      "@cds.persistence.name": "XX_SAMPLE_DETAIL",
+      "elements": {
+        "detail_id": {
+          "@cds.persistence.name": "DETAIL_ID",
+          "key": true,
+          "type": "cds.Integer64"
+        },
+        "master_id": {
+          "@cds.persistence.name": "MASTER_ID",
+          "type": "cds.Integer64"
+        },
+        "cd": {
+          "@cds.persistence.name": "CD",
+          "type": "cds.String"
+        },
+        "name": {
+          "@cds.persistence.name": "NAME",
+          "type": "cds.String"
+        }
+      }
+    },
+    "xx.Sample_Master": {
+      "kind": "entity",
+      "@cds.persistence.name": "XX_SAMPLE_MASTER",
+      "elements": {
+        "master_id": {
+          "@cds.persistence.name": "MASTER_ID",
           "key": true,
           "type": "cds.Integer64"
         },
