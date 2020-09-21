@@ -22,12 +22,24 @@
       "db": [
         "db/",
         "db/cds/",
-        "db/cds/xx/"
+        "db/cds/xx/",
+        "db/cds/cm/",
+        "db/cds/dp/",
+        "db/cds/ep/",
+        "db/cds/op/",
+        "db/cds/pg/",
+        "db/cds/sp/"
       ],
       "srv": [
         "srv/",
         "srv/cds/",
-        "srv/cds/xx/"
+        "srv/cds/xx/",
+        "srv/cds/cm/",
+        "srv/cds/dp/",
+        "srv/cds/ep/",
+        "srv/cds/op/",
+        "srv/cds/pg/",
+        "srv/cds/sp/"
       ],
       "app": "app/"
     }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+  <edmx:DataServices>
+    <Schema Namespace="SampleGroupService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+      <EntityContainer Name="EntityContainer">
+        <EntitySet Name="SampleHeader" EntityType="SampleGroupService.SampleHeader"/>
+        <EntitySet Name="SampleLine" EntityType="SampleGroupService.SampleLine"/>
+      </EntityContainer>
+      <EntityType Name="SampleHeader">
+        <Key>
+          <PropertyRef Name="header_id"/>
+        </Key>
+        <Property Name="header_id" Type="Edm.Int64" Nullable="false"/>
+        <Property Name="cd" Type="Edm.String"/>
+        <Property Name="name" Type="Edm.String"/>
+      </EntityType>
+      <EntityType Name="SampleLine">
+        <Key>
+          <PropertyRef Name="line_id"/>
+        </Key>
+        <Property Name="line_id" Type="Edm.Int64" Nullable="false"/>
+        <Property Name="header_id" Type="Edm.Int64"/>
+        <Property Name="cd" Type="Edm.String"/>
+        <Property Name="name" Type="Edm.String"/>
+      </EntityType>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

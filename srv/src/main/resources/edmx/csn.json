@@ -1,6 +1,72 @@
 {
   "namespace": "xx",
   "definitions": {
+    "SampleGroupService": {
+      "@source": "srv/cds/xx/xx_sampleGroup-service.cds",
+      "kind": "service"
+    },
+    "SampleGroupService.SampleHeader": {
+      "kind": "entity",
+      "@cds.persistence.name": "SAMPLEGROUPSERVICE_SAMPLEHEADER",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "xx.Sample_Header"
+            ]
+          }
+        }
+      },
+      "elements": {
+        "header_id": {
+          "@cds.persistence.name": "HEADER_ID",
+          "key": true,
+          "type": "cds.Integer64"
+        },
+        "cd": {
+          "@cds.persistence.name": "CD",
+          "type": "cds.String"
+        },
+        "name": {
+          "@cds.persistence.name": "NAME",
+          "type": "cds.String"
+        }
+      },
+      "$syntax": "projection"
+    },
+    "SampleGroupService.SampleLine": {
+      "kind": "entity",
+      "@cds.persistence.name": "SAMPLEGROUPSERVICE_SAMPLELINE",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "xx.Sample_Line"
+            ]
+          }
+        }
+      },
+      "elements": {
+        "line_id": {
+          "@cds.persistence.name": "LINE_ID",
+          "key": true,
+          "type": "cds.Integer64"
+        },
+        "header_id": {
+          "@cds.persistence.name": "HEADER_ID",
+          "type": "cds.Integer64"
+        },
+        "cd": {
+          "@cds.persistence.name": "CD",
+          "type": "cds.String"
+        },
+        "name": {
+          "@cds.persistence.name": "NAME",
+          "type": "cds.String"
+        }
+      },
+      "$syntax": "projection"
+    },
     "SampleInfoService": {
       "@source": "srv/cds/xx/xx_sampleInfo-service.cds",
       "kind": "service"
@@ -130,6 +196,48 @@
         },
         "master_id": {
           "@cds.persistence.name": "MASTER_ID",
+          "type": "cds.Integer64"
+        },
+        "cd": {
+          "@cds.persistence.name": "CD",
+          "type": "cds.String"
+        },
+        "name": {
+          "@cds.persistence.name": "NAME",
+          "type": "cds.String"
+        }
+      }
+    },
+    "xx.Sample_Header": {
+      "kind": "entity",
+      "@cds.persistence.name": "XX_SAMPLE_HEADER",
+      "elements": {
+        "header_id": {
+          "@cds.persistence.name": "HEADER_ID",
+          "key": true,
+          "type": "cds.Integer64"
+        },
+        "cd": {
+          "@cds.persistence.name": "CD",
+          "type": "cds.String"
+        },
+        "name": {
+          "@cds.persistence.name": "NAME",
+          "type": "cds.String"
+        }
+      }
+    },
+    "xx.Sample_Line": {
+      "kind": "entity",
+      "@cds.persistence.name": "XX_SAMPLE_LINE",
+      "elements": {
+        "line_id": {
+          "@cds.persistence.name": "LINE_ID",
+          "key": true,
+          "type": "cds.Integer64"
+        },
+        "header_id": {
+          "@cds.persistence.name": "HEADER_ID",
           "type": "cds.Integer64"
         },
         "cd": {
