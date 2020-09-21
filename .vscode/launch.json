@@ -5,7 +5,7 @@
       "name": "Run sppCap",
       "type": "java",
       "request": "launch",
-      "mainClass": "customer.sppCap.Application",
+      "mainClass": "lg.sppCap.Application",
       "projectName": "sppCap",
       "preLaunchTask": "Build sppCap",
       "cwd": "${workspaceFolder}",

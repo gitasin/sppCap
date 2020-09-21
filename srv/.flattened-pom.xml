@@ -3,11 +3,11 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>customer</groupId>
+    <groupId>lg</groupId>
     <artifactId>sppCap-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-  <groupId>customer</groupId>
+  <groupId>lg</groupId>
   <artifactId>sppCap</artifactId>
   <version>1.0-SNAPSHOT</version>
   <name>sppCap</name>

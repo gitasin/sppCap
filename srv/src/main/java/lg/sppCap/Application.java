@@ -1,4 +1,4 @@
-package customer.sppCap;
+package lg.sppCap;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -3,7 +3,7 @@
 
 	<parent>
 		<artifactId>sppCap-parent</artifactId>
-		<groupId>customer</groupId>
+		<groupId>lg</groupId>
 		<version>${revision}</version>
 	</parent>
 
