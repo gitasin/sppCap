@@ -30,6 +30,10 @@
         "name": {
           "@cds.persistence.name": "NAME",
           "type": "cds.String"
+        },
+        "attr1": {
+          "@cds.persistence.name": "ATTR1",
+          "type": "cds.String"
         }
       },
       "$syntax": "projection"
@@ -223,6 +227,10 @@
         },
         "name": {
           "@cds.persistence.name": "NAME",
+          "type": "cds.String"
+        },
+        "attr1": {
+          "@cds.persistence.name": "ATTR1",
           "type": "cds.String"
         }
       }

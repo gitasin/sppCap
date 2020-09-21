@@ -13,6 +13,7 @@
         <Property Name="header_id" Type="Edm.Int64" Nullable="false"/>
         <Property Name="cd" Type="Edm.String"/>
         <Property Name="name" Type="Edm.String"/>
+        <Property Name="attr1" Type="Edm.String"/>
       </EntityType>
       <EntityType Name="SampleLine">
         <Key>

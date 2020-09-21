@@ -29,6 +29,7 @@ CREATE TABLE xx_Sample_Header (
   header_id BIGINT NOT NULL,
   cd NVARCHAR(5000),
   name NVARCHAR(5000),
+  attr1 NVARCHAR(5000),
   PRIMARY KEY(header_id)
 );
 
@@ -50,7 +51,8 @@ CREATE TABLE xx_Sample_Master (
 CREATE VIEW SampleGroupService_SampleHeader AS SELECT
   Sample_Header_0.header_id,
   Sample_Header_0.cd,
-  Sample_Header_0.name
+  Sample_Header_0.name,
+  Sample_Header_0.attr1
 FROM xx_Sample_Header AS Sample_Header_0;
 
 CREATE VIEW SampleGroupService_SampleLine AS SELECT
