@@ -17,7 +17,7 @@ import com.sap.cds.services.handler.annotations.After;
 import com.sap.cds.services.handler.annotations.ServiceName;
 
 import cds.gen.sampleinfoservice.SampleMaster_;
-import cds.gen.sampleinfoservice.SampleMaster;;
+import cds.gen.sampleinfoservice.SampleMaster;
 
 @Component
 @ServiceName("SampleInfoService")
