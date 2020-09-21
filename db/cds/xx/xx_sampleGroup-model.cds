@@ -4,6 +4,7 @@ entity Sample_Header {
   key header_id : Integer64;
   cd : String;
   name: String;
+  attr1: String;
 }
 
 
