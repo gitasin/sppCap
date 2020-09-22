@@ -18,7 +18,7 @@ public interface SampleHeaders_ extends StructuredType<SampleHeaders_> {
 
   ElementRef<String> name();
 
-  SampleDetail_ details();
+  SampleDetails_ details();
 
-  SampleDetail_ details(Function<SampleDetail_, CqnPredicate> filter);
+  SampleDetails_ details(Function<SampleDetails_, CqnPredicate> filter);
 }

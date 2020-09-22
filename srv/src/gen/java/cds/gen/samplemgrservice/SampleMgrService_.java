@@ -8,7 +8,7 @@ import java.lang.String;
 public interface SampleMgrService_ {
   String CDS_NAME = "SampleMgrService";
 
-  Class<SampleHeaders_> SAMPLE_HEADERS = SampleHeaders_.class;
+  Class<SampleDetails_> SAMPLE_DETAILS = SampleDetails_.class;
 
-  Class<SampleDetail_> SAMPLE_DETAIL = SampleDetail_.class;
+  Class<SampleHeaders_> SAMPLE_HEADERS = SampleHeaders_.class;
 }

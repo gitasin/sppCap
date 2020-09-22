@@ -3,12 +3,12 @@
   <edmx:DataServices>
     <Schema Namespace="SampleMgrService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
       <EntityContainer Name="EntityContainer">
-        <EntitySet Name="SampleDetail" EntityType="SampleMgrService.SampleDetail"/>
+        <EntitySet Name="SampleDetails" EntityType="SampleMgrService.SampleDetails"/>
         <EntitySet Name="SampleHeaders" EntityType="SampleMgrService.SampleHeaders">
-          <NavigationPropertyBinding Path="details" Target="SampleDetail"/>
+          <NavigationPropertyBinding Path="details" Target="SampleDetails"/>
         </EntitySet>
       </EntityContainer>
-      <EntityType Name="SampleDetail">
+      <EntityType Name="SampleDetails">
         <Key>
           <PropertyRef Name="detail_id"/>
         </Key>
@@ -24,7 +24,7 @@
         <Property Name="header_id" Type="Edm.Int64" Nullable="false"/>
         <Property Name="cd" Type="Edm.String"/>
         <Property Name="name" Type="Edm.String"/>
-        <NavigationProperty Name="details" Type="Collection(SampleMgrService.SampleDetail)"/>
+        <NavigationProperty Name="details" Type="Collection(SampleMgrService.SampleDetails)"/>
       </EntityType>
     </Schema>
   </edmx:DataServices>

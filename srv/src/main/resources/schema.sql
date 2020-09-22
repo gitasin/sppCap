@@ -1,8 +1,10 @@
-DROP VIEW IF EXISTS SampleMgrService_SampleDetail;
+DROP VIEW IF EXISTS SampleGrpMgrService_SampleGroups;
+DROP VIEW IF EXISTS SampleMgrService_SampleDetails;
 DROP VIEW IF EXISTS SampleMgrService_SampleHeaders;
 DROP VIEW IF EXISTS SampleMstMgrService_SampleMasters;
 
 DROP TABLE IF EXISTS xx_Sample_Detail;
+DROP TABLE IF EXISTS xx_Sample_Group;
 DROP TABLE IF EXISTS xx_Sample_Header;
 DROP TABLE IF EXISTS xx_Sample_Master;
 
@@ -12,6 +14,13 @@ CREATE TABLE xx_Sample_Detail (
   cd NVARCHAR(5000),
   name NVARCHAR(5000),
   PRIMARY KEY(detail_id)
+);
+
+CREATE TABLE xx_Sample_Group (
+  grp_id BIGINT NOT NULL,
+  cd NVARCHAR(5000),
+  name NVARCHAR(5000),
+  PRIMARY KEY(grp_id)
 );
 
 CREATE TABLE xx_Sample_Header (
@@ -29,7 +38,13 @@ CREATE TABLE xx_Sample_Master (
   PRIMARY KEY(master_id)
 );
 
-CREATE VIEW SampleMgrService_SampleDetail AS SELECT
+CREATE VIEW SampleGrpMgrService_SampleGroups AS SELECT
+  Sample_Group_0.grp_id,
+  Sample_Group_0.cd,
+  Sample_Group_0.name
+FROM xx_Sample_Group AS Sample_Group_0;
+
+CREATE VIEW SampleMgrService_SampleDetails AS SELECT
   Sample_Detail_0.detail_id,
   Sample_Detail_0.header_id,
   Sample_Detail_0.cd,

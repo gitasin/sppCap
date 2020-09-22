@@ -6,8 +6,8 @@ import com.sap.cds.ql.CdsName;
 import java.lang.Long;
 import java.lang.String;
 
-@CdsName("SampleMgrService.SampleDetail")
-public interface SampleDetail extends CdsData {
+@CdsName("SampleMgrService.SampleDetails")
+public interface SampleDetails extends CdsData {
   String CD = "cd";
 
   String HEADER_ID = "header_id";
@@ -36,7 +36,7 @@ public interface SampleDetail extends CdsData {
   @CdsName(DETAIL_ID)
   void setDetailId(Long detailId);
 
-  static SampleDetail create() {
-    return Struct.create(SampleDetail.class);
+  static SampleDetails create() {
+    return Struct.create(SampleDetails.class);
   }
 }

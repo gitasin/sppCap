@@ -32,7 +32,7 @@ public interface SampleHeaders extends CdsData {
 
   void setName(String name);
 
-  List<SampleDetail> getDetails();
+  List<SampleDetails> getDetails();
 
   void setDetails(List<? extends Map<String, ?>> details);
 

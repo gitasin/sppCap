@@ -1,12 +1,46 @@
 {
+  "namespace": "xx",
   "definitions": {
+    "SampleGrpMgrService": {
+      "@source": "srv/cds/xx/sampleGrpMgr-service.cds",
+      "kind": "service"
+    },
+    "SampleGrpMgrService.SampleGroups": {
+      "kind": "entity",
+      "@cds.persistence.name": "SAMPLEGRPMGRSERVICE_SAMPLEGROUPS",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "xx.Sample_Group"
+            ]
+          }
+        }
+      },
+      "elements": {
+        "grp_id": {
+          "@cds.persistence.name": "GRP_ID",
+          "key": true,
+          "type": "cds.Integer64"
+        },
+        "cd": {
+          "@cds.persistence.name": "CD",
+          "type": "cds.String"
+        },
+        "name": {
+          "@cds.persistence.name": "NAME",
+          "type": "cds.String"
+        }
+      },
+      "$syntax": "projection"
+    },
     "SampleMgrService": {
       "@source": "srv/cds/xx/sampleMgr-service.cds",
       "kind": "service"
     },
-    "SampleMgrService.SampleDetail": {
+    "SampleMgrService.SampleDetails": {
       "kind": "entity",
-      "@cds.persistence.name": "SAMPLEMGRSERVICE_SAMPLEDETAIL",
+      "@cds.persistence.name": "SAMPLEMGRSERVICE_SAMPLEDETAILS",
       "query": {
         "SELECT": {
           "from": {
@@ -69,7 +103,7 @@
           "cardinality": {
             "max": "*"
           },
-          "target": "SampleMgrService.SampleDetail",
+          "target": "SampleMgrService.SampleDetails",
           "on": [
             {
               "ref": [
@@ -150,6 +184,25 @@
         },
         "header_id": {
           "@cds.persistence.name": "HEADER_ID",
+          "type": "cds.Integer64"
+        },
+        "cd": {
+          "@cds.persistence.name": "CD",
+          "type": "cds.String"
+        },
+        "name": {
+          "@cds.persistence.name": "NAME",
+          "type": "cds.String"
+        }
+      }
+    },
+    "xx.Sample_Group": {
+      "kind": "entity",
+      "@cds.persistence.name": "XX_SAMPLE_GROUP",
+      "elements": {
+        "grp_id": {
+          "@cds.persistence.name": "GRP_ID",
+          "key": true,
           "type": "cds.Integer64"
         },
         "cd": {

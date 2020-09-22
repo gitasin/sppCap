@@ -6,9 +6,9 @@ import com.sap.cds.ql.StructuredType;
 import java.lang.Long;
 import java.lang.String;
 
-@CdsName("SampleMgrService.SampleDetail")
-public interface SampleDetail_ extends StructuredType<SampleDetail_> {
-  String CDS_NAME = "SampleMgrService.SampleDetail";
+@CdsName("SampleMgrService.SampleDetails")
+public interface SampleDetails_ extends StructuredType<SampleDetails_> {
+  String CDS_NAME = "SampleMgrService.SampleDetails";
 
   ElementRef<String> cd();
 
