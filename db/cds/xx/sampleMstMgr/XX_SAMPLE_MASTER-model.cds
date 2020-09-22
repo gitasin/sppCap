@@ -6,3 +6,4 @@ entity Sample_Master {
   name: String;
   attr1: String;
 }
+
