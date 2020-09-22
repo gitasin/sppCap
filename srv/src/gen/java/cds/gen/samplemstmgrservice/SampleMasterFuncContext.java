@@ -18,9 +18,9 @@ public interface SampleMasterFuncContext extends EventContext {
   @CdsName(CD)
   void setCd(String cd);
 
-  void setResult(Collection<SampleMasters> result);
+  void setResult(Collection<MasterFunc> result);
 
-  Collection<SampleMasters> getResult();
+  Collection<MasterFunc> getResult();
 
   static SampleMasterFuncContext create() {
     return EventContext.create(SampleMasterFuncContext.class, null);

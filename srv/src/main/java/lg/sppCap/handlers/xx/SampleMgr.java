@@ -49,20 +49,5 @@ public class SampleMgr implements EventHandler {
 
     }
 
-    @On(service = "SampleMService")
-    public void onService(EventContext context) {        
-        //context.getServiceCatalog();
-        //context.getModel();
-        //context.getParameterInfo();
-        //context.getTarget();
-
-        if("SampleMasterFunc".equals(context.getEvent())){
-            
-        }
-        // SampleMasterFunc
-    }
-
-
-
 
 }

@@ -136,7 +136,7 @@
       },
       "returns": {
         "items": {
-          "type": "SampleMstMgrService.SampleMasters"
+          "type": "SampleMstMgrService.masterFunc"
         }
       }
     },
@@ -172,6 +172,24 @@
         }
       },
       "$syntax": "projection"
+    },
+    "SampleMstMgrService.masterFunc": {
+      "kind": "type",
+      "@cds.persistence.name": "SAMPLEMSTMGRSERVICE_MASTERFUNC",
+      "elements": {
+        "MASTER_ID": {
+          "@cds.persistence.name": "MASTER_ID",
+          "type": "cds.Integer"
+        },
+        "CD": {
+          "@cds.persistence.name": "CD",
+          "type": "cds.String"
+        },
+        "NAME": {
+          "@cds.persistence.name": "NAME",
+          "type": "cds.String"
+        }
+      }
     },
     "xx.Sample_Detail": {
       "kind": "entity",
