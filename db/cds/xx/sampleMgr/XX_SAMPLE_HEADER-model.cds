@@ -1,4 +1,3 @@
-using {xx.Sample_Master as Master} from '../sampleMstMgr/XX_SAMPLE_MASTER-model';
 using {xx.Sample_Detail as Detail} from './XX_SAMPLE_DETAIL-model';
 namespace xx;
 
