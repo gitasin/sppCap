@@ -10,7 +10,7 @@ import java.lang.String;
 public interface SampleGroup extends CdsData {
   String CD = "cd";
 
-  String GRP_ID = "grp_id";
+  String GROUP_ID = "group_id";
 
   String NAME = "name";
 
@@ -18,11 +18,11 @@ public interface SampleGroup extends CdsData {
 
   void setCd(String cd);
 
-  @CdsName(GRP_ID)
-  Long getGrpId();
+  @CdsName(GROUP_ID)
+  Long getGroupId();
 
-  @CdsName(GRP_ID)
-  void setGrpId(Long grpId);
+  @CdsName(GROUP_ID)
+  void setGroupId(Long groupId);
 
   String getName();
 

@@ -18,8 +18,8 @@
         }
       },
       "elements": {
-        "grp_id": {
-          "@cds.persistence.name": "GRP_ID",
+        "group_id": {
+          "@cds.persistence.name": "GROUP_ID",
           "key": true,
           "type": "cds.Integer64"
         },
@@ -200,8 +200,8 @@
       "kind": "entity",
       "@cds.persistence.name": "XX_SAMPLE_GROUP",
       "elements": {
-        "grp_id": {
-          "@cds.persistence.name": "GRP_ID",
+        "group_id": {
+          "@cds.persistence.name": "GROUP_ID",
           "key": true,
           "type": "cds.Integer64"
         },

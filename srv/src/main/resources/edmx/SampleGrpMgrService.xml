@@ -7,9 +7,9 @@
       </EntityContainer>
       <EntityType Name="SampleGroups">
         <Key>
-          <PropertyRef Name="grp_id"/>
+          <PropertyRef Name="group_id"/>
         </Key>
-        <Property Name="grp_id" Type="Edm.Int64" Nullable="false"/>
+        <Property Name="group_id" Type="Edm.Int64" Nullable="false"/>
         <Property Name="cd" Type="Edm.String"/>
         <Property Name="name" Type="Edm.String"/>
       </EntityType>

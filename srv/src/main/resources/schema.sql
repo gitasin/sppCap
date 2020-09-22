@@ -17,10 +17,10 @@ CREATE TABLE xx_Sample_Detail (
 );
 
 CREATE TABLE xx_Sample_Group (
-  grp_id BIGINT NOT NULL,
+  group_id BIGINT NOT NULL,
   cd NVARCHAR(5000),
   name NVARCHAR(5000),
-  PRIMARY KEY(grp_id)
+  PRIMARY KEY(group_id)
 );
 
 CREATE TABLE xx_Sample_Header (
@@ -39,7 +39,7 @@ CREATE TABLE xx_Sample_Master (
 );
 
 CREATE VIEW SampleGrpMgrService_SampleGroups AS SELECT
-  Sample_Group_0.grp_id,
+  Sample_Group_0.group_id,
   Sample_Group_0.cd,
   Sample_Group_0.name
 FROM xx_Sample_Group AS Sample_Group_0;

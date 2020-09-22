@@ -12,7 +12,7 @@ public interface SampleGroup_ extends StructuredType<SampleGroup_> {
 
   ElementRef<String> cd();
 
-  ElementRef<Long> grp_id();
+  ElementRef<Long> group_id();
 
   ElementRef<String> name();
 }
