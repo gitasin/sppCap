@@ -1,13 +1,45 @@
 {
-  "namespace": "xx",
   "definitions": {
-    "SampleGroupService": {
-      "@source": "srv/cds/xx/xx_sampleGroup-service.cds",
+    "SampleMgrService": {
+      "@source": "srv/cds/xx/sampleMgr-service.cds",
       "kind": "service"
     },
-    "SampleGroupService.SampleHeader": {
+    "SampleMgrService.SampleDetail": {
       "kind": "entity",
-      "@cds.persistence.name": "SAMPLEGROUPSERVICE_SAMPLEHEADER",
+      "@cds.persistence.name": "SAMPLEMGRSERVICE_SAMPLEDETAIL",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "xx.Sample_Detail"
+            ]
+          }
+        }
+      },
+      "elements": {
+        "detail_id": {
+          "@cds.persistence.name": "DETAIL_ID",
+          "key": true,
+          "type": "cds.Integer64"
+        },
+        "header_id": {
+          "@cds.persistence.name": "HEADER_ID",
+          "type": "cds.Integer64"
+        },
+        "cd": {
+          "@cds.persistence.name": "CD",
+          "type": "cds.String"
+        },
+        "name": {
+          "@cds.persistence.name": "NAME",
+          "type": "cds.String"
+        }
+      },
+      "$syntax": "projection"
+    },
+    "SampleMgrService.SampleHeaders": {
+      "kind": "entity",
+      "@cds.persistence.name": "SAMPLEMGRSERVICE_SAMPLEHEADERS",
       "query": {
         "SELECT": {
           "from": {
@@ -31,86 +63,52 @@
           "@cds.persistence.name": "NAME",
           "type": "cds.String"
         },
-        "attr1": {
-          "@cds.persistence.name": "ATTR1",
-          "type": "cds.String"
+        "details": {
+          "@cds.persistence.name": "DETAILS",
+          "type": "cds.Association",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "SampleMgrService.SampleDetail",
+          "on": [
+            {
+              "ref": [
+                "details",
+                "header_id"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "header_id"
+              ]
+            }
+          ]
         }
       },
       "$syntax": "projection"
     },
-    "SampleGroupService.SampleLine": {
-      "kind": "entity",
-      "@cds.persistence.name": "SAMPLEGROUPSERVICE_SAMPLELINE",
-      "query": {
-        "SELECT": {
-          "from": {
-            "ref": [
-              "xx.Sample_Line"
-            ]
-          }
-        }
-      },
-      "elements": {
-        "line_id": {
-          "@cds.persistence.name": "LINE_ID",
-          "key": true,
-          "type": "cds.Integer64"
-        },
-        "header_id": {
-          "@cds.persistence.name": "HEADER_ID",
-          "type": "cds.Integer64"
-        },
-        "cd": {
-          "@cds.persistence.name": "CD",
-          "type": "cds.String"
-        },
-        "name": {
-          "@cds.persistence.name": "NAME",
-          "type": "cds.String"
-        }
-      },
-      "$syntax": "projection"
-    },
-    "SampleInfoService": {
-      "@source": "srv/cds/xx/xx_sampleInfo-service.cds",
+    "SampleMstMgrService": {
+      "@source": "srv/cds/xx/sampleMstMgr-service.cds",
       "kind": "service"
     },
-    "SampleInfoService.SampleDetail": {
-      "kind": "entity",
-      "@cds.persistence.name": "SAMPLEINFOSERVICE_SAMPLEDETAIL",
-      "query": {
-        "SELECT": {
-          "from": {
-            "ref": [
-              "xx.Sample_Detail"
-            ]
-          }
-        }
-      },
-      "elements": {
-        "detail_id": {
-          "@cds.persistence.name": "DETAIL_ID",
-          "key": true,
-          "type": "cds.Integer64"
-        },
-        "master_id": {
-          "@cds.persistence.name": "MASTER_ID",
-          "type": "cds.Integer64"
-        },
-        "cd": {
+    "SampleMstMgrService.SampleMasterFunc": {
+      "kind": "action",
+      "params": {
+        "CD": {
           "@cds.persistence.name": "CD",
           "type": "cds.String"
-        },
-        "name": {
-          "@cds.persistence.name": "NAME",
-          "type": "cds.String"
         }
       },
-      "$syntax": "projection"
+      "returns": {
+        "items": {
+          "type": "SampleMstMgrService.SampleMasters"
+        }
+      }
     },
-    "SampleInfoService.SampleMaster": {
+    "SampleMstMgrService.SampleMasters": {
       "kind": "entity",
-      "@cds.persistence.name": "SAMPLEINFOSERVICE_SAMPLEMASTER",
+      "@cds.persistence.name": "SAMPLEMSTMGRSERVICE_SAMPLEMASTERS",
       "query": {
         "SELECT": {
           "from": {
@@ -133,61 +131,13 @@
         "name": {
           "@cds.persistence.name": "NAME",
           "type": "cds.String"
-        }
-      },
-      "$syntax": "projection"
-    },
-    "SampleService": {
-      "@source": "srv/cds/xx/xx_sample-service.cds",
-      "kind": "service"
-    },
-    "SampleService.Samples": {
-      "kind": "entity",
-      "@cds.persistence.name": "SAMPLESERVICE_SAMPLES",
-      "query": {
-        "SELECT": {
-          "from": {
-            "ref": [
-              "xx.Sample"
-            ]
-          }
-        }
-      },
-      "elements": {
-        "id": {
-          "@cds.persistence.name": "ID",
-          "key": true,
-          "type": "cds.Integer64"
         },
-        "cd": {
-          "@cds.persistence.name": "CD",
-          "type": "cds.String"
-        },
-        "name": {
-          "@cds.persistence.name": "NAME",
+        "attr1": {
+          "@cds.persistence.name": "ATTR1",
           "type": "cds.String"
         }
       },
       "$syntax": "projection"
-    },
-    "xx.Sample": {
-      "kind": "entity",
-      "@cds.persistence.name": "XX_SAMPLE",
-      "elements": {
-        "id": {
-          "@cds.persistence.name": "ID",
-          "key": true,
-          "type": "cds.Integer64"
-        },
-        "cd": {
-          "@cds.persistence.name": "CD",
-          "type": "cds.String"
-        },
-        "name": {
-          "@cds.persistence.name": "NAME",
-          "type": "cds.String"
-        }
-      }
     },
     "xx.Sample_Detail": {
       "kind": "entity",
@@ -198,8 +148,8 @@
           "key": true,
           "type": "cds.Integer64"
         },
-        "master_id": {
-          "@cds.persistence.name": "MASTER_ID",
+        "header_id": {
+          "@cds.persistence.name": "HEADER_ID",
           "type": "cds.Integer64"
         },
         "cd": {
@@ -229,32 +179,27 @@
           "@cds.persistence.name": "NAME",
           "type": "cds.String"
         },
-        "attr1": {
-          "@cds.persistence.name": "ATTR1",
-          "type": "cds.String"
-        }
-      }
-    },
-    "xx.Sample_Line": {
-      "kind": "entity",
-      "@cds.persistence.name": "XX_SAMPLE_LINE",
-      "elements": {
-        "line_id": {
-          "@cds.persistence.name": "LINE_ID",
-          "key": true,
-          "type": "cds.Integer64"
-        },
-        "header_id": {
-          "@cds.persistence.name": "HEADER_ID",
-          "type": "cds.Integer64"
-        },
-        "cd": {
-          "@cds.persistence.name": "CD",
-          "type": "cds.String"
-        },
-        "name": {
-          "@cds.persistence.name": "NAME",
-          "type": "cds.String"
+        "details": {
+          "@cds.persistence.name": "DETAILS",
+          "type": "cds.Association",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "xx.Sample_Detail",
+          "on": [
+            {
+              "ref": [
+                "details",
+                "header_id"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "header_id"
+              ]
+            }
+          ]
         }
       }
     },
@@ -273,6 +218,10 @@
         },
         "name": {
           "@cds.persistence.name": "NAME",
+          "type": "cds.String"
+        },
+        "attr1": {
+          "@cds.persistence.name": "ATTR1",
           "type": "cds.String"
         }
       }

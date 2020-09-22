@@ -1,0 +1,32 @@
+PROCEDURE XX_SAMPLE_SAVE_PROC (
+    IN CD NVARCHAR(5000),
+    IN NAME NVARCHAR(5000),
+    OUT O_TABLE XX_SAMPLE_SAVE_PROC_TYPE
+)
+LANGUAGE SQLSCRIPT
+SQL SECURITY INVOKER 
+
+AS
+BEGIN
+
+    INSERT INTO XX_SAMPLE_HEADER 
+    (
+         ID
+        ,CD
+        ,NAME
+    )
+    VALUES
+    (
+         XX_SAMPLE_HEADER_ID_SEQ.NEXTVAL
+        ,:CD
+        ,:NAME
+    );
+
+    O_TABLE = SELECT A.ID
+                    ,A.CD
+                    ,A.NAME
+              FROM   XX_SAMPLE A
+              WHERE  A.CD = :CD
+              ;
+
+END
