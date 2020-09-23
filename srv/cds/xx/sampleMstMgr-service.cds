@@ -1,5 +1,6 @@
 using {xx as Master} from '../../../db/cds/xx/sampleMstMgr/XX_SAMPLE_MASTER-model';
 
+namespace xx;
 service SampleMstMgrService {
     entity SampleMasters as projection on Master.Sample_Master;
 

@@ -17,7 +17,8 @@ import com.sap.cds.services.handler.annotations.Before;
 import com.sap.cds.services.handler.annotations.After;
 import com.sap.cds.services.handler.annotations.ServiceName;
 
-import cds.gen.samplemgrservice.*;
+import cds.gen.xx.samplemgrservice.*;
+
 
 @Component
 @ServiceName("SampleMgrService")

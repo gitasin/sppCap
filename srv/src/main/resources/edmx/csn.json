@@ -1,13 +1,13 @@
 {
   "namespace": "xx",
   "definitions": {
-    "SampleGrpMgrService": {
+    "xx.SampleGrpMgrService": {
       "@source": "srv/cds/xx/sampleGrpMgr-service.cds",
       "kind": "service"
     },
-    "SampleGrpMgrService.SampleGroups": {
+    "xx.SampleGrpMgrService.SampleGroups": {
       "kind": "entity",
-      "@cds.persistence.name": "SAMPLEGRPMGRSERVICE_SAMPLEGROUPS",
+      "@cds.persistence.name": "XX_SAMPLEGRPMGRSERVICE_SAMPLEGROUPS",
       "query": {
         "SELECT": {
           "from": {
@@ -34,13 +34,13 @@
       },
       "$syntax": "projection"
     },
-    "SampleMgrService": {
+    "xx.SampleMgrService": {
       "@source": "srv/cds/xx/sampleMgr-service.cds",
       "kind": "service"
     },
-    "SampleMgrService.SampleDetails": {
+    "xx.SampleMgrService.SampleDetails": {
       "kind": "entity",
-      "@cds.persistence.name": "SAMPLEMGRSERVICE_SAMPLEDETAILS",
+      "@cds.persistence.name": "XX_SAMPLEMGRSERVICE_SAMPLEDETAILS",
       "query": {
         "SELECT": {
           "from": {
@@ -71,9 +71,9 @@
       },
       "$syntax": "projection"
     },
-    "SampleMgrService.SampleHeaders": {
+    "xx.SampleMgrService.SampleHeaders": {
       "kind": "entity",
-      "@cds.persistence.name": "SAMPLEMGRSERVICE_SAMPLEHEADERS",
+      "@cds.persistence.name": "XX_SAMPLEMGRSERVICE_SAMPLEHEADERS",
       "query": {
         "SELECT": {
           "from": {
@@ -103,7 +103,7 @@
           "cardinality": {
             "max": "*"
           },
-          "target": "SampleMgrService.SampleDetails",
+          "target": "xx.SampleMgrService.SampleDetails",
           "on": [
             {
               "ref": [
@@ -122,11 +122,11 @@
       },
       "$syntax": "projection"
     },
-    "SampleMstMgrService": {
+    "xx.SampleMstMgrService": {
       "@source": "srv/cds/xx/sampleMstMgr-service.cds",
       "kind": "service"
     },
-    "SampleMstMgrService.SampleMasterFunc": {
+    "xx.SampleMstMgrService.SampleMasterFunc": {
       "kind": "action",
       "params": {
         "CD": {
@@ -136,13 +136,13 @@
       },
       "returns": {
         "items": {
-          "type": "SampleMstMgrService.masterFunc"
+          "type": "xx.SampleMstMgrService.masterFunc"
         }
       }
     },
-    "SampleMstMgrService.SampleMasters": {
+    "xx.SampleMstMgrService.SampleMasters": {
       "kind": "entity",
-      "@cds.persistence.name": "SAMPLEMSTMGRSERVICE_SAMPLEMASTERS",
+      "@cds.persistence.name": "XX_SAMPLEMSTMGRSERVICE_SAMPLEMASTERS",
       "query": {
         "SELECT": {
           "from": {
@@ -165,17 +165,13 @@
         "name": {
           "@cds.persistence.name": "NAME",
           "type": "cds.String"
-        },
-        "attr1": {
-          "@cds.persistence.name": "ATTR1",
-          "type": "cds.String"
         }
       },
       "$syntax": "projection"
     },
-    "SampleMstMgrService.masterFunc": {
+    "xx.SampleMstMgrService.masterFunc": {
       "kind": "type",
-      "@cds.persistence.name": "SAMPLEMSTMGRSERVICE_MASTERFUNC",
+      "@cds.persistence.name": "XX_SAMPLEMSTMGRSERVICE_MASTERFUNC",
       "elements": {
         "MASTER_ID": {
           "@cds.persistence.name": "MASTER_ID",
@@ -289,10 +285,6 @@
         },
         "name": {
           "@cds.persistence.name": "NAME",
-          "type": "cds.String"
-        },
-        "attr1": {
-          "@cds.persistence.name": "ATTR1",
           "type": "cds.String"
         }
       }

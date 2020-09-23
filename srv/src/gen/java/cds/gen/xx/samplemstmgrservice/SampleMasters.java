@@ -1,4 +1,4 @@
-package cds.gen.xx;
+package cds.gen.xx.samplemstmgrservice;
 
 import com.sap.cds.CdsData;
 import com.sap.cds.Struct;
@@ -6,8 +6,8 @@ import com.sap.cds.ql.CdsName;
 import java.lang.Long;
 import java.lang.String;
 
-@CdsName("xx.Sample_Master")
-public interface SampleMaster extends CdsData {
+@CdsName("xx.SampleMstMgrService.SampleMasters")
+public interface SampleMasters extends CdsData {
   String MASTER_ID = "master_id";
 
   String CD = "cd";
@@ -28,7 +28,7 @@ public interface SampleMaster extends CdsData {
 
   void setName(String name);
 
-  static SampleMaster create() {
-    return Struct.create(SampleMaster.class);
+  static SampleMasters create() {
+    return Struct.create(SampleMasters.class);
   }
 }
