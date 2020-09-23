@@ -4,6 +4,7 @@
     <Schema Namespace="xx.SampleMstMgrService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
       <EntityContainer Name="EntityContainer">
         <EntitySet Name="SampleMasters" EntityType="xx.SampleMstMgrService.SampleMasters"/>
+        <EntitySet Name="MasterFunc" EntityType="xx.SampleMstMgrService.MasterFuncParameters"/>
         <ActionImport Name="SampleMasterFunc" Action="xx.SampleMstMgrService.SampleMasterFunc"/>
       </EntityContainer>
       <EntityType Name="SampleMasters">
@@ -13,6 +14,22 @@
         <Property Name="master_id" Type="Edm.Int64" Nullable="false"/>
         <Property Name="cd" Type="Edm.String"/>
         <Property Name="name" Type="Edm.String"/>
+      </EntityType>
+      <EntityType Name="MasterFuncParameters">
+        <Key>
+          <PropertyRef Name="CD"/>
+        </Key>
+        <Property Name="CD" Type="Edm.String" Nullable="false"/>
+        <NavigationProperty Name="Set" Type="Collection(xx.SampleMstMgrService.MasterFuncType)" Partner="Parameters" ContainsTarget="true"/>
+      </EntityType>
+      <EntityType Name="MasterFuncType">
+        <Key>
+          <PropertyRef Name="master_id"/>
+        </Key>
+        <Property Name="master_id" Type="Edm.Int64" Nullable="false"/>
+        <Property Name="cd" Type="Edm.String"/>
+        <Property Name="name" Type="Edm.String"/>
+        <NavigationProperty Name="Parameters" Type="xx.SampleMstMgrService.MasterFuncParameters" Partner="Set"/>
       </EntityType>
       <ComplexType Name="masterFunc">
         <Property Name="MASTER_ID" Type="Edm.Int32"/>

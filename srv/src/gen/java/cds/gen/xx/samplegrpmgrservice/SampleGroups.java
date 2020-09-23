@@ -3,6 +3,7 @@ package cds.gen.xx.samplegrpmgrservice;
 import com.sap.cds.CdsData;
 import com.sap.cds.Struct;
 import com.sap.cds.ql.CdsName;
+import java.lang.Boolean;
 import java.lang.Long;
 import java.lang.String;
 
@@ -13,6 +14,8 @@ public interface SampleGroups extends CdsData {
   String GROUP_ID = "group_id";
 
   String NAME = "name";
+
+  String USE_FLAG = "use_flag";
 
   String getCd();
 
@@ -27,6 +30,12 @@ public interface SampleGroups extends CdsData {
   String getName();
 
   void setName(String name);
+
+  @CdsName(USE_FLAG)
+  Boolean getUseFlag();
+
+  @CdsName(USE_FLAG)
+  void setUseFlag(Boolean useFlag);
 
   static SampleGroups create() {
     return Struct.create(SampleGroups.class);

@@ -3,6 +3,7 @@ package cds.gen.xx.samplegrpmgrservice;
 import com.sap.cds.ql.CdsName;
 import com.sap.cds.ql.ElementRef;
 import com.sap.cds.ql.StructuredType;
+import java.lang.Boolean;
 import java.lang.Long;
 import java.lang.String;
 
@@ -15,4 +16,6 @@ public interface SampleGroups_ extends StructuredType<SampleGroups_> {
   ElementRef<Long> group_id();
 
   ElementRef<String> name();
+
+  ElementRef<Boolean> use_flag();
 }

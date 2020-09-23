@@ -10,8 +10,9 @@
           <PropertyRef Name="group_id"/>
         </Key>
         <Property Name="group_id" Type="Edm.Int64" Nullable="false"/>
-        <Property Name="cd" Type="Edm.String"/>
+        <Property Name="cd" Type="Edm.String" Nullable="false"/>
         <Property Name="name" Type="Edm.String"/>
+        <Property Name="use_flag" Type="Edm.Boolean"/>
       </EntityType>
     </Schema>
   </edmx:DataServices>
