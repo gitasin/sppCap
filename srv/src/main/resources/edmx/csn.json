@@ -1,6 +1,21 @@
 {
   "namespace": "xx",
   "definitions": {
+    "cm.Code_Detail": {
+      "kind": "entity",
+      "@cds.persistence.name": "CM_CODE_DETAIL",
+      "elements": {
+        "cd": {
+          "@cds.persistence.name": "CD",
+          "key": true,
+          "type": "cds.String"
+        },
+        "name": {
+          "@cds.persistence.name": "NAME",
+          "type": "cds.String"
+        }
+      }
+    },
     "xx.SampleGrpMgrService": {
       "@source": "srv/cds/xx/sampleGrpMgr-service.cds",
       "kind": "service"
