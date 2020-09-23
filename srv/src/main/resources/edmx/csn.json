@@ -16,6 +16,25 @@
         }
       }
     },
+    "pg.Mi_Item_Category": {
+      "kind": "entity",
+      "@cds.persistence.name": "PG_MI_ITEM_CATEGORY",
+      "elements": {
+        "category_code": {
+          "@cds.persistence.name": "CATEGORY_CODE",
+          "key": true,
+          "type": "cds.String"
+        },
+        "category_desc": {
+          "@cds.persistence.name": "CATEGORY_DESC",
+          "type": "cds.String"
+        },
+        "parernt_code": {
+          "@cds.persistence.name": "PARERNT_CODE",
+          "type": "cds.String"
+        }
+      }
+    },
     "xx.SampleGrpMgrService": {
       "@source": "srv/cds/xx/sampleGrpMgr-service.cds",
       "kind": "service"
