@@ -12,4 +12,5 @@ entity Vendor_Pool_Old {
    use_flag : String(1);
    sort_order_no : Integer64;
    attr1: String;
+   attr2: String;
 }
