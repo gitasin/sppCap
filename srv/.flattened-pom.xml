@@ -95,8 +95,6 @@
             <configuration>
               <commands>
                 <command>build/all --clean</command>
-                <command>deploy --to hana --dry >
-									${project.basedir}/src/main/resources/schema.sql</command>
               </commands>
             </configuration>
           </execution>
