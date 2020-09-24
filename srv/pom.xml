@@ -109,10 +109,6 @@
 						<configuration>
 							<commands>
 								<command>build/all --clean</command>
-
-                                <!-- change sqlite -> hana -->
-								<command>deploy --to hana --dry &gt;
-									${project.basedir}/src/main/resources/schema.sql</command>
 							</commands>
 						</configuration>
 					</execution>
