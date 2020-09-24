@@ -35,6 +35,61 @@
         }
       }
     },
+    "sp.Vendor_Pool": {
+      "kind": "entity",
+      "@cds.persistence.name": "SP_VENDOR_POOL",
+      "elements": {
+        "tenant_id": {
+          "@cds.persistence.name": "TENANT_ID",
+          "key": true,
+          "type": "cds.String",
+          "length": 30
+        },
+        "vendor_pool_class_code": {
+          "@cds.persistence.name": "VENDOR_POOL_CLASS_CODE",
+          "type": "cds.String",
+          "length": 100
+        },
+        "supplier_group_name": {
+          "@cds.persistence.name": "SUPPLIER_GROUP_NAME",
+          "type": "cds.String",
+          "length": 100
+        },
+        "group_detail_desc": {
+          "@cds.persistence.name": "GROUP_DETAIL_DESC",
+          "type": "cds.String",
+          "length": 4000
+        },
+        "organization_name": {
+          "@cds.persistence.name": "ORGANIZATION_NAME",
+          "type": "cds.String",
+          "length": 240
+        },
+        "evaluation_operation_unit_code": {
+          "@cds.persistence.name": "EVALUATION_OPERATION_UNIT_CODE",
+          "type": "cds.String",
+          "length": 20
+        },
+        "leveling_seq_no": {
+          "@cds.persistence.name": "LEVELING_SEQ_NO",
+          "type": "cds.Integer64"
+        },
+        "high_classification_code": {
+          "@cds.persistence.name": "HIGH_CLASSIFICATION_CODE",
+          "type": "cds.String",
+          "length": 50
+        },
+        "use_flag": {
+          "@cds.persistence.name": "USE_FLAG",
+          "type": "cds.String",
+          "length": 1
+        },
+        "sort_order_no": {
+          "@cds.persistence.name": "SORT_ORDER_NO",
+          "type": "cds.Integer64"
+        }
+      }
+    },
     "xx.SampleGrpMgrService": {
       "@source": "srv/cds/xx/sampleGrpMgr-service.cds",
       "kind": "service"
