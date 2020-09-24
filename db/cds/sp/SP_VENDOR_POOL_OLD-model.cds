@@ -11,5 +11,6 @@ entity Vendor_Pool_Old {
    high_classification_code : String(50);
    use_flag : String(1);
    sort_order_no : Integer64;
+   attri3 : String(10);
 }
 
