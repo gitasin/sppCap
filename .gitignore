@@ -6,6 +6,7 @@ connection.properties
 package.json
 
 mta_archives/
-srv/target
-# srv/src/gen
-db/src/gen
+srv/target/
+srv/src/gen/
+srv/src/main/resources/edmx/
+db/src/gen/
