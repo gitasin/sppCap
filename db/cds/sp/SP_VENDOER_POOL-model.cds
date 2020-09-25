@@ -1,6 +1,6 @@
 namespace sp;
 
-entity Vendor_Pool_Old {
+entity Vendor_Pool {
   key tenant_id : String(30);
    vendor_pool_class_code : String(100);
    supplier_group_name : String(100);
