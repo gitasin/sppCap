@@ -1,6 +1,185 @@
 {
   "namespace": "xx",
   "definitions": {
+    "pg.MiItemMasterService": {
+      "@source": "srv/cds/pg/Mi_Item_Master-service.cds",
+      "kind": "service"
+    },
+    "pg.MiItemMasterService.MiItemMasters": {
+      "kind": "entity",
+      "@cds.persistence.name": "PG_MIITEMMASTERSERVICE_MIITEMMASTERS",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "pg.Mi_Item_Master"
+            ]
+          }
+        }
+      },
+      "elements": {
+        "mi_item_code": {
+          "@cds.persistence.name": "MI_ITEM_CODE",
+          "key": true,
+          "type": "cds.String"
+        },
+        "mi_item_name": {
+          "@cds.persistence.name": "MI_ITEM_NAME",
+          "type": "cds.String"
+        },
+        "currency": {
+          "@cds.persistence.name": "CURRENCY",
+          "type": "cds.String"
+        },
+        "uom": {
+          "@cds.persistence.name": "UOM",
+          "type": "cds.String"
+        },
+        "exchange": {
+          "@cds.persistence.name": "EXCHANGE",
+          "type": "cds.String"
+        },
+        "terms": {
+          "@cds.persistence.name": "TERMS",
+          "type": "cds.String"
+        },
+        "sourcing_group": {
+          "@cds.persistence.name": "SOURCING_GROUP",
+          "type": "cds.String"
+        },
+        "category_code": {
+          "@cds.persistence.name": "CATEGORY_CODE",
+          "type": "cds.String"
+        },
+        "exchange_uom": {
+          "@cds.persistence.name": "EXCHANGE_UOM",
+          "type": "cds.String"
+        },
+        "manage_period": {
+          "@cds.persistence.name": "MANAGE_PERIOD",
+          "type": "cds.String"
+        },
+        "use": {
+          "@cds.persistence.name": "USE",
+          "type": "cds.Boolean"
+        },
+        "details": {
+          "@cds.persistence.name": "DETAILS",
+          "type": "cds.Association",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "pg.Mi_Item_Category",
+          "on": [
+            {
+              "ref": [
+                "details",
+                "category_code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "category_code"
+              ]
+            }
+          ]
+        }
+      },
+      "$syntax": "projection"
+    },
+    "pg.Mi_Item_Category": {
+      "kind": "entity",
+      "@cds.persistence.name": "PG_MI_ITEM_CATEGORY",
+      "elements": {
+        "category_code": {
+          "@cds.persistence.name": "CATEGORY_CODE",
+          "key": true,
+          "type": "cds.String"
+        },
+        "category_name": {
+          "@cds.persistence.name": "CATEGORY_NAME",
+          "type": "cds.String"
+        },
+        "parent_code": {
+          "@cds.persistence.name": "PARENT_CODE",
+          "type": "cds.String"
+        }
+      }
+    },
+    "pg.Mi_Item_Master": {
+      "kind": "entity",
+      "@cds.persistence.name": "PG_MI_ITEM_MASTER",
+      "elements": {
+        "mi_item_code": {
+          "@cds.persistence.name": "MI_ITEM_CODE",
+          "key": true,
+          "type": "cds.String"
+        },
+        "mi_item_name": {
+          "@cds.persistence.name": "MI_ITEM_NAME",
+          "type": "cds.String"
+        },
+        "currency": {
+          "@cds.persistence.name": "CURRENCY",
+          "type": "cds.String"
+        },
+        "uom": {
+          "@cds.persistence.name": "UOM",
+          "type": "cds.String"
+        },
+        "exchange": {
+          "@cds.persistence.name": "EXCHANGE",
+          "type": "cds.String"
+        },
+        "terms": {
+          "@cds.persistence.name": "TERMS",
+          "type": "cds.String"
+        },
+        "sourcing_group": {
+          "@cds.persistence.name": "SOURCING_GROUP",
+          "type": "cds.String"
+        },
+        "category_code": {
+          "@cds.persistence.name": "CATEGORY_CODE",
+          "type": "cds.String"
+        },
+        "exchange_uom": {
+          "@cds.persistence.name": "EXCHANGE_UOM",
+          "type": "cds.String"
+        },
+        "manage_period": {
+          "@cds.persistence.name": "MANAGE_PERIOD",
+          "type": "cds.String"
+        },
+        "use": {
+          "@cds.persistence.name": "USE",
+          "type": "cds.Boolean"
+        },
+        "details": {
+          "@cds.persistence.name": "DETAILS",
+          "type": "cds.Association",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "pg.Mi_Item_Category",
+          "on": [
+            {
+              "ref": [
+                "details",
+                "category_code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "category_code"
+              ]
+            }
+          ]
+        }
+      }
+    },
     "xx.SampleGrpMgrService": {
       "@source": "srv/cds/xx/sampleGrpMgr-service.cds",
       "kind": "service"

@@ -12,6 +12,6 @@ entity Mi_Item_Master {
    category_code : String;
    exchange_uom : String;
    manage_period : String;
-   Use           : Boolean;
+   use           : Boolean;
   details: Association to many Category on details.category_code = category_code;
 }
