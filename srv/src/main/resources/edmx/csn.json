@@ -42,7 +42,7 @@
         "mi_item_code": {
           "@cds.persistence.name": "MI_ITEM_CODE",
           "key": true,
-          "type": "cds.Integer64"
+          "type": "cds.String"
         },
         "mi_item_name": {
           "@cds.persistence.name": "MI_ITEM_NAME",
@@ -78,7 +78,11 @@
         },
         "manage_period": {
           "@cds.persistence.name": "MANAGE_PERIOD",
-          "type": "cds.Integer64"
+          "type": "cds.String"
+        },
+        "Use": {
+          "@cds.persistence.name": "USE",
+          "type": "cds.Boolean"
         },
         "details": {
           "@cds.persistence.name": "DETAILS",
@@ -101,6 +105,142 @@
               ]
             }
           ]
+        }
+      }
+    },
+    "sp.Vendor_Pool": {
+      "kind": "entity",
+      "@cds.persistence.name": "SP_VENDOR_POOL",
+      "elements": {
+        "tenant_id": {
+          "@cds.persistence.name": "TENANT_ID",
+          "key": true,
+          "type": "cds.String",
+          "length": 30
+        },
+        "vendor_pool_class_code": {
+          "@cds.persistence.name": "VENDOR_POOL_CLASS_CODE",
+          "type": "cds.String",
+          "length": 100
+        },
+        "supplier_group_name": {
+          "@cds.persistence.name": "SUPPLIER_GROUP_NAME",
+          "type": "cds.String",
+          "length": 100
+        },
+        "group_detail_desc": {
+          "@cds.persistence.name": "GROUP_DETAIL_DESC",
+          "type": "cds.String",
+          "length": 4000
+        },
+        "organization_name": {
+          "@cds.persistence.name": "ORGANIZATION_NAME",
+          "type": "cds.String",
+          "length": 240
+        },
+        "evaluation_operation_unit_code": {
+          "@cds.persistence.name": "EVALUATION_OPERATION_UNIT_CODE",
+          "type": "cds.String",
+          "length": 20
+        },
+        "leveling_seq_no": {
+          "@cds.persistence.name": "LEVELING_SEQ_NO",
+          "type": "cds.Integer64"
+        },
+        "high_classification_code": {
+          "@cds.persistence.name": "HIGH_CLASSIFICATION_CODE",
+          "type": "cds.String",
+          "length": 50
+        },
+        "use_flag": {
+          "@cds.persistence.name": "USE_FLAG",
+          "type": "cds.String",
+          "length": 1
+        },
+        "sort_order_no": {
+          "@cds.persistence.name": "SORT_ORDER_NO",
+          "type": "cds.Integer64"
+        },
+        "attri3": {
+          "@cds.persistence.name": "ATTRI3",
+          "type": "cds.String",
+          "length": 10
+        },
+        "attr1": {
+          "@cds.persistence.name": "ATTR1",
+          "type": "cds.String"
+        },
+        "attr2": {
+          "@cds.persistence.name": "ATTR2",
+          "type": "cds.String"
+        }
+      }
+    },
+    "sp.Vendor_Pool_Old": {
+      "kind": "entity",
+      "@cds.persistence.name": "SP_VENDOR_POOL_OLD",
+      "elements": {
+        "tenant_id": {
+          "@cds.persistence.name": "TENANT_ID",
+          "key": true,
+          "type": "cds.String",
+          "length": 30
+        },
+        "vendor_pool_class_code": {
+          "@cds.persistence.name": "VENDOR_POOL_CLASS_CODE",
+          "type": "cds.String",
+          "length": 100
+        },
+        "supplier_group_name": {
+          "@cds.persistence.name": "SUPPLIER_GROUP_NAME",
+          "type": "cds.String",
+          "length": 100
+        },
+        "group_detail_desc": {
+          "@cds.persistence.name": "GROUP_DETAIL_DESC",
+          "type": "cds.String",
+          "length": 4000
+        },
+        "organization_name": {
+          "@cds.persistence.name": "ORGANIZATION_NAME",
+          "type": "cds.String",
+          "length": 240
+        },
+        "evaluation_operation_unit_code": {
+          "@cds.persistence.name": "EVALUATION_OPERATION_UNIT_CODE",
+          "type": "cds.String",
+          "length": 20
+        },
+        "leveling_seq_no": {
+          "@cds.persistence.name": "LEVELING_SEQ_NO",
+          "type": "cds.Integer64"
+        },
+        "high_classification_code": {
+          "@cds.persistence.name": "HIGH_CLASSIFICATION_CODE",
+          "type": "cds.String",
+          "length": 50
+        },
+        "use_flag": {
+          "@cds.persistence.name": "USE_FLAG",
+          "type": "cds.String",
+          "length": 1
+        },
+        "sort_order_no": {
+          "@cds.persistence.name": "SORT_ORDER_NO",
+          "type": "cds.Integer64"
+        },
+        "attri3": {
+          "@cds.persistence.name": "ATTRI3",
+          "type": "cds.String",
+          "length": 10
+        },
+        "attr1": {
+          "@cds.persistence.name": "ATTR1",
+          "type": "cds.String"
+        },
+        "attr2": {
+          "@cds.persistence.name": "ATTR2",
+          "type": "cds.String"
         }
       }
     },
@@ -225,9 +365,364 @@
       },
       "$syntax": "projection"
     },
+    "xx.SampleMgrService.SampleMgrView": {
+      "kind": "entity",
+      "@cds.persistence.name": "XX_SAMPLEMGRSERVICE_SAMPLEMGRVIEW",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "xx.Sample_Mgr_View"
+            ]
+          }
+        }
+      },
+      "elements": {
+        "header_id": {
+          "@cds.persistence.name": "HEADER_ID",
+          "key": true,
+          "type": "cds.Integer64"
+        },
+        "detail_id": {
+          "@cds.persistence.name": "DETAIL_ID",
+          "key": true,
+          "type": "cds.Integer64"
+        },
+        "header_cd": {
+          "@cds.persistence.name": "HEADER_CD",
+          "type": "cds.String"
+        },
+        "header_name": {
+          "@cds.persistence.name": "HEADER_NAME",
+          "type": "cds.String"
+        },
+        "detail_cd": {
+          "@cds.persistence.name": "DETAIL_CD",
+          "type": "cds.String"
+        },
+        "detail_name": {
+          "@cds.persistence.name": "DETAIL_NAME",
+          "type": "cds.String"
+        }
+      },
+      "$syntax": "view"
+    },
+    "xx.SampleMgrService.SampleView": {
+      "kind": "entity",
+      "@cds.persistence.name": "XX_SAMPLEMGRSERVICE_SAMPLEVIEW",
+      "query": {
+        "SELECT": {
+          "from": {
+            "join": "left",
+            "args": [
+              {
+                "ref": [
+                  "xx.Sample_Header"
+                ],
+                "as": "h"
+              },
+              {
+                "ref": [
+                  "xx.Sample_Detail"
+                ],
+                "as": "d"
+              }
+            ],
+            "on": [
+              {
+                "ref": [
+                  "h",
+                  "header_id"
+                ]
+              },
+              "=",
+              {
+                "ref": [
+                  "d",
+                  "header_id"
+                ]
+              }
+            ]
+          },
+          "columns": [
+            {
+              "key": true,
+              "ref": [
+                "h",
+                "header_id"
+              ]
+            },
+            {
+              "key": true,
+              "ref": [
+                "h",
+                "cd"
+              ],
+              "as": "header_cd"
+            },
+            {
+              "ref": [
+                "h",
+                "name"
+              ],
+              "as": "header_name"
+            },
+            {
+              "ref": [
+                "d",
+                "detail_id"
+              ]
+            },
+            {
+              "ref": [
+                "d",
+                "cd"
+              ],
+              "as": "detail_cd"
+            },
+            {
+              "ref": [
+                "d",
+                "name"
+              ],
+              "as": "detail_name"
+            }
+          ]
+        }
+      },
+      "elements": {
+        "header_id": {
+          "@cds.persistence.name": "HEADER_ID",
+          "key": true,
+          "type": "cds.Integer64"
+        },
+        "header_cd": {
+          "@cds.persistence.name": "HEADER_CD",
+          "key": true,
+          "type": "cds.String"
+        },
+        "header_name": {
+          "@cds.persistence.name": "HEADER_NAME",
+          "type": "cds.String"
+        },
+        "detail_id": {
+          "@cds.persistence.name": "DETAIL_ID",
+          "type": "cds.Integer64"
+        },
+        "detail_cd": {
+          "@cds.persistence.name": "DETAIL_CD",
+          "type": "cds.String"
+        },
+        "detail_name": {
+          "@cds.persistence.name": "DETAIL_NAME",
+          "type": "cds.String"
+        }
+      },
+      "$syntax": "view"
+    },
+    "xx.SampleMgrService.SampleViewCondition": {
+      "kind": "entity",
+      "@cds.persistence.name": "XX_SAMPLEMGRSERVICE_SAMPLEVIEWCONDITION",
+      "params": {
+        "header_cd": {
+          "@cds.persistence.name": "HEADER_CD",
+          "type": "cds.String"
+        },
+        "detail_cd": {
+          "@cds.persistence.name": "DETAIL_CD",
+          "type": "cds.String"
+        }
+      },
+      "query": {
+        "SELECT": {
+          "from": {
+            "join": "left",
+            "args": [
+              {
+                "ref": [
+                  "xx.Sample_Header"
+                ],
+                "as": "h"
+              },
+              {
+                "ref": [
+                  "xx.Sample_Detail"
+                ],
+                "as": "d"
+              }
+            ],
+            "on": [
+              {
+                "ref": [
+                  "h",
+                  "header_id"
+                ]
+              },
+              "=",
+              {
+                "ref": [
+                  "d",
+                  "header_id"
+                ]
+              }
+            ]
+          },
+          "columns": [
+            {
+              "key": true,
+              "ref": [
+                "h",
+                "header_id"
+              ]
+            },
+            {
+              "ref": [
+                "h",
+                "cd"
+              ],
+              "as": "header_cd"
+            },
+            {
+              "ref": [
+                "h",
+                "name"
+              ],
+              "as": "header_name"
+            },
+            {
+              "key": true,
+              "ref": [
+                "d",
+                "detail_id"
+              ]
+            },
+            {
+              "ref": [
+                "d",
+                "cd"
+              ],
+              "as": "detail_cd"
+            },
+            {
+              "ref": [
+                "d",
+                "name"
+              ],
+              "as": "detail_name"
+            }
+          ],
+          "where": [
+            {
+              "ref": [
+                "h",
+                "cd"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "header_cd"
+              ],
+              "param": true
+            },
+            "and",
+            {
+              "ref": [
+                "d",
+                "cd"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "detail_cd"
+              ],
+              "param": true
+            }
+          ]
+        }
+      },
+      "elements": {
+        "header_id": {
+          "@cds.persistence.name": "HEADER_ID",
+          "key": true,
+          "type": "cds.Integer64"
+        },
+        "header_cd": {
+          "@cds.persistence.name": "HEADER_CD",
+          "type": "cds.String"
+        },
+        "header_name": {
+          "@cds.persistence.name": "HEADER_NAME",
+          "type": "cds.String"
+        },
+        "detail_id": {
+          "@cds.persistence.name": "DETAIL_ID",
+          "key": true,
+          "type": "cds.Integer64"
+        },
+        "detail_cd": {
+          "@cds.persistence.name": "DETAIL_CD",
+          "type": "cds.String"
+        },
+        "detail_name": {
+          "@cds.persistence.name": "DETAIL_NAME",
+          "type": "cds.String"
+        }
+      },
+      "$syntax": "view"
+    },
     "xx.SampleMstMgrService": {
       "@source": "srv/cds/xx/sampleMstMgr-service.cds",
       "kind": "service"
+    },
+    "xx.SampleMstMgrService.MasterFunc": {
+      "kind": "entity",
+      "@cds.persistence.name": "XX_SAMPLEMSTMGRSERVICE_MASTERFUNC",
+      "params": {
+        "CD": {
+          "@cds.persistence.name": "CD",
+          "type": "cds.String"
+        }
+      },
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              {
+                "id": "xx.Sample_Master_Func",
+                "args": {
+                  "CD": {
+                    "ref": [
+                      "CD"
+                    ],
+                    "param": true
+                  }
+                }
+              }
+            ]
+          },
+          "columns": [
+            "*"
+          ]
+        }
+      },
+      "elements": {
+        "master_id": {
+          "@cds.persistence.name": "MASTER_ID",
+          "key": true,
+          "type": "cds.Integer64"
+        },
+        "cd": {
+          "@cds.persistence.name": "CD",
+          "type": "cds.String"
+        },
+        "name": {
+          "@cds.persistence.name": "NAME",
+          "type": "cds.String"
+        }
+      },
+      "$syntax": "view"
     },
     "xx.SampleMstMgrService.SampleMasterFunc": {
       "kind": "action",
@@ -388,6 +883,65 @@
         },
         "name": {
           "@cds.persistence.name": "NAME",
+          "type": "cds.String"
+        }
+      }
+    },
+    "xx.Sample_Master_Func": {
+      "kind": "entity",
+      "@cds.persistence.exists": true,
+      "@cds.persistence.name": "XX_SAMPLE_MASTER_FUNC",
+      "params": {
+        "CD": {
+          "@cds.persistence.name": "CD",
+          "type": "cds.String"
+        }
+      },
+      "elements": {
+        "master_id": {
+          "@cds.persistence.name": "MASTER_ID",
+          "key": true,
+          "type": "cds.Integer64"
+        },
+        "cd": {
+          "@cds.persistence.name": "CD",
+          "type": "cds.String"
+        },
+        "name": {
+          "@cds.persistence.name": "NAME",
+          "type": "cds.String"
+        }
+      }
+    },
+    "xx.Sample_Mgr_View": {
+      "kind": "entity",
+      "@cds.persistence.exists": true,
+      "@cds.persistence.name": "XX_SAMPLE_MGR_VIEW",
+      "elements": {
+        "header_id": {
+          "@cds.persistence.name": "HEADER_ID",
+          "key": true,
+          "type": "cds.Integer64"
+        },
+        "detail_id": {
+          "@cds.persistence.name": "DETAIL_ID",
+          "key": true,
+          "type": "cds.Integer64"
+        },
+        "header_cd": {
+          "@cds.persistence.name": "HEADER_CD",
+          "type": "cds.String"
+        },
+        "header_name": {
+          "@cds.persistence.name": "HEADER_NAME",
+          "type": "cds.String"
+        },
+        "detail_cd": {
+          "@cds.persistence.name": "DETAIL_CD",
+          "type": "cds.String"
+        },
+        "detail_name": {
+          "@cds.persistence.name": "DETAIL_NAME",
           "type": "cds.String"
         }
       }

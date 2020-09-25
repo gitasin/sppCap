@@ -2,7 +2,7 @@ using {pg.Mi_Item_Category as Category} from './PG_MI_ITEM_CATEGORY-model';
 namespace pg;
 
 entity Mi_Item_Master {
-  key mi_item_code : Integer64;
+  key mi_item_code : String;
    mi_item_name : String;
    currency : String;
    uom : String;
@@ -11,6 +11,7 @@ entity Mi_Item_Master {
    sourcing_group : String;
    category_code : String;
    exchange_uom : String;
-   manage_period : Integer64;
+   manage_period : String;
+   Use : Boolean;
   details: Association to many Category on details.category_code = category_code;
 }

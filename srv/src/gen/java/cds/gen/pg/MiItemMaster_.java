@@ -4,7 +4,7 @@ import com.sap.cds.ql.CdsName;
 import com.sap.cds.ql.ElementRef;
 import com.sap.cds.ql.StructuredType;
 import com.sap.cds.ql.cqn.CqnPredicate;
-import java.lang.Long;
+import java.lang.Boolean;
 import java.lang.String;
 import java.util.function.Function;
 
@@ -17,6 +17,8 @@ public interface MiItemMaster_ extends StructuredType<MiItemMaster_> {
   ElementRef<String> terms();
 
   ElementRef<String> category_code();
+
+  ElementRef<Boolean> Use();
 
   ElementRef<String> currency();
 
@@ -32,7 +34,7 @@ public interface MiItemMaster_ extends StructuredType<MiItemMaster_> {
 
   ElementRef<String> exchange_uom();
 
-  ElementRef<Long> mi_item_code();
+  ElementRef<String> mi_item_code();
 
-  ElementRef<Long> manage_period();
+  ElementRef<String> manage_period();
 }

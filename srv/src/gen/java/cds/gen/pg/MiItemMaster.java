@@ -3,7 +3,7 @@ package cds.gen.pg;
 import com.sap.cds.CdsData;
 import com.sap.cds.Struct;
 import com.sap.cds.ql.CdsName;
-import java.lang.Long;
+import java.lang.Boolean;
 import java.lang.String;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +15,8 @@ public interface MiItemMaster extends CdsData {
   String TERMS = "terms";
 
   String CATEGORY_CODE = "category_code";
+
+  String USE = "Use";
 
   String CURRENCY = "currency";
 
@@ -45,6 +47,12 @@ public interface MiItemMaster extends CdsData {
 
   @CdsName(CATEGORY_CODE)
   void setCategoryCode(String categoryCode);
+
+  @CdsName(USE)
+  Boolean getUse();
+
+  @CdsName(USE)
+  void setUse(Boolean use);
 
   String getCurrency();
 
@@ -77,16 +85,16 @@ public interface MiItemMaster extends CdsData {
   void setExchangeUom(String exchangeUom);
 
   @CdsName(MI_ITEM_CODE)
-  Long getMiItemCode();
+  String getMiItemCode();
 
   @CdsName(MI_ITEM_CODE)
-  void setMiItemCode(Long miItemCode);
+  void setMiItemCode(String miItemCode);
 
   @CdsName(MANAGE_PERIOD)
-  Long getManagePeriod();
+  String getManagePeriod();
 
   @CdsName(MANAGE_PERIOD)
-  void setManagePeriod(Long managePeriod);
+  void setManagePeriod(String managePeriod);
 
   static MiItemMaster create() {
     return Struct.create(MiItemMaster.class);

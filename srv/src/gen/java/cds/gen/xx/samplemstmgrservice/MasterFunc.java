@@ -1,33 +1,34 @@
 package cds.gen.xx.samplemstmgrservice;
 
 import com.sap.cds.CdsData;
+import com.sap.cds.Struct;
 import com.sap.cds.ql.CdsName;
-import java.lang.Integer;
+import java.lang.Long;
 import java.lang.String;
 
-@CdsName("xx.SampleMstMgrService.masterFunc")
+@CdsName("xx.SampleMstMgrService.MasterFunc")
 public interface MasterFunc extends CdsData {
-  String CD = "CD";
+  String MASTER_ID = "master_id";
 
-  String MASTER_ID = "MASTER_ID";
+  String CD = "cd";
 
-  String NAME = "NAME";
+  String NAME = "name";
 
-  @CdsName(CD)
+  @CdsName(MASTER_ID)
+  Long getMasterId();
+
+  @CdsName(MASTER_ID)
+  void setMasterId(Long masterId);
+
   String getCd();
 
-  @CdsName(CD)
   void setCd(String cd);
 
-  @CdsName(MASTER_ID)
-  Integer getMasterId();
-
-  @CdsName(MASTER_ID)
-  void setMasterId(Integer masterId);
-
-  @CdsName(NAME)
   String getName();
 
-  @CdsName(NAME)
   void setName(String name);
+
+  static MasterFunc create() {
+    return Struct.create(MasterFunc.class);
+  }
 }

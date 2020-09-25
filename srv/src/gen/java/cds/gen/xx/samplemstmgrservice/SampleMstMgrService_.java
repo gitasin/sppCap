@@ -9,4 +9,6 @@ public interface SampleMstMgrService_ {
   String CDS_NAME = "xx.SampleMstMgrService";
 
   Class<SampleMasters_> SAMPLE_MASTERS = SampleMasters_.class;
+
+  Class<MasterFunc_> MASTER_FUNC = MasterFunc_.class;
 }

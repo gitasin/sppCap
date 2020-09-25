@@ -10,5 +10,11 @@ public interface SampleMgrService_ {
 
   Class<SampleHeaders_> SAMPLE_HEADERS = SampleHeaders_.class;
 
+  Class<SampleViewCondition_> SAMPLE_VIEW_CONDITION = SampleViewCondition_.class;
+
   Class<SampleDetails_> SAMPLE_DETAILS = SampleDetails_.class;
+
+  Class<SampleMgrView_> SAMPLE_MGR_VIEW = SampleMgrView_.class;
+
+  Class<SampleView_> SAMPLE_VIEW = SampleView_.class;
 }
