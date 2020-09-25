@@ -25,13 +25,82 @@
           "key": true,
           "type": "cds.String"
         },
-        "category_desc": {
-          "@cds.persistence.name": "CATEGORY_DESC",
+        "category_name": {
+          "@cds.persistence.name": "CATEGORY_NAME",
           "type": "cds.String"
         },
-        "parernt_code": {
-          "@cds.persistence.name": "PARERNT_CODE",
+        "parent_code": {
+          "@cds.persistence.name": "PARENT_CODE",
           "type": "cds.String"
+        }
+      }
+    },
+    "pg.Mi_Item_Master": {
+      "kind": "entity",
+      "@cds.persistence.name": "PG_MI_ITEM_MASTER",
+      "elements": {
+        "mi_item_code": {
+          "@cds.persistence.name": "MI_ITEM_CODE",
+          "key": true,
+          "type": "cds.Integer64"
+        },
+        "mi_item_name": {
+          "@cds.persistence.name": "MI_ITEM_NAME",
+          "type": "cds.String"
+        },
+        "currency": {
+          "@cds.persistence.name": "CURRENCY",
+          "type": "cds.String"
+        },
+        "uom": {
+          "@cds.persistence.name": "UOM",
+          "type": "cds.String"
+        },
+        "exchange": {
+          "@cds.persistence.name": "EXCHANGE",
+          "type": "cds.String"
+        },
+        "terms": {
+          "@cds.persistence.name": "TERMS",
+          "type": "cds.String"
+        },
+        "sourcing_group": {
+          "@cds.persistence.name": "SOURCING_GROUP",
+          "type": "cds.String"
+        },
+        "category_code": {
+          "@cds.persistence.name": "CATEGORY_CODE",
+          "type": "cds.String"
+        },
+        "exchange_uom": {
+          "@cds.persistence.name": "EXCHANGE_UOM",
+          "type": "cds.String"
+        },
+        "manage_period": {
+          "@cds.persistence.name": "MANAGE_PERIOD",
+          "type": "cds.Integer64"
+        },
+        "details": {
+          "@cds.persistence.name": "DETAILS",
+          "type": "cds.Association",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "pg.Mi_Item_Category",
+          "on": [
+            {
+              "ref": [
+                "details",
+                "category_code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "category_code"
+              ]
+            }
+          ]
         }
       }
     },

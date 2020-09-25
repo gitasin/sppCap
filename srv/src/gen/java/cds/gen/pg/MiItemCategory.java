@@ -7,11 +7,17 @@ import java.lang.String;
 
 @CdsName("pg.Mi_Item_Category")
 public interface MiItemCategory extends CdsData {
+  String CATEGORY_NAME = "category_name";
+
   String CATEGORY_CODE = "category_code";
 
-  String CATEGORY_DESC = "category_desc";
+  String PARENT_CODE = "parent_code";
 
-  String PARERNT_CODE = "parernt_code";
+  @CdsName(CATEGORY_NAME)
+  String getCategoryName();
+
+  @CdsName(CATEGORY_NAME)
+  void setCategoryName(String categoryName);
 
   @CdsName(CATEGORY_CODE)
   String getCategoryCode();
@@ -19,17 +25,11 @@ public interface MiItemCategory extends CdsData {
   @CdsName(CATEGORY_CODE)
   void setCategoryCode(String categoryCode);
 
-  @CdsName(CATEGORY_DESC)
-  String getCategoryDesc();
+  @CdsName(PARENT_CODE)
+  String getParentCode();
 
-  @CdsName(CATEGORY_DESC)
-  void setCategoryDesc(String categoryDesc);
-
-  @CdsName(PARERNT_CODE)
-  String getParerntCode();
-
-  @CdsName(PARERNT_CODE)
-  void setParerntCode(String parerntCode);
+  @CdsName(PARENT_CODE)
+  void setParentCode(String parentCode);
 
   static MiItemCategory create() {
     return Struct.create(MiItemCategory.class);

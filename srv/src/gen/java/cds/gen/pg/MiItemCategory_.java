@@ -9,9 +9,9 @@ import java.lang.String;
 public interface MiItemCategory_ extends StructuredType<MiItemCategory_> {
   String CDS_NAME = "pg.Mi_Item_Category";
 
+  ElementRef<String> category_name();
+
   ElementRef<String> category_code();
 
-  ElementRef<String> category_desc();
-
-  ElementRef<String> parernt_code();
+  ElementRef<String> parent_code();
 }
