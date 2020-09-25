@@ -1,6 +1,6 @@
-namespace sp;
+namespace pg;
 
-entity Vendor_Pool_Old {
+entity Vp_Vendor_Pool_Hierarchy_N {
   key tenant_id : String(30);
    vendor_pool_class_code : String(100);
    supplier_group_name : String(100);
@@ -11,7 +11,4 @@ entity Vendor_Pool_Old {
    high_classification_code : String(50);
    use_flag : String(1);
    sort_order_no : Integer64;
-   attri3 : String(10);
-   attr1: String;
-   attr2: String;
 }
