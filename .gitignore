@@ -10,6 +10,5 @@ mta_archives/
 srv/target/
 srv/src/gen/
 srv/src/main/resources/edmx/
-srv/src/main/resources/edmx/csn.json
 db/src/gen/
 node_modules/
