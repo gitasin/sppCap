@@ -45,4 +45,5 @@ entity Recv_VI_Result {
    creation_usr_id : String(30);
    last_upd_date : Date;
    last_upd_usr_id : String(30);
+   test : String(10);
 }
