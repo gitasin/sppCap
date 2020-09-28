@@ -18,12 +18,9 @@
                         "db/cds/ep",
                         "db/cds/op",
                         "db/cds/pg",
-<<<<<<< HEAD
                         "db/cds/pg/mi",
-=======
                         "db/cds/pg/MI",
                         "db/cds/pg/VP",
->>>>>>> 1bd4bc967db64f98fac60e22db5946829c39f5ee
                         "db/cds/sp",
                         "srv",
                         "srv/cds",
@@ -53,12 +50,9 @@
                         "db/cds/ep",
                         "db/cds/op",
                         "db/cds/pg",
-<<<<<<< HEAD
                         "db/cds/pg/mi",
-=======
                         "db/cds/pg/MI",
                         "db/cds/pg/VP",
->>>>>>> 1bd4bc967db64f98fac60e22db5946829c39f5ee
                         "db/cds/sp",
                         "srv",
                         "srv/cds",
