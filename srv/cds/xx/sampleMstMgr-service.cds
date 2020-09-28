@@ -5,6 +5,7 @@ namespace xx;
 service SampleMstMgrService {
     entity SampleMasters as projection on Master.Sample_Master;
 
+    /*
     type masterFunc{
         MASTER_ID: Integer;
         CD: String;
@@ -12,6 +13,7 @@ service SampleMstMgrService {
     }
 
     action SampleMasterFunc (CD: String) returns array of masterFunc;
+    */
 
     /*
     @cds.persistence.exists
@@ -24,5 +26,7 @@ service SampleMstMgrService {
     */
 
     // DB Object로 생성된 function을 model-cds로 entity를 만들고 사용하는 경우
-    view MasterFunc(CD:String) as select from MasterF.Sample_Master_Func(CD: :CD){*};
+    entity MasterFunc(CD : String) as select from MasterF.Sample_Master_Func(CD: :CD);
+    
+
 }

@@ -4,8 +4,12 @@
 # added by cds deploy
 connection.properties
 package.json
+.flattened-pom.xml
+
 
 mta_archives/
-srv/target
-# srv/src/gen
-db/src/gen
+srv/target/
+srv/src/gen/
+srv/src/main/resources/edmx/
+db/src/gen/
+node_modules/
