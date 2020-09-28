@@ -22,7 +22,6 @@ service SampleMgrService {
     };
 
     // parameter를 필수로 받는 view
-    /*
     view SampleViewCondition (header_cd: String, detail_cd: String) as 
     select h.header_id
           ,h.cd as header_cd
@@ -35,21 +34,6 @@ service SampleMgrService {
     where h.cd = :header_cd
     and   d.cd = :detail_cd
     ;
-    */
 
-    /*
-    view SampleViewConditionParameters(header_cd: String, detail_cd: String) as 
-    select h.header_id
-          ,h.cd as header_cd
-          ,h.name as header_name
-          ,key d.detail_id
-          ,d.cd as detail_cd
-          ,d.name as detail_name
-    from Header.Sample_Header as h 
-    left join Detail.Sample_Detail as d on h.header_id = d.header_id
-    where h.cd = :header_cd
-    and   d.cd = :detail_cd
-    ;
-    */
 
 }
