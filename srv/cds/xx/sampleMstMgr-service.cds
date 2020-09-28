@@ -25,8 +25,8 @@ service SampleMstMgrService {
     view SampleMasterFunc2(CD: String) as select from SAMPLE_MASTER_FUNC(CD: :CD);
     */
 
+
     // DB Object로 생성된 function을 model-cds로 entity를 만들고 사용하는 경우
     entity MasterFunc(CD : String) as select from MasterF.Sample_Master_Func(CD: :CD);
-    
 
 }
