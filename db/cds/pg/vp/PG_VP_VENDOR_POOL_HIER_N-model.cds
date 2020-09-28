@@ -1,6 +1,6 @@
 namespace pg;
 
-entity Vp_Vendor_Pool_Hi_N {
+entity Vp_Vendor_Pool_Hier_N {
   key tenant_id : String(30);
   key vendor_pool_class_code : String(100);
    supplier_group_name : String(100);
