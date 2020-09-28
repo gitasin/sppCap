@@ -6,16 +6,6 @@ service SampleMstMgrService {
     entity SampleMasters as projection on Master.Sample_Master;
 
     /*
-    type masterFunc{
-        MASTER_ID: Integer;
-        CD: String;
-        NAME: String;
-    }
-
-    action SampleMasterFunc (CD: String) returns array of masterFunc;
-    */
-
-    /*
     @cds.persistence.exists
     entity SAMPLE_MASTER_FUNC (CD : String) {
         key cd : String;
