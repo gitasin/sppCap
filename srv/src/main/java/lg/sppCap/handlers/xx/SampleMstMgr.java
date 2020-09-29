@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import com.sap.cds.feature.config.pojo.CdsProperties.DataSource;
+import com.sap.cds.reflect.CdsModel;
 import com.sap.cds.services.EventContext;
 import com.sap.cds.services.handler.EventHandler;
 import com.sap.cds.services.handler.annotations.On;
@@ -17,19 +17,25 @@ import com.sap.cds.services.persistence.PersistenceService;
 @ServiceName("SampleMstMgrService")
 public class SampleMstMgr implements EventHandler {
 
+	@Autowired
+    private PersistenceService db;
+    
     @Autowired
     private JdbcTemplate jdbc;
 
-    @On(event = "SampleMasterFunc")
-    public void onSampleMasterFuncAction(EventContext context) {        
-
+    @Before(event = "SampleMasters")
+    public void beforeSampleMasters(EventContext context) {
         String v_sql = "SELECT * FROM XX_SAMPLE_MASTER_FUNC('?'')";
-        //jdbc.qeuryFro
-        //String v_
-        //jdbc.queryForObject(v_sql,
-        //    (rs, rowNum) -> new Person(rs.getLong("id"), rs.getString("name")),
-        //id);
+    }
 
+    @On(event = "SampleMasters")
+    public void onSampleMasters(EventContext context) {
+        String v_sql = "SELECT * FROM XX_SAMPLE_MASTER_FUNC('?'')";
+    }
+
+    @After(event = "SampleMasters")
+    public void afterSampleMasters(EventContext context) {
+        String v_sql = "SELECT * FROM XX_SAMPLE_MASTER_FUNC('?'')";
     }
 
 }

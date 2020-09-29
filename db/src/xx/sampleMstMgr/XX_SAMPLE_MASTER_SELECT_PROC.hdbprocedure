@@ -1,0 +1,14 @@
+PROCEDURE XX_SAMPLE_MASTER_SELECT_PROC (
+    out o_table XX_SAMPLE_MASTER_PROC_TYPE
+)
+LANGUAGE SQLSCRIPT
+SQL SECURITY INVOKER 
+
+AS
+BEGIN
+    o_table =   SELECT  A.MASTER_ID
+                       ,A.CD
+                       ,A.NAME
+                FROM    XX_SAMPLE_MASTER A;
+
+END
