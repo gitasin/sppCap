@@ -6,7 +6,8 @@
   "repository": "<Add your repository here>",
   "dependencies": {
     "@sap/hana-client": "^2.5.109",
-    "@sap/hdi-deploy": "^3.11.11"
+    "@sap/hdi-deploy": "^3.11.11",
+    "sqlite3": "^5.0.0"
   },
   "cds": {
     "hana": {
@@ -14,8 +15,11 @@
     },
     "requires": {
       "db": {
-        "kind": "hana"
+        "kind": "sqlite"
       }
+    },
+    "folders": {
+      "index": "./"
     }
   }
 }

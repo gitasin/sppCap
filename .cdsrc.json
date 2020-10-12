@@ -1,84 +1,36 @@
 {
-    "build": {
-        "target": ".",
-        "tasks": [
-            {
-                "for": "java-cf",
-                "src": "srv",
-                "options": {
-                    "model": [
-                        "db",
-                        "db/cds",
-                        "db/cds/xx",
-                        "db/cds/xx/sampleMgr",
-                        "db/cds/xx/sampleMstMgr",
-                        "db/cds/cm",
-                        "db/cds/cm/codeMgr",
-                        "db/cds/dp",
-                        "db/cds/ep",
-                        "db/cds/op",
-                        "db/cds/pg",
-                        "db/cds/pg/mi",
-                        "db/cds/pg/MI",
-                        "db/cds/pg/vp",
-                        "db/cds/sp",
-                        "db/cds/mc",
-                        "srv",
-                        "srv/cds",
-                        "srv/cds/xx",
-                        "srv/cds/cm",
-                        "srv/cds/dp",
-                        "srv/cds/ep",
-                        "srv/cds/op",
-                        "srv/cds/pg",
-                        "srv/cds/sp"
-                    ]
-                }
-            },
-            {
-                "for": "hana",
-                "src": "db",
-                "options": {
-                    "model": [
-                        "db",
-                        "db/cds",
-                        "db/cds/xx",
-                        "db/cds/xx/sampleMgr",
-                        "db/cds/xx/sampleMstMgr",
-                        "db/cds/cm",
-                        "db/cds/cm/codeMgr",
-                        "db/cds/dp",
-                        "db/cds/ep",
-                        "db/cds/op",
-                        "db/cds/pg",
-                        "db/cds/pg/mi",
-                        "db/cds/pg/MI",
-                        "db/cds/pg/vp",
-                        "db/cds/sp",
-                        "db/cds/mc",
-                        "srv",
-                        "srv/cds",
-                        "srv/cds/xx",
-                        "srv/cds/cm",
-                        "srv/cds/dp",
-                        "srv/cds/ep",
-                        "srv/cds/op",
-                        "srv/cds/pg",
-                        "srv/cds/sp"
-                    ]
-                }
-            }
-        ]
-    },
-    "hana": {
-        "deploy-format": "hdbtable"
-    },
-    "requires": {
-        "db": {
-            "kind": "hana"
+  "build": {
+    "target": ".",
+    "tasks": [
+      {
+        "for": "java-cf",
+        "src": "srv",
+        "options": {
+          "model": [
+            "./"
+          ]
         }
-    },
-    "odata": {
-        "version": "v4"
+      },
+      {
+        "for": "hana",
+        "src": "db",
+        "options": {
+          "model": [
+            "./"
+          ]
+        }
+      }
+    ]
+  },
+  "hana": {
+    "deploy-format": "hdbtable"
+  },
+  "requires": {
+    "db": {
+      "kind": "sql"
     }
+  },
+  "odata": {
+    "version": "v4"
+  }
 }
