@@ -31,7 +31,8 @@
                         "srv/cds/ep",
                         "srv/cds/op",
                         "srv/cds/pg",
-                        "srv/cds/sp"
+                        "srv/cds/sp",
+                        "app"
                     ]
                 }
             },
@@ -64,7 +65,8 @@
                         "srv/cds/ep",
                         "srv/cds/op",
                         "srv/cds/pg",
-                        "srv/cds/sp"
+                        "srv/cds/sp",
+                        "app"
                     ]
                 }
             }
