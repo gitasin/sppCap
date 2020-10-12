@@ -6,7 +6,8 @@
   "repository": "<Add your repository here>",
   "dependencies": {
     "@sap/hana-client": "^2.5.109",
-    "@sap/hdi-deploy": "^3.11.11"
+    "@sap/hdi-deploy": "^3.11.11",
+    "@sap/cds": "^4.1.9"
   },
   "cds": {
     "hana": {
