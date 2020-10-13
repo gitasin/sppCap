@@ -23,11 +23,11 @@ entity Control_Option_Dtl {
         and ref.control_option_code = control_option_code;
     
     @Comment: '제어옵션레벨코드'
-    key control_option_level_code: String(240);
+    key control_option_level_code: String(30) not null;
     @Comment: '제어옵션레벨값'
-    key control_option_level_val: Date not null;
+    key control_option_level_val: String(100) not null;
     @Comment: '제어옵션값'
-    control_option_val: Date not null;
+    control_option_val: String(100) not null;
 
     @Comment: '로컬등록시간'
     local_create_date: DateTime not null;
