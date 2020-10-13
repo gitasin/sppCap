@@ -19,7 +19,7 @@ namespace xx;
 
 @cds.persistence.exists
 entity Sample_Master_Func(CD: String) {
-  key master_id : Integer64;
-  cd : String;
-  name : String;
+  key master_id : Integer64 @title : 'Master ID';
+  cd : String @title : 'Master Code';
+  name : String @title : 'Master Name';
 }
