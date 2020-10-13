@@ -7,7 +7,32 @@
         "src": "srv",
         "options": {
           "model": [
-            "./"
+            "db",
+            "db/cds",
+            "db/cds/xx",
+            "db/cds/xx/sampleMgr",
+            "db/cds/xx/sampleMstMgr",
+            "db/cds/cm",
+            "db/cds/cm/codeMgr",
+            "db/cds/cm/controlOptionMgr",
+            "db/cds/dp",
+            "db/cds/ep",
+            "db/cds/op",
+            "db/cds/pg",
+            "db/cds/pg/mi",
+            "db/cds/pg/MI",
+            "db/cds/pg/vp",
+            "db/cds/sp",
+            "db/cds/mc",
+            "srv",
+            "srv/cds",
+            "srv/cds/xx",
+            "srv/cds/cm",
+            "srv/cds/dp",
+            "srv/cds/ep",
+            "srv/cds/op",
+            "srv/cds/pg",
+            "srv/cds/sp"
           ]
         }
       },
@@ -16,7 +41,32 @@
         "src": "db",
         "options": {
           "model": [
-            "./"
+            "db",
+            "db/cds",
+            "db/cds/xx",
+            "db/cds/xx/sampleMgr",
+            "db/cds/xx/sampleMstMgr",
+            "db/cds/cm",
+            "db/cds/cm/codeMgr",
+            "db/cds/cm/controlOptionMgr",
+            "db/cds/dp",
+            "db/cds/ep",
+            "db/cds/op",
+            "db/cds/pg",
+            "db/cds/pg/mi",
+            "db/cds/pg/MI",
+            "db/cds/pg/vp",
+            "db/cds/sp",
+            "db/cds/mc",
+            "srv",
+            "srv/cds",
+            "srv/cds/xx",
+            "srv/cds/cm",
+            "srv/cds/dp",
+            "srv/cds/ep",
+            "srv/cds/op",
+            "srv/cds/pg",
+            "srv/cds/sp"
           ]
         }
       }
@@ -27,7 +77,7 @@
   },
   "requires": {
     "db": {
-      "kind": "sql"
+      "kind": "hana"
     }
   },
   "odata": {
