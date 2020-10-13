@@ -9,9 +9,9 @@
     "deploy": "cds deploy --to sqlite"
   },
   "dependencies": {
+    "@sap/cds": "^4.1.9",
     "@sap/hana-client": "^2.5.109",
-    "@sap/hdi-deploy": "^3.11.11",
-    "sqlite3": "^5.0.0"
+    "@sap/hdi-deploy": "^3.11.11"
   },
   "cds": {
     "hana": {
@@ -25,5 +25,8 @@
     "folders": {
       "index": "./"
     }
+  },
+  "devDependencies": {
+    "sqlite3": "^5.0.0"
   }
 }
