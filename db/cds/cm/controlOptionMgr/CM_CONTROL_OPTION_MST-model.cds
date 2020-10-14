@@ -31,16 +31,16 @@ entity Control_Option_Mst {
     user_yn: Boolean not null;
     
     @Comment: '로컬등록시간'
-    local_create_date: DateTime not null;
+    local_create_dtm: DateTime not null;
     @Comment: '로컬수정시간'
-    local_update_date: DateTime not null;
+    local_update_dtm: DateTime not null;
     @Comment: '등록사용자ID'
     create_user_id: String(50) not null;
     @Comment: '변경사용자ID'
     update_user_id: String(50) not null;
     @Comment: '시스템등록시간'
-    system_create_date: DateTime not null;
+    system_create_dtm: DateTime not null;
     @Comment: '시스템수정시간'
-    system_update_date: DateTime not null;
+    system_update_dtm: DateTime not null;
     
 }
