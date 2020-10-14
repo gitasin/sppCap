@@ -3,6 +3,7 @@ using {xx as MasterF} from '../../../db/cds/xx/sampleMstMgr/XX_SAMPLE_MASTER_FUN
 using {xx as MasterP} from '../../../db/cds/xx/sampleMstMgr/XX_SAMPLE_MASTER_PROC-model';
 
 namespace xx;
+@path : '/xx.SampleMstMgrService'
 service SampleMstMgrService {
     entity SampleMasters as projection on Master.Sample_Master;
 

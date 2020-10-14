@@ -4,6 +4,7 @@ using {xx as MgrView} from '../../../db/cds/xx/sampleMgr/XX_SAMPLE_MGR_VIEW-mode
 
 
 namespace xx;
+@path : '/xx.SampleMgrService'
 service SampleMgrService {
     entity SampleHeaders as projection on Header.Sample_Header;
     entity SampleDetails as projection on Detail.Sample_Detail;

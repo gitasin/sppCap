@@ -1,9 +1,0 @@
----
-spring:
-  profiles: default
-  datasource:
-    url: "jdbc:sqlite:/home/user/projects/sppCap/sqlite.db"
-    driver-class-name: org.sqlite.JDBC
-    initialization-mode: never
-    hikari:
-      maximum-pool-size: 1

@@ -75,6 +75,10 @@ modules:
       - sampleMgr-content.zip
       name: sampleMgr
       target-path: resources/
+    - artifacts:
+      - sampleGrpMgr-content.zip
+      name: sampleGrpMgr
+      target-path: resources/
 - name: sampleMstMgr
   type: html5
   path: app/xx/sampleMstMgr
@@ -86,6 +90,14 @@ modules:
 - name: sampleMgr
   type: html5
   path: app/xx/sampleMgr
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: sampleGrpMgr
+  type: html5
+  path: app/xx/sampleGrpMgr
   build-parameters:
     builder: custom
     commands:
