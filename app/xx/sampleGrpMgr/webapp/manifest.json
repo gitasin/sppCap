@@ -17,7 +17,7 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "srv-api/odata/v4/xx.SampleGrpMgrService/",
+        "uri": "https://lgcommondev-workspaces-ws-6bm9n-app1.jp10.applicationstudio.cloud.sap/xx.SampleGrpMgrService/",
         "type": "OData",
         "settings": {
           "odataVersion": "4.0",
