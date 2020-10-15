@@ -13,4 +13,5 @@ srv/src/gen/
 srv/src/main/resources/edmx/
 db/src/gen/
 node_modules/
+app/uxFreeStyleDemo/
 *.zip
