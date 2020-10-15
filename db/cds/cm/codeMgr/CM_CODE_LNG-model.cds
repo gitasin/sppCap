@@ -8,10 +8,6 @@ entity Code_Lng {
     key tenant_id: String(10) not null;
     @Comment: '회사코드'
     key company_code: String(12) not null;
-    @Comment: '체인코드'
-    key chain_code: String(30) not null;
-    @Comment: '프로세스코드'
-    key process_code: String(30) not null;
     @Comment: '그룹코드'
     key group_code: String(30) NOT NULL;
     @Comment: '코드'
@@ -20,8 +16,6 @@ entity Code_Lng {
     ref: Association to dtl.Code_Dtl
         on ref.tenant_id = tenant_id 
         and ref.company_code = company_code 
-        and ref.chain_code = chain_code 
-        and ref.process_code = process_code 
         and ref.group_code = group_code
         and ref.code = code;
 
