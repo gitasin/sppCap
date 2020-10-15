@@ -3,16 +3,14 @@ namespace cm;
 entity Code_Mst {
     
     @Comment: '테넌트ID'
-    key tenant_id: String(10) not null;
+    key tenant_id: String(4) not null;
     @Comment: '회사코드'
-    key company_code: String(12) not null;
+    key company_code: String(10) not null;
     @Comment: '그룹코드'
     key group_code: String(30) NOT NULL;
 
     @Comment: '체인코드'
     chain_code: String(30) NOT null;
-    @Comment: '프로세스코드'
-    process_code: String(30) NOT NULL;
     @Comment: '그룹명'
     group_name: String(240) NOT NULL;
     @Comment: '그룹설명'

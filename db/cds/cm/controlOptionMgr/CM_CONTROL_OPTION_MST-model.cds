@@ -3,16 +3,14 @@ namespace cm;
 entity Control_Option_Mst {
 
     @Comment: '테넌트ID'
-    key tenant_id: String(10) not null;
+    key tenant_id: String(4) not null;
     @Comment: '회사코드'
-    key company_code: String(12) not null;
-    @Comment: '체인코드'
-    key chain_code: String(30) not null;
-    @Comment: '프로세스코드'
-    key process_code: String(30) not null;
+    key company_code: String(10) not null;
     @Comment: '제어옵션코드'
     key control_option_code: String(30);
 
+    @Comment: '체인코드'
+    chain_code: String(30) not null;
     @Comment: '제어옵션명'
     control_option_name: String(240);
     @Comment: '시작일자'

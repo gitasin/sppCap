@@ -5,21 +5,15 @@ using { cm as mst } from './CM_CONTROL_OPTION_MST-model';
 entity Control_Option_Dtl {
     
     @Comment: '테넌트ID'
-    key tenant_id: String(10) not null;
+    key tenant_id: String(4) not null;
     @Comment: '회사코드'
-    key company_code: String(12) not null;
-    @Comment: '체인코드'
-    key chain_code: String(30) not null;
-    @Comment: '프로세스코드'
-    key process_code: String(30) not null;
+    key company_code: String(10) not null;
     @Comment: '제어옵션코드'
     key control_option_code: String(30);
 
     ref: Association to mst.Control_Option_Mst
         on ref.tenant_id = tenant_id 
         and ref.company_code = company_code 
-        and ref.chain_code = chain_code 
-        and ref.process_code = process_code 
         and ref.control_option_code = control_option_code;
     
     @Comment: '제어옵션레벨코드'

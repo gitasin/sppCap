@@ -5,9 +5,9 @@ using { cm as mst } from './CM_CODE_MST-model';
 entity Code_Dtl {
     
     @Comment: '테넌트ID'
-    key tenant_id: String(10) not null;
+    key tenant_id: String(4) not null;
     @Comment: '회사코드'
-    key company_code: String(12) not null;
+    key company_code: String(10) not null;
     @Comment: '그룹코드'
     key group_code: String(30) NOT NULL;
     
