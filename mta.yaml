@@ -78,6 +78,8 @@ modules:
     - artifacts:
       - sampleGrpMgr-content.zip
       name: sampleGrpMgr
+      target-path: resources/
+    - artifacts:
       - controlOptionMgr-content.zip
       name: controlOptionMgr
       target-path: resources/

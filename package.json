@@ -29,8 +29,6 @@
     "bestzip": "^2.1.7",
     "eslint": "5.16.x",
     "rimraf": "3.0.2",
-    "@sap/approuter": "8.1.x",
-    "@sap/html5-repo-mock": "1.5.x",
     "sqlite3": "^5.0.0"
   },
   "ui5": {
