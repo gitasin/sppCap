@@ -83,6 +83,10 @@ modules:
       - controlOptionMgr-content.zip
       name: controlOptionMgr
       target-path: resources/
+    - artifacts:
+      - codeMgr-content.zip
+      name: codeMgr
+      target-path: resources/
 - name: sampleMstMgr
   type: html5
   path: app/xx/sampleMstMgr
@@ -102,9 +106,22 @@ modules:
 - name: sampleGrpMgr
   type: html5
   path: app/xx/sampleGrpMgr
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
 - name: controlOptionMgr
   type: html5
   path: app/cm/controlOptionMgr
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: codeMgr
+  type: html5
+  path: app/cm/codeMgr
   build-parameters:
     builder: custom
     commands:
