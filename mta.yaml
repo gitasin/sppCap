@@ -78,6 +78,8 @@ modules:
     - artifacts:
       - sampleGrpMgr-content.zip
       name: sampleGrpMgr
+      - controlOptionMgr-content.zip
+      name: controlOptionMgr
       target-path: resources/
 - name: sampleMstMgr
   type: html5
@@ -98,6 +100,9 @@ modules:
 - name: sampleGrpMgr
   type: html5
   path: app/xx/sampleGrpMgr
+- name: controlOptionMgr
+  type: html5
+  path: app/cm/controlOptionMgr
   build-parameters:
     builder: custom
     commands:

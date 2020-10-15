@@ -1,0 +1,249 @@
+  <mvc:View
+	class="sapUiSizeCompact"
+	controllerName="cm.controlOptionMgr.controller.Main"
+	xmlns="sap.m"
+    xmlns:f="sap.f"
+	xmlns:core="sap.ui.core"
+	xmlns:demo="sap.ui.core.sample.common"
+	xmlns:form="sap.ui.layout.form"
+    xmlns:table="sap.ui.table"
+    xmlns:layout="sap.ui.layout" displayBlock="true"
+	xmlns:mvc="sap.ui.core.mvc">
+	<App>
+    
+        <f:DynamicPage id="dynamicPageId" toggleHeaderOnTitleClick="true" headerExpanded="true">
+					<!--DynamicPage Title -->
+					<f:title>
+						<f:DynamicPageTitle>
+							<f:heading>
+								<Title text="제어옵션관리"/>
+							</f:heading>
+						</f:DynamicPageTitle>
+					</f:title>
+					<!--DynamicPage Header -->
+					<f:header>
+						<f:DynamicPageHeader pinnable="true">
+							<layout:HorizontalLayout>
+								<form:Form editable="true" width="100%">
+									<form:formContainers>
+										<form:FormContainer>
+											<form:formElements>
+												<form:FormElement label="시스템">
+													<form:fields>
+														<ComboBox id="comboxSystem">
+															<items>
+																<core:Item key="itemSystem" text="공통"/>																
+															</items>
+														</ComboBox>
+													</form:fields>
+												</form:FormElement>
+												<form:FormElement label="제어옵션">
+													<Input width="100%"/>
+												</form:FormElement>
+											</form:formElements>
+										</form:FormContainer>
+										<form:FormContainer>
+											<form:formElements>
+												<form:FormElement label="회사">
+													<form:fields>														
+														<SearchField 
+                                                            id="searchOffice" 
+                                                            width="100%"											                
+											                search=".onSearch"/>
+													</form:fields>
+												</form:FormElement>
+												<form:FormElement label="제어옵션명"> 
+													<Input width="100%"/>
+												</form:FormElement>
+											</form:formElements>
+										</form:FormContainer>
+										<form:FormContainer>
+											<form:formElements>
+												<form:FormElement label="조직">
+													<form:fields>														
+														<SearchField 
+                                                            id="searchDept" 
+                                                            width="100%"/>
+													</form:fields>
+												</form:FormElement>
+												<form:FormElement label="역할"> 
+														<SearchField 
+                                                            id="searchRole" 
+                                                            width="100%"/>
+												</form:FormElement>
+											</form:formElements>
+										</form:FormContainer>
+										<form:FormContainer>
+											<form:formElements>
+												<form:FormElement label="유효여부">
+													<form:fields>
+														<ComboBox id="comboxUse">
+															<items>
+																<core:Item key="Y" text="Yes"/>
+                                                                <core:Item key="N" text="No"/>							
+															</items>
+														</ComboBox>
+													</form:fields>
+												</form:FormElement>
+												<form:FormElement label="로그인"> 
+														<SearchField 
+                                                            id="searchLogin" 
+                                                            width="100%"/>
+												</form:FormElement>
+											</form:formElements>
+										</form:FormContainer>
+									</form:formContainers>
+									<form:layout>
+									<form:ResponsiveGridLayout columnsM="4" columnsL="4" columnsXL="4"/>
+									</form:layout>
+								</form:Form>
+							</layout:HorizontalLayout>
+							<HBox width="100%" alignItems="Center" alignContent="End" justifyContent="End">
+								<items>
+									<Button text="검색" press="onPress_Search"/>
+								</items>
+							</HBox>
+						</f:DynamicPageHeader>
+					</f:header>
+					<!-- DynamicPage Content -->
+					<f:content>
+						<VBox fitContainer="true">
+                            <!--filters 값이 나오지 않아야 하기에 강제 적용-->
+							
+							<table:Table id="mainList"  
+                            selectionMode="MultiToggle" 
+                            rows="{ path : '/ControlOptionMasters'}"
+                            visibleRowCount="7" 
+                            rowSelectionChange="onMainListSelect"                                                        
+                            ariaLabelledBy="title">
+								<table:extension>
+									<OverflowToolbar class="sapFDynamicPageAlignContent">
+									<ToolbarSpacer/>
+									<Button text="행추가" icon="sap-icon://add" press=".onCreateRow" type="Accept"/>
+									<Button text="행복사" icon="sap-icon://copy"/>									
+									<Button text="행삭제" type="Reject"/>
+                                    <Button text="저장"  icon="sap-icon://save"  press="onMainSave"/>									
+								</OverflowToolbar>
+								</table:extension>
+								<table:columns>
+									<table:Column width="12rem" hAlign="Center">
+                                        <Label text="제어옵션코드"/>
+										<table:template>
+											<Label text="{control_option_code}">
+                                            <customData>
+                                            <core:CustomData key="tenant_id" value="{tenant_id}"/>
+                                            <core:CustomData key="company_code" value="{company_code}"/>
+                                            <core:CustomData key="chain_code" value="{chain_code}"/>                                            
+                                            <core:CustomData key="control_option_code" value="{control_option_code}"/>
+                                            </customData>    
+                                            </Label>
+										</table:template>
+									</table:Column>
+									<table:Column  width="12rem" hAlign="Center">                                        
+                                            <Label text="제어옵션명"/>           
+										<table:template>
+											<Label text="{control_option_name}"/>
+										</table:template>
+									</table:Column>
+									<table:Column  width="4rem" hAlign="Center">                                        
+                                            <Label text="시스템"/>                                            
+										<table:template>
+											<Label  text="공통"/>
+										</table:template>
+									</table:Column>									
+                                    <table:Column  headerSpan="4" width="6rem" hAlign="Center">
+                                        <table:multiLabels>
+                                            <Label text="LEVEL"/>
+                                            <Label text="Site1"/>
+                                        </table:multiLabels> 
+										<table:template>
+                                            <CheckBox id="checkboxSite" selected="{site_yn}"/>
+										</table:template>
+									</table:Column>
+                                    <table:Column  width="6rem" hAlign="Center">
+                                        <table:multiLabels>
+                                            <Label text="LEVEL"/>                                            
+                                            <Label text="회사"/>
+                                        </table:multiLabels> 
+										<table:template>
+											<CheckBox id="checkboxCompany" selected="{company_yn}"/>
+										</table:template>
+									</table:Column>
+                                    <table:Column  width="6rem" hAlign="Center">
+                                        <table:multiLabels>
+                                            <Label text="LEVEL"/>
+                                            <Label text="조직"/>
+                                        </table:multiLabels> 
+										<table:template>
+											<CheckBox id="checkboxOrganization" selected="{organization_yn}"/>
+										</table:template>
+									</table:Column>     
+                                    <table:Column  width="6rem" hAlign="Center">
+                                        <table:multiLabels>
+                                            <Label text="LEVEL"/>
+                                            <Label text="사용자"/>
+                                        </table:multiLabels> 
+										<table:template>
+											<CheckBox id="checkboxUser" selected="{user_yn}"/>
+										</table:template>
+									</table:Column>	
+									<table:Column width="8rem" hAlign="Center">
+										<Label text="옵션값 코드그룹"/>
+										<table:template>
+											<Label text=""/>
+					  					</table:template>
+									</table:Column>
+									<table:Column width="9rem" hAlign="Center">
+										<Label text="유효시작일자"/>
+										<table:template hAlign="Center">
+											<DatePicker	id="dateStartdate" value="{start_date}" editable="false" />
+										</table:template>
+									</table:Column>
+									<table:Column width="9rem" hAlign="Center">
+										<Label text="유효종료일자" />
+										<table:template>
+											<DatePicker	id="dateEnddate" value="{end_date}"  editable="false"/>
+										</table:template>
+									</table:Column>
+								</table:columns>
+							</table:Table>
+							
+							<table:Table id="subList"   
+                                         rows="{ path : '/ControlOptionDetails',
+                                                 filters : [{path : 'tenant_id', operator : 'EQ', value1 : '1'}]
+                                         }"
+                                         selectionMode="MultiToggle"  visibleRowCount="7" paste="on-paste" ariaLabelledBy="title">
+								<table:extension>
+									<OverflowToolbar class="sapFDynamicPageAlignContent">
+									<ToolbarSpacer/>
+									<Button text="행추가" icon="sap-icon://add" type="Accept"/>									
+									<Button text="행삭제" type="Reject"/>
+                                    <Button text="저장"  icon="sap-icon://save"/>									
+								</OverflowToolbar>
+								</table:extension>
+								<table:columns>
+									<table:Column width="12rem" hAlign="Center">
+                                        <Label text="LEVEL"/>
+										<table:template>
+                                            <Input id="input_control_option_level_code" value="{control_option_level_code}"/>											
+										</table:template>
+									</table:Column>
+									<table:Column  width="12rem" hAlign="Center">
+                                            <Label text="LEVEL 값"/>             
+										<table:template>
+                                            <Input id="input_control_option_level_val" value="{control_option_level_val}"/>
+										</table:template>
+									</table:Column>                                    
+									<table:Column width="15rem" hAlign="Center">
+										<Label text="제어옵션값"/>
+										<table:template>
+                                            <Input id="input_control_option_val" value="{control_option_val}"/>
+										</table:template>
+									</table:Column>
+								</table:columns>
+							</table:Table>
+						</VBox>
+					</f:content>
+					<!-- DynamicPage Footer -->
+				</f:DynamicPage>	</App>
+</mvc:View>

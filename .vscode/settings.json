@@ -1,9 +1,3 @@
 {
-    "sqltools.connections": [
-        {
-            "dialect": "SQLite",
-            "database": "/home/user/projects/sppCap/sqlite.db",
-            "name": "sqlite-spp"
-        }
-    ]
+    "sqltools.connections": []
 }
