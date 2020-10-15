@@ -2,6 +2,8 @@ using { cm as codeMst } from '../../../../db/cds/cm/codeMgr/CM_CODE_MST-model';
 using { cm as codeDtl } from '../../../../db/cds/cm/codeMgr/CM_CODE_DTL-model';
 using { cm as codeLng } from '../../../../db/cds/cm/codeMgr/CM_CODE_LNG-model';
 
+namespace cm;
+
 service CodeMgrService {
 
     entity CodeMasters as projection on codeMst.Code_Mst;
