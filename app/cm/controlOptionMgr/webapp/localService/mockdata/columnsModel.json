@@ -1,0 +1,18 @@
+{
+	"cols": [
+		{
+            "OfficeId": "OfficeId",
+            "label": "Office ID",
+			"template": "OfficeId",
+			"width": "5rem"
+		},
+		{
+			"label": "Office Name",
+			"template": "Name"
+		},
+		{
+			"label": "Category",
+			"template": "Category"
+		}
+	]
+}
