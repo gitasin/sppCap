@@ -8,7 +8,7 @@ entity Sc_Part_Category {
     operation_code : String(200)  ;	
   key category_code : String(200)  not null;	
     parent_category_code : String(200)  ;	
-    seq : Decimal(9) default 0 ;	
+    seq : Decimal default 0 ;	
     category_name : String(2000)  ;	
     category_name_kor : String(2000)  ;	
     desc : String(2000)  ;	

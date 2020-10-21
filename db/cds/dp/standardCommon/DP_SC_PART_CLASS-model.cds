@@ -9,7 +9,7 @@ entity Sc_Part_Class {
     operation_code2 : String(200)  ;	
   key class_code : String(200)  not null;	
     parent_class_code : String(200)  ;	
-    seq : Decimal(9) default 0 ;	
+    seq : Decimal default 0 ;	
     class_name : String(2000)  ;	
     class_name_kor : String(2000)  ;	
     desc : String(2000)  ;	
