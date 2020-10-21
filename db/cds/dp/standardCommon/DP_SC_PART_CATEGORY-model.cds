@@ -17,5 +17,5 @@ entity Sc_Part_Category {
     create_user_id : String(50)  ;	
     update_user_id : String(50)  ;	
     system_create_date : DateTime  ;	
-    system_update_date : DateTime default 'current_timestamp' ;	
+    system_update_date : DateTime  ;	
 }	
