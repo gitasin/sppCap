@@ -1,5 +1,4 @@
 namespace dp;	
-using {dp.Sc_Part_Category as Category} from '../standardCommon/DP_SC_PART_CATEGORY-model';	
 	
 entity Sc_Part_Category {	
   key tenent_id : String(4)  not null;	

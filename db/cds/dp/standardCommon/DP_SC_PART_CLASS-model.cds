@@ -1,5 +1,5 @@
 namespace dp;	
-using {dp.Sc_Part_Class as Class} from '../standardCommon/DP_SC_PART_CLASS-model';	
+// using {dp.Sc_Part_Class as Class} from '../standardCommon/DP_SC_PART_CLASS-model';	
 	
 entity Sc_Part_Class {	
   key tenent_id : String(4)  not null;	
