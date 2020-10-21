@@ -3,7 +3,7 @@ namespace cm;
 entity Currency_Lng {	
   key tenant_id : String(4)  not null;	
   key currency_code : String(30)  not null;	
-    language_code : String(30)  ;	
+  key language_code : String(30)  ;	
     currency_code_name : String(240)  ;	
     currency_code_desc : String(300)  not null;	
     currency_prefix : String(30)  ;	
