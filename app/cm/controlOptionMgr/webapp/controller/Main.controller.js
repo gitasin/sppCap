@@ -29,8 +29,9 @@ sap.ui.define([
         "sap/ui/model/Sorter",
         "sap/ui/model/json/JSONModel",
         "sap/ui/table/RowSettings",
-        "sap/ui/thirdparty/jquery"
-    ], function (Log, MessageBox, MessageToast, DateFormat, Controller, Filter, FilterOperator, FilterType, Sorter, JSONModel, RowSettings, jquery) {
+        "sap/ui/thirdparty/jquery",
+        "sap/m/Token"
+    ], function (Log, MessageBox, MessageToast, DateFormat, Controller, Filter, FilterOperator, FilterType, Sorter, JSONModel, RowSettings, jquery, Token) {
         "use strict";
 		return Controller.extend("cm.controlOptionMgr.controller.Main", {  
 
@@ -42,6 +43,8 @@ sap.ui.define([
                 this._bTechnicalErrors = false; 
                 console.groupEnd();
                 
+                //검색 컨트롤
+                this._searchControlInit();
             },
 
             /**
@@ -70,7 +73,7 @@ sap.ui.define([
                  * 5. 서브 리스트 버튼들은 행선택 이 있을때에만 활성화 된다. 
                  */
                  //subLis에서의 row check box 클릭 
-                if(oUiModel.getProperty("bSubCheck")){
+                if(oUiModel.getProperty("/bSubCheck")){
                      oTable= this.getView().byId("subList"); 
                 }
                 var indices = oTable.getSelectedIndices()
@@ -92,7 +95,7 @@ sap.ui.define([
                     oUiModel.setProperty("/bSave", true);
                 }
 
-                if(!oUiModel.getProperty("/bSubCheck")){
+                if(oUiModel.getProperty("/bCheck")){
                     //검색 출력이 있는 상태에서 체크를 선택한 상태 
                     if( indices.length > 0 ) {
                         oUiModel.setProperty("/bAdd", true); 
@@ -109,7 +112,7 @@ sap.ui.define([
                         oUiModel.setProperty("/bDelete", false);
                     } 
                 }else{
-                    if(!oUiModel.setProperty("/bSubListTrue")){
+                    if(!oUiModel.getProperty("/bSubListTrue")){
                         oUiModel.setProperty("/bSubCheck", false); 
                     } else {
                         //subList 상태 체크 
@@ -253,10 +256,10 @@ sap.ui.define([
                             control_option_code : ""
                 });  
                 /*
-                    tenant_id : master key customData 0
-                    company_code : master key customData 1                       
-                    control_option_code : master key customData 2
-                    chani_code : master key customData 3                                                
+                    tenant_id : master key
+                    company_code : master key
+                    control_option_code : master
+                    chani_code : master key
                 */
                 oCheckRow.tenant_id = rows[rowIndex].getCells()[0].mProperties.value;
                 oCheckRow.company_code = rows[rowIndex].getCells()[1].mProperties.value;
@@ -268,6 +271,9 @@ sap.ui.define([
                 //array에 저장한후 벨류 체크가 필요할시 진행한다.
                 oMainModel.setProperty("/data", oCheckRow);
 
+                //mainList 에서 선택된 상태를 넣어준다. 
+                
+                //oUiModel.setProperty
                 console.group("selectRow");
                 console.dir(oMainModel.getProperty("/selectrow"));
                 console.groupEnd();   
@@ -293,6 +299,9 @@ sap.ui.define([
                 if(oEvent.getSource().sId.indexOf("mainList") < 0){
                     oTable = this.byId("subList");                    
                     bSubCheck = true;
+                }else{
+                    //main에서의 체크 
+                    oUiModel.setProperty("/bCheck", true);
                 }
                 
                 var oBinding = oTable.getBinding("rows"),
@@ -707,7 +716,110 @@ sap.ui.define([
                // return oView.getModel().submitBatch(sGroupId).then(resetBusy, resetBusy);
 
                 console.groupEnd();
+            },
+
+            /** ------------------------------------------------------------
+             * Search Control
+             * -------------------------------------------------------------
+             */
+
+             /**
+              * @private
+              * @see 검색을 위한 컨트롤에 대하여 필요 초기화를 진행 합니다. 
+              */
+            _searchControlInit : function () {
+                console.group("_searchControlInit");
+                //회사 
+                this._oMultiInput = this.getView().byId("multiInput_office");
+                this._oMultiInput.setTokens(this._getDefaultTokens());
+
+                this.oColModel = new JSONModel(sap.ui.require.toUrl("cm/controlOptionMgr/localService/mockdata") + "/columnsModel.json");
+                this.oOfficeModel = new JSONModel(sap.ui.require.toUrl("cm/controlOptionMgr/localService/mockdata") + "/offices.json");
+                this.setModel("officeModel", this.oOfficeModel);                
+//cm/controlOptionMgr/controller/BaseController
+
+
+                console.groupEnd();
+            },
+
+            /**
+             * @private 
+             * @see multiInput_office setTokens
+             */
+            _getDefaultTokens: function () {
+                
+                var oToken = new Token({
+                    key: "LG-1400",
+                    text: "LG CNS"
+                });
+
+                return [oToken];
+            },
+
+            /**
+             * @public 
+             * @see multiInput_office Fragment View 컨트롤 valueHelp
+             */
+            onValueHelpRequested : function () {
+                console.group("onValueHelpRequested");
+
+                var aCols = this.oColModel.getData().cols;
+
+                this._oValueHelpDialog = sap.ui.xmlfragment("cm.controlOptionMgr.view.ValueHelpDialogOffice", this);
+                this.getView().addDependent(this._oValueHelpDialog);
+
+                this._oValueHelpDialog.getTableAsync().then(function (oTable) {
+                    oTable.setModel(this.oOfficeModel);
+                    oTable.setModel(this.oColModel, "columns");
+
+                    if (oTable.bindRows) {
+                        oTable.bindAggregation("rows", "/OfficeCollection");
+                    }
+
+                    if (oTable.bindItems) {
+                        oTable.bindAggregation("items", "/OfficeCollection", function () {
+                            return new ColumnListItem({
+                                cells: aCols.map(function (column) {
+                                    return new Label({ text: "{" + column.template + "}" });
+                                })
+                            });
+                        });
+                    }
+                    this._oValueHelpDialog.update();
+                }.bind(this));
+
+                this._oValueHelpDialog.setTokens(this._oMultiInput.getTokens());
+                this._oValueHelpDialog.open();
+                    console.groupEnd();
+            },
+
+            /**
+             * @public 
+             * @see 사용처 ValueHelpDialogOffice Fragment 선택후 확인 이벤트
+             */
+            onValueHelpOkPress : function (oEvent) {
+                var aTokens = oEvent.getParameter("tokens");
+                this.multiInput_office = this.getView().byId("multiInput_office");
+                this.multiInput_office.setTokens(aTokens);
+                this._oValueHelpDialog.close();
+            },
+
+            /**
+             * @public 
+             * @see 사용처 ValueHelpDialogOffice Fragment 취소 이벤트
+             */
+           	onValueHelpCancelPress: function () {
+			    this._oValueHelpDialog.close();
+            },
+
+            /**
+             * @public
+             * @see 사용처 ValueHelpDialogOffice Fragment window.close after 이벤트
+             */
+            onValueHelpAfterClose: function () {
+			    this._oValueHelpDialog.destroy();
             }
+            
 
         });
 });
