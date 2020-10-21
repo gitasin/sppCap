@@ -3,9 +3,8 @@
 
 # added by cds deploy
 connection.properties
-package.json
+./package.json
 .flattened-pom.xml
-
 
 mta_archives/
 srv/target/
@@ -15,3 +14,4 @@ db/src/gen/
 node_modules/
 app/uxFreeStyleDemo/
 *.zip
+*.jar
