@@ -6,7 +6,7 @@
 	xmlns:core="sap.ui.core"
 	xmlns:demo="sap.ui.core.sample.common"
 	xmlns:form="sap.ui.layout.form"
-    xmlns:table="sap.ui.table"
+    xmlns:table="sap.ui.table"    
     xmlns:layout="sap.ui.layout" displayBlock="true"
 	xmlns:mvc="sap.ui.core.mvc">
 	<App>
@@ -28,7 +28,7 @@
 									<form:formContainers>
 										<form:FormContainer>
 											<form:formElements>
-												<form:FormElement label="시스템">
+												<form:FormElement label="체인">
 													<form:fields>
 														<ComboBox id="comboxSystem">
 															<items>
@@ -100,7 +100,7 @@
 							</layout:HorizontalLayout>
 							<HBox width="100%" alignItems="Center" alignContent="End" justifyContent="End">
 								<items>
-									<Button text="검색" press="onPress_Search"/>
+									<Button text="검색" press=".onSearch" icon="sap-icon://search"/>
 								</items>
 							</HBox>
 						</f:DynamicPageHeader>
@@ -109,44 +109,69 @@
 					<f:content>
 						<VBox fitContainer="true">
                             <!--filters 값이 나오지 않아야 하기에 강제 적용-->
-							
-							<table:Table id="mainList"  
+
+							<table:Table id="mainList"
                             selectionMode="MultiToggle" 
-                            rows="{ path : '/ControlOptionMasters'}"
-                            visibleRowCount="7" 
-                            rowSelectionChange="onMainListSelect"                                                        
+                            rows="{ path : '/ControlOptionMasters',
+                            		parameters : {
+                                        $count : true,
+						                $$updateGroupId : 'MainUpdateGroup'
+					              }
+                            }"
+                            cellClick=".onCellClick"                   
+                            visibleRowCount="7"  
+                                      
+                            rowSelectionChange = ".onCheck"                 
                             ariaLabelledBy="title">
+
 								<table:extension>
-									<OverflowToolbar class="sapFDynamicPageAlignContent">
+									<OverflowToolbar class="sapFDynamicPageAlignContent"> 
 									<ToolbarSpacer/>
-									<Button text="행추가" icon="sap-icon://add" press=".onCreateRow" type="Accept"/>
-									<Button text="행복사" icon="sap-icon://copy"/>									
-									<Button text="행삭제" type="Reject"/>
-                                    <Button text="저장"  icon="sap-icon://save"  press="onMainSave"/>									
+									<Button text="행추가" id="buttonMainAddRow" press=".onCreateRow" enabled="{=${ui>/bAdd}}" icon="sap-icon://add"  type="Accept"/>
+									<Button text="행복사" id="buttonMainCopyRow" press=".onCopyRow" enabled="{=${ui>/bCopy}}" icon="sap-icon://copy" />									
+									<Button text="행삭제" id="buttonMainDeleteRow" press=".onDelete" enabled="{=${ui>/bDelete}}" type="Reject" />
+                                    <Button text="저장"   id="buttonMainSaveRow" press=".onSave" enabled="{=${ui>/bSave}}" icon="sap-icon://save" />									
+                                    <!-- enabled="{ui>/bMainSelected}" -->
 								</OverflowToolbar>
 								</table:extension>
+                                <table:rowSettingsTemplate>
+                                    <table:RowSettings highlight="{}"/>
+                                </table:rowSettingsTemplate>                                
 								<table:columns>
+								    <table:Column  width="0rem" hAlign="Center" >                                        
+                                            <Label text="tenant_id"/>           
+										<table:template>
+											<Input id="tenant_id" value="{tenant_id}"/> 
+										</table:template>
+									</table:Column>
+                                
+								    <table:Column  width="0rem" hAlign="Center">                                        
+                                            <Label text="company_code"/>           
+										<table:template>
+											<Input id="company_code" value="{company_code}"/>  
+										</table:template>
+									</table:Column>
+				                    <table:Column  width="0rem" hAlign="Center">                                        
+                                            <Label text="chain_code"/>           
+										<table:template>
+											<Input id="chain_code" value="{chain_code}"/>  
+										</table:template>
+									</table:Column>
 									<table:Column width="12rem" hAlign="Center">
                                         <Label text="제어옵션코드"/>
 										<table:template>
-											<Label text="{control_option_code}">
-                                            <customData>
-                                            <core:CustomData key="tenant_id" value="{tenant_id}"/>
-                                            <core:CustomData key="company_code" value="{company_code}"/>
-                                            <core:CustomData key="chain_code" value="{chain_code}"/>                                            
-                                            <core:CustomData key="control_option_code" value="{control_option_code}"/>
-                                            </customData>    
-                                            </Label>
-										</table:template>
+                                            <Label text="제어옵션코드" />
+                                            <Input id="control_option_code" value="{control_option_code}" placeholder="제어옵션코드 필수."/>                                             
+										</table:template>                                        
 									</table:Column>
 									<table:Column  width="12rem" hAlign="Center">                                        
                                             <Label text="제어옵션명"/>           
 										<table:template>
-											<Label text="{control_option_name}"/>
+                                            <Input id="control_option_name" value="{control_option_name}"  placeholder="제어옵션명 필수."/> 
 										</table:template>
 									</table:Column>
 									<table:Column  width="4rem" hAlign="Center">                                        
-                                            <Label text="시스템"/>                                            
+                                            <Label text="체인"/>                                            
 										<table:template>
 											<Label  text="공통"/>
 										</table:template>
@@ -193,16 +218,16 @@
 											<Label text=""/>
 					  					</table:template>
 									</table:Column>
-									<table:Column width="9rem" hAlign="Center">
+									<table:Column width="12rem" hAlign="Center">
 										<Label text="유효시작일자"/>
 										<table:template hAlign="Center">
-											<DatePicker	id="dateStartdate" value="{start_date}" editable="false" />
+											<DatePicker	id="dateStartdate" value="{start_date}"  />
 										</table:template>
 									</table:Column>
-									<table:Column width="9rem" hAlign="Center">
+									<table:Column width="12rem" hAlign="Center">
 										<Label text="유효종료일자" />
 										<table:template>
-											<DatePicker	id="dateEnddate" value="{end_date}"  editable="false"/>
+											<DatePicker	id="dateEnddate" value="{end_date}" />
 										</table:template>
 									</table:Column>
 								</table:columns>
@@ -210,34 +235,65 @@
 							
 							<table:Table id="subList"   
                                          rows="{ path : '/ControlOptionDetails',
-                                                 filters : [{path : 'tenant_id', operator : 'EQ', value1 : '1'}]
+                                                 parameters : {
+                                                    $count : true,                                                    
+                                                    $$updateGroupId : 'SubUpdateGroup'
+                                                 },
+                                                 filters : [{path : 'tenant_id', operator : 'EQ', value1 : '1'}],
+                                                 events : {dataReceived : '.onDataEvents'}
+                                         
                                          }"
-                                         selectionMode="MultiToggle"  visibleRowCount="7" paste="on-paste" ariaLabelledBy="title">
+                                         rowSelectionChange = ".onCheck"   
+                                         selectionMode="MultiToggle"  
+                                         visibleRowCount="7"                                         
+                                         paste="on-paste"
+                                         ariaLabelledBy="title">
 								<table:extension>
 									<OverflowToolbar class="sapFDynamicPageAlignContent">
-									<ToolbarSpacer/>
-									<Button text="행추가" icon="sap-icon://add" type="Accept"/>									
-									<Button text="행삭제" type="Reject"/>
-                                    <Button text="저장"  icon="sap-icon://save"/>									
+									<ToolbarSpacer/>                         
+									<Button text="행추가" id="buttonSubAddRow" press=".onCreateRow"  enabled="{=${ui>/bSubListTrue}}" icon="sap-icon://add" type="Accept"/>									
+									<Button text="행삭제" id="buttonSubDeleteRow" press=".onDelete"  enabled="{=${ui>/bSubCheck}}" type="Reject"/>
+                                    <Button text="저장"   id="buttonSubSaveRow" press=".onSave"  enabled="{=${ui>/bSubListTrue}}" icon="sap-icon://save"/>									
 								</OverflowToolbar>
 								</table:extension>
 								<table:columns>
+
+								    <table:Column  width="0rem" hAlign="Center" >                                        
+                                            <Label text="tenant_id"/>           
+										<table:template>
+											<Input id="sub_tenant_id" value="{tenant_id}"/> 
+										</table:template>
+									</table:Column>
+                                
+								    <table:Column  width="0rem" hAlign="Center">                                        
+                                            <Label text="company_code"/>           
+										<table:template>
+											<Input id="sub_company_code" value="{company_code}"/>  
+										</table:template>
+									</table:Column>
+									<table:Column width="0rem" hAlign="Center">
+                                        <Label text="제어옵션코드"/>
+										<table:template>
+                                            <Label text="제어옵션코드" />
+                                            <Input id="sub_control_option_code" value="{control_option_code}"/>                                             
+										</table:template>                                        
+									</table:Column>                              
 									<table:Column width="12rem" hAlign="Center">
                                         <Label text="LEVEL"/>
 										<table:template>
-                                            <Input id="input_control_option_level_code" value="{control_option_level_code}"/>											
+                                            <Input id="control_option_level_code" value="{control_option_level_code}"/>											
 										</table:template>
 									</table:Column>
 									<table:Column  width="12rem" hAlign="Center">
                                             <Label text="LEVEL 값"/>             
 										<table:template>
-                                            <Input id="input_control_option_level_val" value="{control_option_level_val}"/>
+                                            <Input id="control_option_level_val" value="{control_option_level_val}"/>
 										</table:template>
 									</table:Column>                                    
 									<table:Column width="15rem" hAlign="Center">
 										<Label text="제어옵션값"/>
 										<table:template>
-                                            <Input id="input_control_option_val" value="{control_option_val}"/>
+                                            <Input id="control_option_val" value="{control_option_val}"/>
 										</table:template>
 									</table:Column>
 								</table:columns>
