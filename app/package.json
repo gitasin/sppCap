@@ -1,0 +1,10 @@
+{
+  "name": "sppfiori",
+  "version": "1.0.0",
+  "description": "sapfiori",
+  "license": "ISC",
+  "dependencies": {
+    "@sap/approuter": "^8.5.4",
+    "@sap/html5-repo-mock": "^1.6.0"
+  }
+}

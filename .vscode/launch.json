@@ -13,6 +13,22 @@
       "env": {
         "run.config": "{\"handlerId\":\"cap_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sppCap\"}"
       }
+    },
+    {
+      "name": "Run Fiori",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/app/node_modules/@sap/approuter/approuter.js",
+      "args": [],
+      "cwd": "${workspaceFolder}/app",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"./\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/DemoOV4WithFiori/app\"}"
+      },
+      "envFile": "${workspaceFolder}/app/.env2",
+      "preLaunchTask": "Build Fiori"
     }
+
   ]
 }
