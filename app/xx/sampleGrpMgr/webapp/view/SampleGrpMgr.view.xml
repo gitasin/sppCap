@@ -21,7 +21,7 @@
                                 mode="MultiSelect"
                                 growing="true"
                                 growingThreshold="5"
-                                growingScrollToLoad="false"                    
+                                growingScrollToLoad="false"                   
                         >
                             <headerToolbar>
                                 <OverflowToolbar>

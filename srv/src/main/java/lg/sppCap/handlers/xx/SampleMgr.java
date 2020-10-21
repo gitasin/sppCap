@@ -12,7 +12,7 @@ import com.sap.cds.services.handler.annotations.ServiceName;
 import cds.gen.xx.samplemgrservice.*;
 
 @Component
-@ServiceName("SampleMgrService")
+@ServiceName("xx.SampleMgrService")
 public class SampleMgr implements EventHandler {
 
     //  @Before, @On, @After
