@@ -1,5 +1,7 @@
 namespace cm;	
-	
+
+using { User } from '@sap/cds/common';
+
 entity Message {	
   @comment: '테넌트ID'
   key tenant_id : String(4)  not null;	
@@ -12,7 +14,7 @@ entity Message {
     message_contents : String(1000)  not null;	
         local_create_dtm: DateTime not null;	
     local_update_dtm: DateTime not null;	
-    create_user_id: User not null @cds.on.insert: $user @title: '등록사용자ID';
+    create_user_id: User not null @cds.on.insert: $user ;
     update_user_id: User not null @cds.on.insert: $user @cds.on.update: $user @title: '변경사용자ID';
     system_create_dtm: DateTime not null @cds.on.insert: $now @title: '시스템등록시간';
     system_update_dtm: DateTime not null @cds.on.insert: $now  @cds.on.update: $now @title: '시스템수정시간';

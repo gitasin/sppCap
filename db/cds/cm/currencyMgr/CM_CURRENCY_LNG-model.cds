@@ -1,5 +1,7 @@
 namespace cm;	
-	
+
+using { User } from '@sap/cds/common';
+
 entity Currency_Lng {	
   key tenant_id : String(4)  not null;	
   key currency_code : String(30)  not null;	
