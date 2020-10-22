@@ -1,5 +1,7 @@
 namespace cm;	
-	
+
+using { User } from '@sap/cds/common';
+
 entity Currency_Lng {	
   key tenant_id : String(4)  not null;	
   key currency_code : String(30)  not null;	
@@ -10,8 +12,8 @@ entity Currency_Lng {
     currency_suffix : String(30)  ;	
     local_create_dtm : DateTime  not null;	
     local_update_dtm : DateTime  not null;	
-    create_user_id : String(50)  not null;	
-    update_user_id : String(50)  not null;	
-    system_create_dtm : DateTime  not null;	
-    system_update_dtm : DateTime  not null;	
+    create_user_id: User not null @cds.on.insert: $user @title: '등록사용자ID';
+    update_user_id: User not null @cds.on.insert: $user @cds.on.update: $user @title: '변경사용자ID';
+    system_create_dtm: DateTime not null @cds.on.insert: $now @title: '시스템등록시간';
+    system_update_dtm: DateTime not null @cds.on.insert: $now  @cds.on.update: $now @title: '시스템수정시간';
 }	
