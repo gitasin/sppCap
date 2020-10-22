@@ -87,6 +87,10 @@ modules:
       - codeMgr-content.zip
       name: codeMgr
       target-path: resources/
+    - artifacts:
+      - currencyMgr-content.zip
+      name: currencyMgr
+      target-path: resources/
 - name: sampleMstMgr
   type: html5
   path: app/xx/sampleMstMgr
@@ -122,6 +126,14 @@ modules:
 - name: codeMgr
   type: html5
   path: app/cm/codeMgr
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: currencyMgr
+  type: html5
+  path: app/cm/currencyMgr
   build-parameters:
     builder: custom
     commands:
