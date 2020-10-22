@@ -16,7 +16,7 @@
             <f:title>
                 <f:DynamicPageTitle>
                     <f:heading>
-                        <Title text="코드 관리"/>
+                        <Title text="통화 관리"/>
                     </f:heading>
                 </f:DynamicPageTitle>
             </f:title>
