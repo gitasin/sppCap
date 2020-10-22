@@ -1,0 +1,310 @@
+<mvc:View
+    class="sapUiSizeCompact"
+    controllerName="cm.currencyMgr.controller.currencyMgr"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:layout="sap.ui.layout"
+    xmlns:table="sap.ui.table"
+    xmlns:form="sap.ui.layout.form"
+    displayBlock="true">
+
+  <!-- <Shell id="shell"> -->
+    <App id="app">
+        <f:DynamicPage id="codeMgrPage" toggleHeaderOnTitleClick="true" headerExpanded="true">
+            <f:title>
+                <f:DynamicPageTitle>
+                    <f:heading>
+                        <Title text="코드 관리"/>
+                    </f:heading>
+                </f:DynamicPageTitle>
+            </f:title>
+            <f:header>
+                <f:DynamicPageHeader pinnable="true">
+                    <layout:HorizontalLayout>
+                        <form:Form editable="true" width="100%">
+                            <form:formContainers>
+                                <form:FormContainer>
+                                    <form:formElements>
+                                        <form:FormElement label="사용여부">
+                                            <form:fields>
+                                                <ComboBox   id="search_use_id"
+                                                            items="{
+                                                                        path : '/CodeCombo',
+                                                                        filters : [
+                                                                            {path : 'tenant_id', operator : 'EQ', value1 : '1000'},
+                                                                            {path : 'company_code', operator : 'EQ', value1 : 'G100'},
+                                                                            {path : 'group_code', operator : 'EQ', value1 : 'CM_TENANT_CD'},
+                                                                            {path : 'language_cd', operator : 'EQ', value1 : 'KO'}                                                                        
+                                                                        ]
+                                                                    }"
+                                                >
+                                                    <core:Item key="{code}" text="{code_name}" />
+                                                </ComboBox>
+                                            </form:fields>
+                                        </form:FormElement>                                       
+                                    </form:formElements>
+                                </form:FormContainer>
+                                <form:FormContainer>
+                                    <form:formElements>
+                                        <form:FormElement label="통화코드">
+                                            <form:fields>                                                
+                                                <Input id="search_currency_code" width="100%"/>                                                
+                                            </form:fields>
+                                        </form:FormElement>                                       
+                                    </form:formElements>
+                                </form:FormContainer>                                                                
+                            </form:formContainers>
+                            <form:layout>
+                            <form:ResponsiveGridLayout columnsM="4" columnsL="4" columnsXL="4"/>
+                            </form:layout>
+                        </form:Form>
+                    </layout:HorizontalLayout>
+                    <HBox width="100%" alignItems="Center" alignContent="End" justifyContent="End">
+                        <items>
+                            <Button text="검색" press="onSearch"/>
+                        </items>
+                    </HBox>
+                </f:DynamicPageHeader>
+            </f:header>
+            <f:content>
+                <layout:Splitter orientation="Vertical">
+                        <Table  id="currencyTable"
+                                items="{
+                                            path : '/CurrencyView',
+                                            parameters: {
+                                                $$updateGroupId : 'currencyMstUpdateGroup'
+                                            },
+                                            filters : [{path : 'tenant_id', operator : 'EQ', value1 : '0000'}],
+                                            sorter: { path: 'tenant_id'}
+                                        }"
+                                mode="MultiSelect"
+                                updateFinished="onMstUpdateFinished"
+                                
+                        >
+                        <layoutData>
+                            <layout:SplitterLayoutData size="55%" />
+                        </layoutData>
+                            <headerToolbar>
+                                <OverflowToolbar>
+                                    <content>
+                                        <Title text="통화 코드 목록" level="H2"/>
+                                        <ToolbarSpacer/>
+                                        <!-- <Button text="행추가" icon="sap-icon://add"  type="Accept" press="onMstAddRow"/>
+                                        <Button text="행복사" icon="sap-icon://copy" type="Accept" press="onMstCopyRow"/>
+                                        <Button text="행삭제" icon="sap-icon://delete" type="Reject" press="onMstDeleteRow"/>
+                                        <Button text="저장"   icon="sap-icon://save" type="Attention" press="onMstSave"/> -->
+                                    </content>
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            <columns>
+                                <Column hAlign="Center" width="100px">
+                                    <header>
+                                        <Label text="통화코드"/>
+                                    </header>
+                                </Column>
+                                <Column hAlign="Center" width="100px">
+                                    <header>
+                                        <Label text="통화코드명"/>
+                                    </header>
+                                </Column>
+                                <Column hAlign="Center" width="100px">
+                                    <header>
+                                        <Label text="통화코드설명"/>
+                                    </header>
+                                </Column>
+                                <Column hAlign="Center" width="200px">
+                                    <header>
+                                        <Label text="ISO통화"/>
+                                    </header>
+                                </Column>
+                                <Column hAlign="Center" width="200px">
+                                    <header>
+                                        <Label text="소수점자리"/>
+                                    </header>
+                                </Column>
+                                <Column hAlign="Center" width="200px">
+                                    <header>
+                                        <Label text="확장소수점자리"/>
+                                    </header>
+                                </Column>
+                                <Column hAlign="Center" width="100px">
+                                    <header>
+                                        <Label text="Symbol"/>
+                                    </header>
+                                </Column>
+                                <Column hAlign="Center" width="100px">
+                                    <header>
+                                        <Label text="Prefix"/>
+                                    </header>
+                                </Column>
+                                <Column hAlign="Center" width="100px">
+                                    <header>
+                                        <Label text="Suffix"/>
+                                    </header>
+                                </Column>
+                                <Column hAlign="Center" width="200px">
+                                    <header>
+                                        <Label text="유효시작일자"/>
+                                    </header>
+                                </Column>
+                                <Column hAlign="Center" width="200px">
+                                    <header>
+                                        <Label text="유효종료일자"/>
+                                    </header>
+                                </Column>
+                                <Column hAlign="Center" width="200px">
+                                    <header>
+                                        <Label text="사용여부"/>
+                                    </header>
+                                </Column>                                
+                            </columns>
+                            <items>
+                                <ColumnListItem type="Active" id="currencyColumnListItem" press="onMstTableItemPress">
+                                    <cells>
+                                        <Text id="currency_code" text="{currency_code}"/>
+                                        <Text id="currency_code_name" text="{currency_code_name}"/>
+                                        <Text id="currency_code_desc" text="{currency_code_desc}"/>
+                                        <Text id="scale" text="{scale}"/>
+                                        <Text id="extension_scale" text="{extension_scale}"/>
+                                        <Text id="currency_prefix" text="{currecurrency_prefixncy_code_name}"/>
+                                        <Text id="currency_suffix" text="{currency_suffix}"/>
+                                        <Text id="effective_start_date" text="{effective_start_date}"/>
+                                        <Text id="effective_end_date" text="{effective_end_date}"/>
+                                        <!-- <DatePicker dateValue="{path : 'effective_start_date'}"  valueFormat="yyyyMMdd" displayFormat="yyyy-MM-dd"/>
+                                        <DatePicker dateValue="{path : 'effective_end_date'}"  valueFormat="yyyyMMdd" displayFormat="yyyy-MM-dd"/>-->
+                                        <Text id="use_yn" text="{use_yn}"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+
+                        <layout:Splitter>
+                           <layout:contentAreas>
+                            <form:Form editable="true" id="form1">
+                                <form:formContainers>
+                                    <form:FormContainer title="통화코드 상세" id="container2">
+                                        <form:formElements>
+                                            <form:FormElement label="* 통화코드">
+                                                <form:fields>
+                                                    <Input width="100%" id="input1"/>
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="ISO통화">
+                                                <form:fields>
+                                                    <Input width="100%" id="input2"/>
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="* 소수점자리">
+                                                <form:fields>
+                                                    <Input width="100%" id="input2"/>
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="확장소수점자리">
+                                                <form:fields>
+                                                    <Input width="100%" id="input3"/>
+                                                </form:fields>
+                                            </form:FormElement>
+                                        </form:formElements>
+                                        <form:formElements>
+                                            <form:FormElement label="Symbol">
+                                                <form:fields>
+                                                    <Input width="100%" id="input4"/>
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="* 유효시작일자">
+                                                <form:fields>
+                                                    <Input width="100%" id="input5"/>
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="유효종료일자">
+                                                <form:fields>
+                                                    <Input width="100%" id="input6"/>
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="사용여부">
+                                                <form:fields>
+                                                    <Input width="100%" id="input7"/>
+                                                </form:fields>
+                                            </form:FormElement>
+                                        </form:formElements>
+                                    </form:FormContainer>
+                                </form:formContainers>
+                                <form:layout>
+                                    <form:ResponsiveGridLayout id="layout2"/>
+                                </form:layout></form:Form>
+                            </layout:contentAreas>
+
+                            <Table  id="codeLngTable"
+                                    items= "{   
+                                                path : '/CodeLanguages',
+                                                parameters: {
+                                                    $$updateGroupId : 'codeLngUpdateGroup'
+                                                },
+                                                filters : [{path : 'tenant_id', operator : 'EQ', value1 : '0000'}],
+                                                sorter: { path: 'language_cd'}
+                                            }"
+                                    mode="MultiSelect"
+                            >
+                            <layoutData>
+                                <layout:SplitterLayoutData size="50%" />
+                            </layoutData>
+                                <headerToolbar>
+                                    <OverflowToolbar>
+                                        <content>
+                                            <Title text="다국어" level="H2"/>
+                                            <ToolbarSpacer/>
+                                            <Button text="행추가" icon="sap-icon://add"  type="Accept" press="onLngAddRow"/>
+                                            <Button text="행복사" icon="sap-icon://copy" type="Accept" press="onLngCopyRow"/>
+                                            <Button text="행삭제" icon="sap-icon://delete" type="Reject" press="onLngDeleteRow"/>
+                                            <Button text="저장"   icon="sap-icon://save" type="Attention" press="onLngSave"/>
+                                        </content>
+                                    </OverflowToolbar>
+                                </headerToolbar>
+                                <columns>
+                                    <Column hAlign="Center" width="80px">
+                                        <header>
+                                            <Label text="언어"/>
+                                        </header>
+                                    </Column>
+                                    <Column hAlign="Center" width="80px">
+                                        <header>
+                                            <Label text="통화코드명"/>
+                                        </header>
+                                    </Column>
+                                    <Column hAlign="Center" width="150px">
+                                        <header>
+                                            <Label text="통화코드설명"/>
+                                        </header>
+                                    </Column>
+                                    <Column hAlign="Center" width="100px">
+                                        <header>
+                                            <Label text="Prefix"/>
+                                        </header>
+                                    </Column>
+                                    <Column hAlign="Center" width="100px">
+                                        <header>
+                                            <Label text="Suffix"/>
+                                        </header>
+                                    </Column>                                    
+                                </columns>
+                                <items>
+                                    <ColumnListItem type="Active" id="codeLngColumnListItem">
+                                        <cells>
+                                            <Input id="language_code" value="{language_code}"/>
+                                            <Input id="currency_code_name" value="{currency_code_name}"/>
+                                            <Input id="currency_code_desc" value="{currency_code_desc}"/>
+                                            <Input id="currency_prefix" value="{currency_prefix}"/>
+                                            <Input id="currency_suffix" value="{currency_suffix}"/>                                            
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </layout:Splitter>
+                </layout:Splitter>
+            </f:content>
+        </f:DynamicPage>
+    </App>
+  <!-- </Shell> -->
+</mvc:View>
