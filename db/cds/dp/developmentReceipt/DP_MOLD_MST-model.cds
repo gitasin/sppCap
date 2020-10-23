@@ -4,9 +4,9 @@ using { User } from '@sap/cds/common';
 
 entity Mold_Mst {
     
-	tenent_id :                   String(4)	 not null  @title:	'테넌트ID (LGE : 2000)';
+	key tenent_id :               String(4)	 not null  @title:	'테넌트ID (LGE : 2000)';
 	affiliate_code :              String(4)  not null  @title:	'관계사 지사코드';
-	org_code :                    String(3)	 not null  @title:	'사업부코드';
+	key org_code :                String(3)	 not null  @title:	'사업부코드';
 	item_id :                     Integer64	 not null  @title:	'도번 id';
 	part_no :                     String(50) not null  @title:	'품번(도번)명';
 	item_seq :                    Integer64	 not null  @title:	'차수 ( 1호 금형, 2호 금형.....)';
