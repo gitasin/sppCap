@@ -1,9 +1,13 @@
 namespace ep;	
-	
-entity Ep_Loi_Dtl {	
-  key tenant_id : String(4)  not null;	
-  key company_code : String(10)  not null;	
-  key loi_write_number : String(100)  not null;	
+
+using { ep as mst } from './EP_LOI_MST-model';
+using { ep as vdsel } from './EP_LOI_VENDOR_SELECTION-model';
+using { ep as pub } from './EP_LOI_PUBLISH-model';
+
+entity Loi_Dtl {	
+  key tenant_id : Association to mst.Loi_Mst { tenant_id };	
+  key company_code : Association to mst.Loi_Mst { company_code };	
+  key loi_write_number : Association to mst.Loi_Mst { loi_write_number };	
   key loi_item_number : String(100)  not null;	
     item_line_number : Integer64  ;	
     item_code : String(40)  ;	
@@ -15,8 +19,8 @@ entity Ep_Loi_Dtl {
     spec_desc : String(1000)  ;	
     plant_code : String(30)  ;	
     delivery_request_date : String(8)  ;	
-    loi_selection_number : String(100)  ;	
-    loi_publish_number : String(100)  ;	
+    loi_selection_number : Association[0..*] to vdsel.Loi_Vendor_Selection { loi_selection_number };
+    loi_publish_number : Association[0..*] to pub.Loi_Publish { loi_publish_number };
     rfq_number : String(100)  ;	
     rfq_item_number : String(100)  ;	
     contract_number : String(100)  ;	

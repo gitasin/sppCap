@@ -1,6 +1,6 @@
 namespace ep;	
 	
-entity Ep_Loi_Vendor_Selection {	
+entity Loi_Vendor_Selection {	
   key tenant_id : String(4)  not null;	
   key company_code : String(10)  not null;	
   key loi_selection_number : String(100)  not null;	
