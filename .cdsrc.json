@@ -21,6 +21,7 @@
             "db/cds/dp/standardCommon",
             "db/cds/dp/developmentReceipt",
             "db/cds/ep",
+            "db/cds/ep/loiMgr",            
             "db/cds/op",
             "db/cds/pg",
             "db/cds/pg/mi",
