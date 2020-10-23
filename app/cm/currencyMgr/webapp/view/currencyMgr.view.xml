@@ -175,8 +175,19 @@
                         <layout:Splitter>
                            <layout:contentAreas>
                             <form:Form editable="true" id="currencyDetail">
+                                <form:toolbar>
+                                    <Toolbar width="100%" id="toolbar3">
+                                        <content>
+                                            <Title xmlns="sap.m" text="통화코드 상세" id="title18" />
+                                            <ToolbarSpacer/>
+                                            <Button xmlns="sap.m" icon="sap-icon://create" text="신규" id="button5" type="Accept" />
+                                            <Button xmlns="sap.m" icon="sap-icon://save" text="저장" id="button7" type="Attention" />
+                                            <Button xmlns="sap.m" icon="sap-icon://delete" text="삭제" id="button8" type="Reject" />
+                                        </content>
+                                    </Toolbar>
+                                </form:toolbar>
                                 <form:formContainers>
-                                    <form:FormContainer title="통화코드 상세" id="container2" width="50%">
+                                    <form:FormContainer id="container2" >
                                             <form:formElements>
                                                     <form:FormElement label="* 통화코드" >
                                                         <form:fields>
@@ -200,7 +211,7 @@
                                                     </form:FormElement>
                                             </form:formElements>
                                          </form:FormContainer>
-                                         <form:FormContainer title="   " id="container3" width="50%">
+                                         <form:FormContainer id="container3">
                                             <form:formElements>
                                                 <form:FormElement label="Symbol">
                                                     <form:fields>
@@ -224,6 +235,7 @@
                                                 </form:FormElement>
                                             </form:formElements>
                                     </form:FormContainer>
+
                                 </form:formContainers>
                                 <form:layout>
                                     <form:ResponsiveGridLayout id="layout2" columnsM="2" columnsL="2" columnsXL="2"/>
