@@ -27,9 +27,11 @@
                             <form:formContainers >
                                 <form:FormContainer >
                                     <form:formElements>
-                                        <form:FormElement label="통화코드" >
-                                            <form:fields>                                                
-                                                <Input id="search_currency_code" width="100%"/>                                                
+                                        <form:FormElement label="통화코드" >                                            
+                                            <form:fields>            													
+                                                <SearchField 
+                                                    id="search_currency_code" 
+                                                    width="100%"/>
                                             </form:fields>
                                         </form:FormElement>  
                                   
@@ -188,54 +190,53 @@
                                 </form:toolbar>
                                 <form:formContainers>
                                     <form:FormContainer id="container2" >
-                                            <form:formElements>
-                                                    <form:FormElement label="* 통화코드" >
-                                                        <form:fields>
-                                                            <Input width="180px" id="input1"/>
-                                                        </form:fields>
-                                                    </form:FormElement>
-                                                    <form:FormElement label="ISO통화">
-                                                        <form:fields>
-                                                            <Input width="180px" id="input2"/>
-                                                        </form:fields>
-                                                    </form:FormElement>
-                                                    <form:FormElement label="* 소수점자리">
-                                                        <form:fields>
-                                                            <Input width="180px" id="input3"/>
-                                                        </form:fields>
-                                                    </form:FormElement>
-                                                    <form:FormElement label="확장소수점자리">
-                                                        <form:fields>
-                                                            <Input width="180px" id="input4"/>
-                                                        </form:fields>
-                                                    </form:FormElement>
-                                            </form:formElements>
-                                         </form:FormContainer>
-                                         <form:FormContainer id="container3">
-                                            <form:formElements>
-                                                <form:FormElement label="Symbol">
+                                        <form:formElements>
+                                                <form:FormElement label="* 통화코드" >
                                                     <form:fields>
-                                                        <Input width="180px" id="input5"/>
+                                                        <Input width="180px" id="input1"/>
                                                     </form:fields>
                                                 </form:FormElement>
-                                                <form:FormElement label="* 유효시작일자">
+                                                <form:FormElement label="ISO통화">
                                                     <form:fields>
-                                                        <Input width="180px" id="input6"/>
+                                                        <Input width="180px" id="input2"/>
                                                     </form:fields>
                                                 </form:FormElement>
-                                                <form:FormElement label="유효종료일자">
+                                                <form:FormElement label="* 소수점자리">
                                                     <form:fields>
-                                                        <Input width="180px" id="input7"/>
+                                                        <Input width="180px" id="input3"/>
                                                     </form:fields>
                                                 </form:FormElement>
-                                                <form:FormElement label="사용여부">
+                                                <form:FormElement label="확장소수점자리">
                                                     <form:fields>
-                                                        <Input width="180px" id="input8"/>
+                                                        <Input width="180px" id="input4"/>
                                                     </form:fields>
                                                 </form:FormElement>
-                                            </form:formElements>
+                                        </form:formElements>
                                     </form:FormContainer>
-
+                                    <form:FormContainer id="container3">
+                                        <form:formElements>
+                                            <form:FormElement label="Symbol">
+                                                <form:fields>
+                                                    <Input width="180px" id="input5"/>
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="* 유효시작일자">
+                                                <form:fields>                                                    
+                                                    <DatePicker width="180px" dateValue="{path : 'effective_start_date'}"  valueFormat="yyyyMMdd" displayFormat="yyyy-MM-dd"/>
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="유효종료일자">
+                                                <form:fields>                                                    
+                                                    <DatePicker width="180px" dateValue="{path : 'effective_end_date'}"  valueFormat="yyyyMMdd" displayFormat="yyyy-MM-dd"/>
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement label="사용여부">
+                                                <form:fields>
+                                                    <Input width="180px" id="input8"/>
+                                                </form:fields>
+                                            </form:FormElement>
+                                        </form:formElements>
+                                    </form:FormContainer>
                                 </form:formContainers>
                                 <form:layout>
                                     <form:ResponsiveGridLayout id="layout2" columnsM="2" columnsL="2" columnsXL="2"/>
