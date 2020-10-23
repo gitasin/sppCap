@@ -1,9 +1,9 @@
 namespace ep;	
 	
 entity Loi_Publish {	
-  key tenant_id : String(4)  not null;	
-  key company_code : String(10)  not null;	
-  key loi_publish_number : String(100)  not null;	
+    key tenant_id : String(4)  not null;	
+    key company_code : String(10)  not null;	
+    key loi_publish_number : String(100)  not null;	
     loi_publish_ttl : String(100)  ;	
     progress_status_code : String(30)  ;	
     vendor_code : String(15)  ;	
@@ -24,5 +24,5 @@ entity Loi_Publish {
     create_user_id : String(50)  not null;	
     update_user_id : String(50)  not null;	
     system_create_dtm : DateTime  not null;	
-    system_update_dtm : DateTime  ;	
+    system_update_dtm : DateTime  not null;	
 }	

@@ -1,9 +1,9 @@
 namespace ep;	
-
+	
 entity Loi_Mst {	
-  key tenant_id : String(4)  not null;	
-  key company_code : String(10)  not null;	
-  key loi_write_number : String(100)  not null;	
+    key tenant_id : String(4)  not null;	
+    key company_code : String(10)  not null;	
+    key loi_write_number : String(100)  not null;	
     loi_number : String(100)  ;	
     loi_request_ttl : String(100)  ;	
     progress_status_code : String(30)  ;	
@@ -22,5 +22,5 @@ entity Loi_Mst {
     create_user_id : String(50)  not null;	
     update_user_id : String(50)  not null;	
     system_create_dtm : DateTime  not null;	
-    system_update_dtm : DateTime  not null;	  
+    system_update_dtm : DateTime  not null;	
 }	
