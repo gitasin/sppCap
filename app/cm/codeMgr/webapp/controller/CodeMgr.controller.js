@@ -124,14 +124,18 @@ sap.ui.define([
                         "chain_code" : "",
                         "group_name" : "",
                         "group_description" : "",
-                        "use_yn" : true,
+                        "use_yn" : true
+                    });
+
+                      /*
+                        ,
                         "local_create_dtm" : "2020-10-13T00:00:00Z",
                         "local_update_dtm" : "2020-10-13T00:00:00Z",
                         "create_user_id" : "Admin",
                         "update_user_id" : "Admin",
                         "system_create_dtm" : "2020-10-13T00:00:00Z",
                         "system_update_dtm" : "2020-10-13T00:00:00Z"
-                    });
+                        */
 
             },
 
@@ -295,14 +299,18 @@ sap.ui.define([
                         "code_description" : "",
                         "sort_no" : "",
                         "start_date" : "",
-                        "end_date" : "",
+                        "end_date" : ""
+                    });
+
+                        /*
+                        ,
                         "local_create_dtm" : "2020-10-13T00:00:00Z",
                         "local_update_dtm" : "2020-10-13T00:00:00Z",
                         "create_user_id" : "Admin",
                         "update_user_id" : "Admin",
                         "system_create_dtm" : "2020-10-13T00:00:00Z",
                         "system_update_dtm" : "2020-10-13T00:00:00Z"
-                    });
+                        */
             },
 
 			onDtlCopyRow : function () {
@@ -442,14 +450,18 @@ sap.ui.define([
                         "group_code" : lngVal.group_code,
                         "code" :lngVal.code,
                         "language_cd" : "",
-                        "code_name" : "",
+                        "code_name" : ""
+                    });
+
+                        /*
+                        ,
                         "local_create_dtm" : "2020-10-13T00:00:00Z",
                         "local_update_dtm" : "2020-10-13T00:00:00Z",
                         "create_user_id" : "Admin",
                         "update_user_id" : "Admin",
                         "system_create_dtm" : "2020-10-13T00:00:00Z",
                         "system_update_dtm" : "2020-10-13T00:00:00Z"
-                    });
+                        */
             },
 
 			onLngCopyRow : function () {
