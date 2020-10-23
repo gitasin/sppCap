@@ -24,40 +24,34 @@
                 <f:DynamicPageHeader pinnable="true">
                     <layout:HorizontalLayout>
                         <form:Form editable="true" width="100%">
-                            <form:formContainers>
-                                <form:FormContainer>
+                            <form:formContainers >
+                                <form:FormContainer >
                                     <form:formElements>
-                                        <form:FormElement label="사용여부">
-                                            <form:fields>
-                                                <ComboBox   id="search_use_id"
-                                                            items="{
-                                                                        path : '/CodeCombo',
-                                                                        filters : [
-                                                                            {path : 'tenant_id', operator : 'EQ', value1 : '1000'},
-                                                                            {path : 'company_code', operator : 'EQ', value1 : 'G100'},
-                                                                            {path : 'group_code', operator : 'EQ', value1 : 'CM_TENANT_CD'},
-                                                                            {path : 'language_cd', operator : 'EQ', value1 : 'KO'}                                                                        
-                                                                        ]
-                                                                    }"
-                                                >
-                                                    <core:Item key="{code}" text="{code_name}" />
-                                                </ComboBox>
-                                            </form:fields>
-                                        </form:FormElement>                                       
-                                    </form:formElements>
-                                </form:FormContainer>
-                                <form:FormContainer>
-                                    <form:formElements>
-                                        <form:FormElement label="통화코드">
+                                        <form:FormElement label="통화코드" >
                                             <form:fields>                                                
                                                 <Input id="search_currency_code" width="100%"/>                                                
                                             </form:fields>
-                                        </form:FormElement>                                       
+                                        </form:FormElement>  
+                                  
+                                    </form:formElements>
+                                </form:FormContainer>
+                                <form:FormContainer >
+                                    <form:formElements>
+                                        <form:FormElement label="사용여부" >
+                                            <form:fields >
+                                                <ComboBox id="comboBox_use_yn"
+                                                    selectedKey="Y"
+                                                    width="350px">
+                                                    <core:Item key="Y" text="Yes"/>                                                            
+                                                    <core:Item key="N" text="No"/>
+                                                 </ComboBox>	
+                                            </form:fields>
+                                        </form:FormElement>                                          
                                     </form:formElements>
                                 </form:FormContainer>                                                                
                             </form:formContainers>
                             <form:layout>
-                            <form:ResponsiveGridLayout columnsM="4" columnsL="4" columnsXL="4"/>
+                                <form:ResponsiveGridLayout columnsM="2" columnsL="2" columnsXL="2"/>
                             </form:layout>
                         </form:Form>
                     </layout:HorizontalLayout>
@@ -75,9 +69,7 @@
                                             path : '/CurrencyView',
                                             parameters: {
                                                 $$updateGroupId : 'currencyMstUpdateGroup'
-                                            },
-                                            filters : [{path : 'tenant_id', operator : 'EQ', value1 : '0000'}],
-                                            sorter: { path: 'tenant_id'}
+                                            }
                                         }"
                                 mode="MultiSelect"
                                 updateFinished="onMstUpdateFinished"
@@ -182,68 +174,69 @@
 
                         <layout:Splitter>
                            <layout:contentAreas>
-                            <form:Form editable="true" id="form1">
+                            <form:Form editable="true" id="currencyDetail">
                                 <form:formContainers>
-                                    <form:FormContainer title="통화코드 상세" id="container2">
-                                        <form:formElements>
-                                            <form:FormElement label="* 통화코드">
-                                                <form:fields>
-                                                    <Input width="100%" id="input1"/>
-                                                </form:fields>
-                                            </form:FormElement>
-                                            <form:FormElement label="ISO통화">
-                                                <form:fields>
-                                                    <Input width="100%" id="input2"/>
-                                                </form:fields>
-                                            </form:FormElement>
-                                            <form:FormElement label="* 소수점자리">
-                                                <form:fields>
-                                                    <Input width="100%" id="input2"/>
-                                                </form:fields>
-                                            </form:FormElement>
-                                            <form:FormElement label="확장소수점자리">
-                                                <form:fields>
-                                                    <Input width="100%" id="input3"/>
-                                                </form:fields>
-                                            </form:FormElement>
-                                        </form:formElements>
-                                        <form:formElements>
-                                            <form:FormElement label="Symbol">
-                                                <form:fields>
-                                                    <Input width="100%" id="input4"/>
-                                                </form:fields>
-                                            </form:FormElement>
-                                            <form:FormElement label="* 유효시작일자">
-                                                <form:fields>
-                                                    <Input width="100%" id="input5"/>
-                                                </form:fields>
-                                            </form:FormElement>
-                                            <form:FormElement label="유효종료일자">
-                                                <form:fields>
-                                                    <Input width="100%" id="input6"/>
-                                                </form:fields>
-                                            </form:FormElement>
-                                            <form:FormElement label="사용여부">
-                                                <form:fields>
-                                                    <Input width="100%" id="input7"/>
-                                                </form:fields>
-                                            </form:FormElement>
-                                        </form:formElements>
+                                    <form:FormContainer title="통화코드 상세" id="container2" width="50%">
+                                            <form:formElements>
+                                                    <form:FormElement label="* 통화코드" >
+                                                        <form:fields>
+                                                            <Input width="180px" id="input1"/>
+                                                        </form:fields>
+                                                    </form:FormElement>
+                                                    <form:FormElement label="ISO통화">
+                                                        <form:fields>
+                                                            <Input width="180px" id="input2"/>
+                                                        </form:fields>
+                                                    </form:FormElement>
+                                                    <form:FormElement label="* 소수점자리">
+                                                        <form:fields>
+                                                            <Input width="180px" id="input3"/>
+                                                        </form:fields>
+                                                    </form:FormElement>
+                                                    <form:FormElement label="확장소수점자리">
+                                                        <form:fields>
+                                                            <Input width="180px" id="input4"/>
+                                                        </form:fields>
+                                                    </form:FormElement>
+                                            </form:formElements>
+                                         </form:FormContainer>
+                                         <form:FormContainer title="   " id="container3" width="50%">
+                                            <form:formElements>
+                                                <form:FormElement label="Symbol">
+                                                    <form:fields>
+                                                        <Input width="180px" id="input5"/>
+                                                    </form:fields>
+                                                </form:FormElement>
+                                                <form:FormElement label="* 유효시작일자">
+                                                    <form:fields>
+                                                        <Input width="180px" id="input6"/>
+                                                    </form:fields>
+                                                </form:FormElement>
+                                                <form:FormElement label="유효종료일자">
+                                                    <form:fields>
+                                                        <Input width="180px" id="input7"/>
+                                                    </form:fields>
+                                                </form:FormElement>
+                                                <form:FormElement label="사용여부">
+                                                    <form:fields>
+                                                        <Input width="180px" id="input8"/>
+                                                    </form:fields>
+                                                </form:FormElement>
+                                            </form:formElements>
                                     </form:FormContainer>
                                 </form:formContainers>
                                 <form:layout>
-                                    <form:ResponsiveGridLayout id="layout2"/>
+                                    <form:ResponsiveGridLayout id="layout2" columnsM="2" columnsL="2" columnsXL="2"/>
                                 </form:layout></form:Form>
                             </layout:contentAreas>
 
-                            <Table  id="codeLngTable"
+                            <Table  
+                                    id="currencyLngTable"
                                     items= "{   
-                                                path : '/CodeLanguages',
+                                                path : '/CurrencyLng',
                                                 parameters: {
-                                                    $$updateGroupId : 'codeLngUpdateGroup'
-                                                },
-                                                filters : [{path : 'tenant_id', operator : 'EQ', value1 : '0000'}],
-                                                sorter: { path: 'language_cd'}
+                                                    $$updateGroupId : 'currencyLngUpdateGroup'
+                                                }
                                             }"
                                     mode="MultiSelect"
                             >
@@ -290,13 +283,13 @@
                                     </Column>                                    
                                 </columns>
                                 <items>
-                                    <ColumnListItem type="Active" id="codeLngColumnListItem">
+                                    <ColumnListItem type="Active" id="currencyLngColumnListItem">
                                         <cells>
-                                            <Input id="language_code" value="{language_code}"/>
-                                            <Input id="currency_code_name" value="{currency_code_name}"/>
-                                            <Input id="currency_code_desc" value="{currency_code_desc}"/>
-                                            <Input id="currency_prefix" value="{currency_prefix}"/>
-                                            <Input id="currency_suffix" value="{currency_suffix}"/>                                            
+                                            <Input id="language_code1" value="{language_code}"/>
+                                            <Input id="currency_code_name1" value="{currency_code_name}"/>
+                                            <Input id="currency_code_desc1" value="{currency_code_desc}"/>
+                                            <Input id="currency_prefix1" value="{currency_prefix}"/>
+                                            <Input id="currency_suffix1" value="{currency_suffix}"/>                                            
                                         </cells>
                                     </ColumnListItem>
                                 </items>
