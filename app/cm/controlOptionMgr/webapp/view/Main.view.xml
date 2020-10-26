@@ -30,11 +30,19 @@
 											<form:formElements>
 												<form:FormElement label="체인">
 													<form:fields>
-														<ComboBox id="comboxSystem">
-															<items>
-																<core:Item key="itemSystem" text="공통"/>																
-															</items>
-														</ComboBox>
+                                                        <ComboBox id="comboBox_chain_code"
+                                                            selectedKey="CM"
+                                                            selectionChange="handleSelectionChange"
+                                                            selectionFinish="handleSelectionFinish"
+                                                            width="350px">
+                                                            <core:Item key="" text="전체"/>                                                            
+                                                            <core:Item key="CM" text="공통"/>
+                                                            <core:Item key="DP" text="개발구매"/>
+                                                            <core:Item key="EP" text="설비/공사 구매"/>
+                                                            <core:Item key="OP" text="조달구매"/>
+                                                            <core:Item key="PG" text="구매거버넌스"/>
+                                                            <core:Item key="SP" text="양산(전략)구매"/>                                                            
+                                                        </ComboBox>														
 													</form:fields>
 												</form:FormElement>
 												<form:FormElement label="제어옵션">
@@ -45,11 +53,12 @@
 										<form:FormContainer>
 											<form:formElements>
 												<form:FormElement label="회사">
-													<form:fields>														
-														<SearchField 
-                                                            id="searchOffice" 
-                                                            width="100%"											                
-											                search=".onSearch"/>
+													<form:fields>	
+                                                        <MultiInput
+                                                            id="multiInput_office"
+                                                            valueHelpOnly="true"
+                                                            valueHelpRequest=".onValueHelpRequested"
+                                                        />
 													</form:fields>
 												</form:FormElement>
 												<form:FormElement label="제어옵션명"> 
@@ -60,7 +69,8 @@
 										<form:FormContainer>
 											<form:formElements>
 												<form:FormElement label="조직">
-													<form:fields>														
+													<form:fields>	
+					                                                 													
 														<SearchField 
                                                             id="searchDept" 
                                                             width="100%"/>
@@ -107,6 +117,7 @@
 					</f:header>
 					<!-- DynamicPage Content -->
 					<f:content>
+	                 
 						<VBox fitContainer="true">
                             <!--filters 값이 나오지 않아야 하기에 강제 적용-->
 
@@ -251,9 +262,9 @@
 								<table:extension>
 									<OverflowToolbar class="sapFDynamicPageAlignContent">
 									<ToolbarSpacer/>                         
-									<Button text="행추가" id="buttonSubAddRow" press=".onCreateRow"  enabled="{=${ui>/bSubListTrue}}" icon="sap-icon://add" type="Accept"/>									
+									<Button text="행추가" id="buttonSubAddRow" press=".onCreateRow"  enabled="{=${ui>/bSelect}}" icon="sap-icon://add" type="Accept"/>									
 									<Button text="행삭제" id="buttonSubDeleteRow" press=".onDelete"  enabled="{=${ui>/bSubCheck}}" type="Reject"/>
-                                    <Button text="저장"   id="buttonSubSaveRow" press=".onSave"  enabled="{=${ui>/bSubListTrue}}" icon="sap-icon://save"/>									
+                                    <Button text="저장"   id="buttonSubSaveRow" press=".onSave"  enabled="{=${ui>/bSelect}}" icon="sap-icon://save"/>									
 								</OverflowToolbar>
 								</table:extension>
 								<table:columns>

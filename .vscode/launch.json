@@ -29,6 +29,5 @@
       "envFile": "${workspaceFolder}/app/.env2",
       "preLaunchTask": "Build Fiori"
     }
-
   ]
 }
