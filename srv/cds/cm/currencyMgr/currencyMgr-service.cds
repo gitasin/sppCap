@@ -10,8 +10,8 @@ service CurrencyMgrService {
     // 간단한 Currency와 Currency Lang View 생성
     view CurrencyView as
     select 
-        key c.tenant_id,
-        key c.currency_code,
+        c.tenant_id,
+        c.currency_code,
         c.effective_start_date,
         c.effective_end_date,
         c.use_yn,
