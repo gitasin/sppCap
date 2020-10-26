@@ -5,7 +5,7 @@ using { User } from '@sap/cds/common';
 entity Hr_Employee {	
   key tenant_id : String(4)  not null;	
   key employee_number : String(30)  not null;	
-    user_status_code : String(30)  not null;	
+    user_status_code : String(30)  not null;	 
     email_id : String(240)  ;	
     user_korean_name : String(240)  not null;	
     user_english_name : String(240)  ;	
