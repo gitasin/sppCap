@@ -18,5 +18,5 @@ entity Country {
     system_create_dtm: DateTime not null @cds.on.insert: $now @title: '시스템등록시간';
     system_update_dtm: DateTime not null @cds.on.insert: $now  @cds.on.update: $now @title: '시스템수정시간';
     details: Association to many country_Lng on details.tenant_id = tenant_id
-                                             and details.country_code = country_code;
+                                              and details.country_code = country_code;
 }	
