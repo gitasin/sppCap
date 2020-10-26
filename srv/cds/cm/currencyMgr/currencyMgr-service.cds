@@ -2,7 +2,7 @@ using { cm as currency } from '../../../../db/cds/cm/currencyMgr/CM_CURRENCY-mod
 using { cm as currencyLng } from '../../../../db/cds/cm/currencyMgr/CM_CURRENCY_LNG-model';
 
 namespace cm;
-@path : '/cm.CurrencyMgrService'
+// @path : '/cm.CurrencyMgrService'
 service CurrencyMgrService {
 
     entity Currency as projection on currency.Currency;
