@@ -27,7 +27,7 @@ entity Vendor_Pool_Mst {
     vendor_pool_history_desc : String(1000) @title: '협력사풀이력설명';
     parent_vendor_pool_code : String(30) @title: '상위협력사풀코드';
     leaf_yn : Boolean @title: '리프여부';
-    level_number : Decimal @title: '레벨번호';
+    level_number : Decimal @title: '레벨번호'; 
     display_sequence : Decimal @title: '표시순번';
     register_reason_text : String(300) @title: '등록사유텍스트';
     approval_request_number : String(50) @title: '승인요청번호';
