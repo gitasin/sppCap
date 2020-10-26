@@ -4,6 +4,6 @@ namespace cm;
 
 service HrEmployeeMgrService {
 
-    entity HrEmployee as projection on hrEmployeeMgr.Hr_Emplyee; 
+    entity HrEmployee as projection on hrEmployeeMgr.Hr_Employee; 
 
 }
