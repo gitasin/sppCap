@@ -1,7 +1,8 @@
 using { cm as currency } from '../../../../db/cds/cm/currencyMgr/CM_CURRENCY-model';
 using { cm as currencyLng } from '../../../../db/cds/cm/currencyMgr/CM_CURRENCY_LNG-model';
-namespace cm;
 
+namespace cm;
+@path : '/cm.CurrencyMgrService'
 service CurrencyMgrService {
 
     entity Currency as projection on currency.Currency;
@@ -23,7 +24,7 @@ service CurrencyMgrService {
         l.currency_prefix,
         l.currency_suffix
     from currency.Currency as c 
-    left join currencyLng.Currency_Lng as l 
+    join currencyLng.Currency_Lng as l 
     on c.tenant_id = l.tenant_id and c.currency_code = l.currency_code
     ;
 }
