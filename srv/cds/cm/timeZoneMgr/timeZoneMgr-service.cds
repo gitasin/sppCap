@@ -4,6 +4,6 @@ namespace cm;
 
 service TimeZoneMgrService {
 
-    entity Message as projection on timeZoneMgr.Time_Zone; 
+    entity TimeZone as projection on timeZoneMgr.Time_Zone; 
 
 }
