@@ -4,7 +4,7 @@ namespace cm;
 
 service CountryMgrService {
 
-    entity Currency as projection on country.Country;
-    entity CurrencyLng as projection on countryLng.Country_Lng;
+    entity Country as projection on country.Country;
+    entity CountryLng as projection on countryLng.Country_Lng;
 
 }
