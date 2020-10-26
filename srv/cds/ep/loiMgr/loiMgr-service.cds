@@ -26,9 +26,7 @@ service LoiMgrService {
         join loiDtl.Loi_Dtl as dtl		
             on pub.tenant_id = dtl.tenant_id
             and pub.company_code = dtl.company_code
-            and pub.loi_publish_number = dtl.loi_publish_number
-        group by dtl.tenant_id, dtl.company_code, dtl.loi_write_number, 		
-                pub.purchase_manager_id, pub.publish_date,pub.vendor_code	
+            and pub.loi_publish_number = dtl.loi_publish_number	
 	;
 
 	view LOIRequestView as
