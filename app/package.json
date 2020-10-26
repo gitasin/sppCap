@@ -5,7 +5,7 @@
   "license": "ISC",
   "dependencies": {
     "@sap/approuter": "^8.5.4",
-    "@sap/html5-repo-mock": "^1.6.0"
+    "@sap/html5-repo-mock": "^1.7.0"
   },
   "cds": {
     "folders": {
