@@ -21,8 +21,7 @@ service CurrencyMgrService {
         l.currency_code_name,
         l.currency_code_desc,
         l.currency_prefix,
-        l.currency_suffix,
-        l.local_create_dtm
+        l.currency_suffix
     from currency.Currency as c 
     left join currencyLng.Currency_Lng as l 
     on c.tenant_id = l.tenant_id and c.currency_code = l.currency_code
