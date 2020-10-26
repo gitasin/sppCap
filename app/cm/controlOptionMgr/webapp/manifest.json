@@ -23,7 +23,15 @@
                     "odataVersion": "4.0",
                     "localUri": "localService/metadata.xml"
                 }
+            },
+            "codeService": {
+                "uri": "srv-api/odata/v4/cm.CodeMgrService/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "4.0"
+                }
             }
+
         },
         "crossNavigation": {
             "inbounds": {
@@ -104,7 +112,16 @@
                         }
                     }
                 }
-            }
+            },
+            "cc" : {
+                "dataSource": "codeService",
+                "preload": true,
+                "settings": {
+                    "operationMode": "Server",
+                    "synchronizationMode": "None",
+                    "autoExpandSelect": true
+                }
+            }            
         },
         "resources": {
             "css": [
