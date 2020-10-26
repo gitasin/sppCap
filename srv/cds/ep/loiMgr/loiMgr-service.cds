@@ -18,7 +18,7 @@ service LoiMgrService {
             dtl.tenant_id,	
             dtl.company_code,	
             dtl.loi_write_number,	
-            min(dtl.loi_item_number) as loi_item_number,	
+            // min(dtl.loi_item_number) as loi_item_number,	
             pub.purchase_manager_id,	
             pub.publish_date,	
             pub.vendor_code	
