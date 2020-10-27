@@ -6,12 +6,10 @@ using { cm as master } from './CM_CONTROL_OPTION_MST-model';
 entity Control_Option_Dtl {
     
     key tenant_id: String(4) not null @title: '테넌트ID';
-    key company_code: String(10) not null @title: '회사코드';
     key control_option_code: String(30) @title: '제어옵션코드';
     
     parent: Association to master.Control_Option_Mst
         on parent.tenant_id = tenant_id 
-        and parent.company_code = company_code 
         and parent.control_option_code = control_option_code;
 
     key control_option_level_code: String(30) not null @title: '제어옵션레벨코드';
