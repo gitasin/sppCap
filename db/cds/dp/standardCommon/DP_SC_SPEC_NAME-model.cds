@@ -1,4 +1,5 @@
 namespace dp;	
+using { User } from '@sap/cds/common';
 using {dp.Sc_Spec_Name as Spec_Name} from '../standardCommon/DP_SC_SPEC_NAME-model';	
 	
 entity Sc_Spec_Name {	

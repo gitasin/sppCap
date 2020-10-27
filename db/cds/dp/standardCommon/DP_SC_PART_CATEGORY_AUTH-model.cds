@@ -1,5 +1,6 @@
 namespace dp;	
-using {dp.Sc_Part_Category_Auth as Category_Auth} from '../standardCommon/DP_SC_PART_CATEGORY_AUTH-model';	
+using { User } from '@sap/cds/common';
+using {dp.Sc_Part_Category_Auth as Category_Auth} from '../standardCommon/DP_SC_PART_CATEGORY_AUTH-model';
 	
 entity Sc_Part_Category_Auth {	
   key tenent_id : String(5)  not null;	

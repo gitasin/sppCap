@@ -1,4 +1,5 @@
 namespace dp;	
+using { User } from '@sap/cds/common';
 using {dp.Sc_Uri_Link as ULink} from '../standardCommon/DP_SC_URI_LINK-model';	
 	
 entity Sc_Uri_Link {	
