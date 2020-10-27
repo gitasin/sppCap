@@ -15,7 +15,7 @@ entity Sc_Uri_Link {
     call_key3 : String(2000)  ;	
     call_key4 : String(2000)  ;	
     call_key5 : String(2000)  ;	
-    use_yn : Boolean default 0 ;	
+    use_yn : Boolean  ;	
     local_create_date : DateTime  ;	
     local_update_date : DateTime  ;	
     create_user_id : User not null @cds.on.insert: $user  ;	
