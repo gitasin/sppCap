@@ -23,26 +23,33 @@
 					<!--DynamicPage Header -->
 					<f:header>
 						<f:DynamicPageHeader pinnable="true">
-							<layout:HorizontalLayout>
+                            <layout:VerticalLayout
+                                    id="oVerticalContent"
+                                    width="100%">
+                                    <layout:content>                     
+                                    </layout:content>
+                            </layout:VerticalLayout>                           
+							<layout:HorizontalLayout>                          
 								<form:Form editable="true" width="100%">
 									<form:formContainers>
 										<form:FormContainer>
 											<form:formElements>
 												<form:FormElement label="체인">
 													<form:fields>
-                                                        <ComboBox id="comboBox_chain_code"
+                                                <ComboBox   id="search_chain_code"
                                                             selectedKey="CM"
-                                                            selectionChange="handleSelectionChange"
-                                                            selectionFinish="handleSelectionFinish"
-                                                            width="350px">
-                                                            <core:Item key="" text="전체"/>                                                            
-                                                            <core:Item key="CM" text="공통"/>
-                                                            <core:Item key="DP" text="개발구매"/>
-                                                            <core:Item key="EP" text="설비/공사 구매"/>
-                                                            <core:Item key="OP" text="조달구매"/>
-                                                            <core:Item key="PG" text="구매거버넌스"/>
-                                                            <core:Item key="SP" text="양산(전략)구매"/>                                                            
-                                                        </ComboBox>														
+                                                            items="{
+                                                                        path : 'cc>/CodeCombo',
+                                                                        filters : [
+                                                                            {path : 'tenant_id', operator : 'EQ', value1 : '1000'},
+                                                                            {path : 'company_code', operator : 'EQ', value1 : 'G100'},
+                                                                            {path : 'group_code', operator : 'EQ', value1 : 'CM_CHAIN_CD'},
+                                                                            {path : 'language_cd', operator : 'EQ', value1 : 'KO'}                                                                        
+                                                                        ]
+                                                                    }"
+                                                >
+                                                <core:Item key="{cc>code}" text="{cc>code_name}" />
+                                                </ComboBox>												
 													</form:fields>
 												</form:FormElement>
 												<form:FormElement label="제어옵션">
@@ -87,12 +94,20 @@
 											<form:formElements>
 												<form:FormElement label="유효여부">
 													<form:fields>
-														<ComboBox id="comboxUse">
-															<items>
-																<core:Item key="Y" text="Yes"/>
-                                                                <core:Item key="N" text="No"/>							
-															</items>
-														</ComboBox>
+                                                    <ComboBox   id="search_use_yn"
+                                                                selectedKey="Y"  
+                                                                items="{
+                                                                            path : 'cc>/CodeCombo',
+                                                                            filters : [
+                                                                                {path : 'tenant_id', operator : 'EQ', value1 : '1000'},
+                                                                                {path : 'company_code', operator : 'EQ', value1 : 'G100'},
+                                                                                {path : 'group_code', operator : 'EQ', value1 : 'CM_YN'},
+                                                                                {path : 'language_cd', operator : 'EQ', value1 : 'KO'}                                                                        
+                                                                            ]
+                                                                        }"
+                                                    >
+                                                        <core:Item key="{cc>code}" text="{cc>code_name}" />
+                                                    </ComboBox>
 													</form:fields>
 												</form:FormElement>
 												<form:FormElement label="로그인"> 
@@ -110,7 +125,7 @@
 							</layout:HorizontalLayout>
 							<HBox width="100%" alignItems="Center" alignContent="End" justifyContent="End">
 								<items>
-									<Button text="검색" press=".onSearch" icon="sap-icon://search"/>
+									<Button text="Search" press=".onSearch" icon="sap-icon://search"  type="Transparent"/>
 								</items>
 							</HBox>
 						</f:DynamicPageHeader>
@@ -127,21 +142,22 @@
                             		parameters : {
                                         $count : true,
 						                $$updateGroupId : 'MainUpdateGroup'
-					              }
+					              },
+                                  filters : [{path : 'tenant_id', operator : 'EQ', value1 : '0000'}],
+                                  sorter: { path: 'control_option_code'}
                             }"
                             cellClick=".onCellClick"                   
                             visibleRowCount="7"  
-                                      
-                            rowSelectionChange = ".onCheck"                 
+                            rowSelectionChange = ".onCheck('mainList')"                 
                             ariaLabelledBy="title">
-
 								<table:extension>
-									<OverflowToolbar class="sapFDynamicPageAlignContent"> 
-									<ToolbarSpacer/>
-									<Button text="행추가" id="buttonMainAddRow" press=".onCreateRow" enabled="{=${ui>/bAdd}}" icon="sap-icon://add"  type="Accept"/>
-									<Button text="행복사" id="buttonMainCopyRow" press=".onCopyRow" enabled="{=${ui>/bCopy}}" icon="sap-icon://copy" />									
-									<Button text="행삭제" id="buttonMainDeleteRow" press=".onDelete" enabled="{=${ui>/bDelete}}" type="Reject" />
-                                    <Button text="저장"   id="buttonMainSaveRow" press=".onSave" enabled="{=${ui>/bSave}}" icon="sap-icon://save" />									
+									<OverflowToolbar class="sapFDynamicPageAlignContent"> 									
+                                    <ToolbarSpacer/>
+									<Button text="Create" id="buttonMainCreateRow" press=".onCreateRow('mainList')"  type="Transparent"/>
+									<Button text="Copy" id="buttonMainCopyRow" press=".onCopyRow"   type="Transparent"/>									
+									<Button text="Delete" id="buttonMainDeleteRow" press=".onDelete('mainList')"   type="Transparent"/>
+                                    <Button text="Save"   id="buttonMainSaveRow" press=".onSave('mainList')"   type="Transparent"/>									
+                                    <Button text="Cancel" id="buttonMainCancel" press=".onCancelChanges('mainList')"  type="Transparent"/>                                    
                                     <!-- enabled="{ui>/bMainSelected}" -->
 								</OverflowToolbar>
 								</table:extension>
@@ -170,15 +186,22 @@
 									</table:Column>
 									<table:Column width="12rem" hAlign="Center">
                                         <Label text="제어옵션코드"/>
-										<table:template>
-                                            <Label text="제어옵션코드" />
-                                            <Input id="control_option_code" value="{control_option_code}" placeholder="제어옵션코드 필수."/>                                             
+										<table:template>                                           
+                                            <Input id="control_option_code" 
+                                                   value="{control_option_code}"
+                                                   valueLiveUpdate="true"
+                                                   liveChange=".onInputChange"
+                                                   placeholder="제어옵션코드 필수."/>                                             
 										</table:template>                                        
 									</table:Column>
 									<table:Column  width="12rem" hAlign="Center">                                        
                                             <Label text="제어옵션명"/>           
 										<table:template>
-                                            <Input id="control_option_name" value="{control_option_name}"  placeholder="제어옵션명 필수."/> 
+                                            <Input id="control_option_name" 
+                                            value="{control_option_name}"  
+                                            valueLiveUpdate="true"
+                                            liveChange=".onInputChange"
+                                            placeholder="제어옵션명 필수."/> 
 										</table:template>
 									</table:Column>
 									<table:Column  width="4rem" hAlign="Center">                                        
@@ -232,13 +255,13 @@
 									<table:Column width="12rem" hAlign="Center">
 										<Label text="유효시작일자"/>
 										<table:template hAlign="Center">
-											<DatePicker	id="dateStartdate" value="{start_date}"  />
+											<DatePicker	value="{start_date}" displayFormat="yyyy-MM-dd"/>
 										</table:template>
 									</table:Column>
 									<table:Column width="12rem" hAlign="Center">
 										<Label text="유효종료일자" />
 										<table:template>
-											<DatePicker	id="dateEnddate" value="{end_date}" />
+											<DatePicker	value="{end_date}"  displayFormat="yyyy-MM-dd"/>
 										</table:template>
 									</table:Column>
 								</table:columns>
@@ -250,67 +273,78 @@
                                                     $count : true,                                                    
                                                     $$updateGroupId : 'SubUpdateGroup'
                                                  },
-                                                 filters : [{path : 'tenant_id', operator : 'EQ', value1 : '1'}],
+                                                 filters : [{path : 'control_option_code', operator : 'EQ', value1 : '0000'}],
+                                                 sorter: { path: 'control_option_code'},
                                                  events : {dataReceived : '.onDataEvents'}
-                                         
+                     
                                          }"
-                                         rowSelectionChange = ".onCheck"   
+                                         rowSelectionChange = ".onCheck('subList')"   
                                          selectionMode="MultiToggle"  
                                          visibleRowCount="7"                                         
                                          paste="on-paste"
                                          ariaLabelledBy="title">
 								<table:extension>
 									<OverflowToolbar class="sapFDynamicPageAlignContent">
-									<ToolbarSpacer/>                         
-									<Button text="행추가" id="buttonSubAddRow" press=".onCreateRow"  enabled="{=${ui>/bSelect}}" icon="sap-icon://add" type="Accept"/>									
-									<Button text="행삭제" id="buttonSubDeleteRow" press=".onDelete"  enabled="{=${ui>/bSubCheck}}" type="Reject"/>
-                                    <Button text="저장"   id="buttonSubSaveRow" press=".onSave"  enabled="{=${ui>/bSelect}}" icon="sap-icon://save"/>									
+									<ToolbarSpacer/>   
+									<Button text="Create" id="buttonSubAddRow" press=".onCreateRow('subList')"  type="Transparent"/>									
+									<Button text="Delete" id="buttonSubDeleteRow" press=".onDelete('subList')"   type="Transparent"/>
+                                    <Button text="Save"   id="buttonSubSaveRow" press=".onSave('subList')"   type="Transparent"/>									
+                                    <Button text="Cancel" id="buttonSubCancel" press=".onCancelChanges('subList')"   type="Transparent"/>                                                          
 								</OverflowToolbar>
 								</table:extension>
-								<table:columns>
-
-								    <table:Column  width="0rem" hAlign="Center" >                                        
-                                            <Label text="tenant_id"/>           
-										<table:template>
-											<Input id="sub_tenant_id" value="{tenant_id}"/> 
-										</table:template>
-									</table:Column>
-                                
-								    <table:Column  width="0rem" hAlign="Center">                                        
-                                            <Label text="company_code"/>           
-										<table:template>
-											<Input id="sub_company_code" value="{company_code}"/>  
-										</table:template>
-									</table:Column>
+								<table:columns>								   
 									<table:Column width="0rem" hAlign="Center">
                                         <Label text="제어옵션코드"/>
 										<table:template>
                                             <Label text="제어옵션코드" />
-                                            <Input id="sub_control_option_code" value="{control_option_code}"/>                                             
+                                            <Input id="sub_control_option_code"  
+                                                   value="{control_option_code}"
+                                            />                                             
 										</table:template>                                        
 									</table:Column>                              
 									<table:Column width="12rem" hAlign="Center">
                                         <Label text="LEVEL"/>
 										<table:template>
-                                            <Input id="control_option_level_code" value="{control_option_level_code}"/>											
+                                            <Input id="control_option_level_code" 
+                                                   value="{control_option_level_code}"
+                                                   valueLiveUpdate="true"
+                                                   liveChange=".onInputChange"                                                   
+                                                   placeholder="LEVEL 필수"
+                                            />											
 										</table:template>
 									</table:Column>
 									<table:Column  width="12rem" hAlign="Center">
-                                            <Label text="LEVEL 값"/>             
+                                        <Label text="LEVEL 값"/>             
 										<table:template>
-                                            <Input id="control_option_level_val" value="{control_option_level_val}"/>
+                                            <Input id="control_option_level_val"
+                                                   valueLiveUpdate="true"
+                                                   liveChange=".onInputChange"             
+                                                   value="{control_option_level_val}"
+                                            />
 										</table:template>
 									</table:Column>                                    
 									<table:Column width="15rem" hAlign="Center">
 										<Label text="제어옵션값"/>
 										<table:template>
-                                            <Input id="control_option_val" value="{control_option_val}"/>
+                                            <Input id="control_option_val"                                             
+                                            valueLiveUpdate="true"
+                                            liveChange=".onInputChange" 
+                                            value="{control_option_val}"
+                                            />
 										</table:template>
 									</table:Column>
 								</table:columns>
 							</table:Table>
+                            
 						</VBox>
-					</f:content>
+   
+                    </f:content>
 					<!-- DynamicPage Footer -->
-				</f:DynamicPage>	</App>
+				<f:footer>
+					<OverflowToolbar>
+						<ToolbarSpacer/>								
+					</OverflowToolbar>
+				</f:footer>                    
+			</f:DynamicPage>	
+        </App>
 </mvc:View>

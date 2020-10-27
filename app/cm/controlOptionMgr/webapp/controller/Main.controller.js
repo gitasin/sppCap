@@ -4,18 +4,23 @@
  * 1. view 화면에서 호출되는 function @public
  * 2. controller 내부에서 사용되는 function @private
  * 3. 첫 검색이후 행추가 버튼 활성화 
+ * 4. 취소 버튼 활성화는 필수값에 대한 수정이 있을때 반응.
   
  * Issue : 
- * 1. ODATA4 형식에서 직접 바인딩한 날짜 값들의 형식을 지켜야 하기때문에 저장시 해당 형태로 
+ * 완료 : 1. ODATA4 형식에서 직접 바인딩한 날짜 값들의 형식을 지켜야 하기때문에 저장시 해당 형태로 
  * Date 형태로 입력해야하며 이때 발생하는 System Date 값도 전달 되는 이슈가 있습니다.  
+ * cds 에서 처리 완료.
  *  
  * 2. 삭제할 아이템 선택과 수정한 데이타 동시 저장시 group id 지정 및 auto 시도시 실패 
  * 현재는 별도의 액션 처리로 수정, 삭제를 별도로 처리 합니다. 
+ * 
+ * 3. tenant_id, company_code 등 고정 값으로 등록된 값은 검색값으로 변경  
  * Remaining work :
- * 1. i18n 작업
- * 2. 조회 폼 작업
- * 3. 조회결과값에 대한 mainList 필터 작업
- * 4. hasUIChanges 작업
+ *  1. i18n 작업 ref function : _setMessage
+ *  2. 조회 폼 작업
+ *  3. 조회결과값에 대한 mainList 필터 작업
+ *  4. hasUIChanges 작업
+ * 4. 하위 데이타를 삭제하면 부모 데이타도 동시에 삭제됨.
  */
 sap.ui.define([        
         "sap/base/Log",
@@ -30,39 +35,89 @@ sap.ui.define([
         "sap/ui/model/json/JSONModel",
         "sap/ui/table/RowSettings",
         "sap/ui/thirdparty/jquery",
-        "sap/m/Token"
-    ], function (Log, MessageBox, MessageToast, DateFormat, Controller, Filter, FilterOperator, FilterType, Sorter, JSONModel, RowSettings, jquery, Token) {
+        "sap/m/Token",        
+        "sap/m/MessageStrip",
+        "sap/ui/core/InvisibleMessage", 
+        "sap/ui/core/library"
+    ], function (Log, MessageBox, MessageToast, DateFormat, Controller, Filter, FilterOperator, FilterType, Sorter, JSONModel, RowSettings, jquery, Token, MessageStrip, InvisibleMessage, library) {
         "use strict";
+        var InvisibleMessageMode = library.InvisibleMessageMode;
 		return Controller.extend("cm.controlOptionMgr.controller.Main", {  
 
+           	onInit: function () {  
+                // Note : 초기 i18n 누락으로 인한 오류메세지 삭제용 입니다.  
+                // 초기 에러 확인이 필요할시 삭제 
+                //console.clear();       
+                console.group("onInit");
 
-           	onInit: function () {
-                console.clear();
+                //message 를 정의. 
+                this._setMessage();
 
+                //view 에서 사용할 기본정보 셋팅. 
                 this._createView();
+
+                //작업진행중 에러 상태
                 this._bTechnicalErrors = false; 
-                console.groupEnd();
-                
+
                 //검색 컨트롤
                 this._searchControlInit();
+
+                console.groupEnd();
             },
 
             /**
-             * @private i18n Message control
-             * @param {*} sTextId 
-             * @param {*} aArgs 
+             * Note : controller.js 내부에서 사용될 메세지를 정의 합니다. (i18n 구성이후 변경)
+             * @private
              */
-            _getText : function (sTextId, aArgs) {
-                return this.getOwnerComponent().getModel("i18n").getResourceBundle().getText(sTextId, aArgs);
+            _setMessage : function() {
+                console.group("_setMessage");
+                this.errorHasUIChangesSave = "상세 테이블에서 저장하지 않은 변경 내용이 있습니다. [취소] 또는 상세 [저장] 이후 항목 을 선택할수 있습니다.";
+                this.errorIsHasUIChangesCancelSave = "저장되지 않은 수정 작업이 모두 취소 됩니다.";
+                this.confirmCancelSave = "저장되지 않은 수정 작업이 모두 취소 됩니다.";
+                this.confirmCancelTitle = "취소 확인";
+                this.sucessCancel = "취소가 성공 하였습니다.";
+                this.errorSubHasUIChangeCreateRow = "상세 테이블에서 저장하지 않은 변경 내용이 있습니다. 변경 내용을 저장후 행추가 가능합니다.";
+                this.errorUIChangeCopyRow = "상세 테이블에서 저장하지 않은 변경 내용이 있습니다. 변경 내용을 저장후 행복사 가능합니다."
+                this.errorCheckChangeCopyRow = "행복사는 선택 항목이 하나여야 합니다.";
+                this.errorCheckChangeCopyRowTitle = "항목 선택 오류";
+                this.errorDeleteRowChooice = "삭제할 항목을 선택해야 합니다.";
+                this.confirmAllDeleteRow = "선택된 항목을 삭제 하시 겠습니까? 하위 등록된 데이타도 같이 삭제 됩니다.";
+                this.confirmDeleteRow = "선택된 항목을 삭제 하시 겠습니까?";
+                this.confirmDeleteRowTitle = "삭제 확인";
+                this.sucessDelete = "삭제가 성공 하였습니다.";
+                this.sucessSave = "저장이 성공 하였습니다.";
+                this.noChangeContent = "수정한 내용이 없습니다.";
+                this.confirmSave = "저장 하시 겠습니까?";
+                this.confirmSaveTitle = "저장 확인";                
+                console.groupEnd();
             },
-   
+  
            
             /**
+             * Note : View 에 있는 버튼 상태 컨트롤 각종 액션 처리 상태에 따라 활성화와 비활성화 상태값을 설정.
              * @private
-             * @see View 에 있는 버튼 상태 컨트롤 각종 액션 처리 상태에 따라 활성화와 비활성화 상태값을 설정.
              */
-            _setButtonState : function (){
-                console.group("_setButtonState");
+            _setButtonState : function (){                
+                //console.group("_setButtonState");
+
+                //업무조건에 따라 활성화와 비활성화를 결정 합니다. 
+                //업무확인후 추가 작업 필요함.    
+                
+                //main
+                // enabled="{=${ui>/bAdd}}"
+                // enabled="{=${ui>/bCopy}}"						
+                // enabled="{=${ui>/bDelete}}"
+                // enabled="{=${ui>/bSave}}" 							
+                // enabled="{=${ui>/hasMainUIChanges}}"    
+
+                //sub
+                // enabled="{=${ui>/bSelect}}"
+                // enabled="{=${ui>/bSubCheck}}"
+                // enabled="{=${ui>/bSelect}}"
+                // enabled="{=${ui>/hasSubUiChanges}}"
+        
+                return;
+                
                 var oUiModel = this.getModel("ui"),
                     oTable= this.getView().byId("mainList"); 
                 /**
@@ -88,7 +143,7 @@ sap.ui.define([
                 */
                 var bSelect = oUiModel.getProperty("/bSubListTrue"),
                     bSearch =  oUiModel.getProperty("/bSearch"); 
-                
+
                 //row를 선택한 상태
                 if(bSearch==true){
                     oUiModel.setProperty("/bAdd", true); 
@@ -131,9 +186,9 @@ sap.ui.define([
             },
 
             /**
+             * subList 에서 dataReceived 발생 이벤트
              * @public 
              * @param {*} oEvent 
-             * @see subList 에서 dataReceived 발생 이벤트
              */
             onDataEvents : function (oEvent) {
                 console.group("onDataEvents");
@@ -161,61 +216,98 @@ sap.ui.define([
             },         
  
              /**
+             *  view에서 사용할 객체를 생성합니다.
              * @private
-             * @see view에서 사용할 객체를 생성합니다.
              */
             _createView : function() {
                 console.group("_createView");
+                
+                this.oInvisibleMessage = InvisibleMessage.getInstance();
 
                 var oView = this.getView();
                 var oUiModel = new JSONModel({ 
                             filterCommonID : "",
                             filterValue : "",
-                            hasUIChanges : false,  
+                            hasUIChanges : false,
+                            hasMainUIChanges : false,
+                            hasSubUiChanges : false,  
                             bSearch : false,
-                            bAdd : false,
-                            bDelete : false,                                                    
-                            bCopy : false,
-                            bSelect : false,
-                            bCheck : false,
+                            bAdd : true,
+                            bDelete : true,                                                    
+                            bCopy : true,
+                            bSelect : true,
+                            bCheck : true,
                             subListCount : 0,
                             bSubCheck : false,
                             bSubListTrue : false                                                        
                 });     
                 
+                //선택값과 필수값을 저장 및 체크 합니다. 
                 var oMainModel = new JSONModel({ 
                             data : [],
-                            selectrow : []
+                            selectrow : [],
+                            control_option_codeEmpty : true, 
+                            control_option_nameEmpty : true
                 });  
 
                 var oSubModel = new JSONModel({ 
                             data : [],
-                            selectrow : []
+                            selectrow : [],
+                            control_option_level_codeEdit : true,
+                            control_option_valEdit : true
                 });                  
 
                 this.setModel(oUiModel, "ui");     
                 this.setModel(oMainModel, "mainModel");     
                 this.setModel(oSubModel, "subModel"); 
-
                 console.groupEnd();
-            },      
+            },
 
             /**
+             * 검색
+             * Note : code master를 활용하여 검색을 구성합니다. 체인과 사용여부만 작업
              * @public
-             * @see 검색
              */
             onSearch : function () {
                 console.group("onSearch");
 
-                var oUiModel = this.getModel("ui");
-                    oUiModel.setProperty("/bSearch", true);
+                //체인
+                //this.byId("search_chain_code").getSelectedItem().getKey();
+
+                var oUiModel = this.getModel("ui"),
+                    mainListBinding = this.byId("mainList").getBinding("rows"),
+                    subListBinding = this.byId("mainList").getBinding("rows"); 
+
+                oUiModel.setProperty("/bSearch", true);
+
+                //검색값 작업해야함. 체인,공통,제어옵션,회사 ,제어옵션명,조직,역할,유효여부,로그인
+                var oFilter1 = new Filter("tenant_id", FilterOperator.EQ, "1000"),   
+                    oFilter2 = new Filter("company_code", FilterOperator.EQ, "G100"),
+                    oSubFilter = new Filter("tenant_id", FilterOperator.EQ, "0000");   
+
+                this.getView().setBusy(true);
+
+                mainListBinding.resetChanges();
+                subListBinding.resetChanges();
+                
+                mainListBinding.filter([                
+                    oFilter1,
+                    oFilter2
+                ]);
+
+                // subListBinding.filter([                
+                //     oSubFilter
+                // ]);  
                 this._setButtonState();
+
+                this.getView().setBusy(false);
+                
                 console.groupEnd();
             },
             /**
+             *  mainList row select event
              * @public
              * @param {*} oEvent 
-             * @see mainList row select event
              */
             onCellClick : function (oEvent) {       
                 console.group("onCellClick");
@@ -228,7 +320,8 @@ sap.ui.define([
 
                 var oBinding = oSubList.getBinding("rows");
                 if (oBinding.hasPendingChanges()) {
-                    MessageToast.show("상세 테이블에서 저장하지 않은 변경 내용이 있습니다. 항목 을 선택할수 있습니다.");
+                    //MessageToast.show(this.errorHasUIChangesSave);
+                    this._showMsgStrip("e", this.errorHasUIChangesSave);
                     return;
                 }
                                 
@@ -286,51 +379,200 @@ sap.ui.define([
             },
 
             /**
+             * 항목 (mainList 체크박스) 선택시 발생하는 이벤트 
              * @param {*} oEvent 
-             * @see 항목 (mainList 체크박스) 선택시 발생하는 이벤트 
              */
-            onCheck : function(oEvent) {
+            onCheck : function(tableType) {
                 console.group("onCheck");
-                var oTable = this.byId("mainList"),
+
+                var tableName = tableType,                
                     oUiModel = this.getModel("ui"),
-                    bSubCheck;
+                    bSub = false,
+                    oTable,
+                    that = this;
 
-                //main과 sub를 구분합니다.      
-                if(oEvent.getSource().sId.indexOf("mainList") < 0){
-                    oTable = this.byId("subList");                    
-                    bSubCheck = true;
-                }else{
-                    //main에서의 체크 
-                    oUiModel.setProperty("/bCheck", true);
-                }
-                
-                var oBinding = oTable.getBinding("rows"),
-                    oModel,                      
-                    oSelectedRow;
-                    
-                if(oEvent.getParameter("rowContext")=="undefined") {                  
-                    return;
-                }
 
-                if(bSubCheck){
+                if(tableName!="mainList"){ bSub = true; } else {  oUiModel.setProperty("/bCheck", true); }
+                console.log("tableName: " + tableName);
+                oTable = this.byId(tableName);
+
+                if(bSub) {
                     console.log("subList row change event");
-                    oSelectedRow = oEvent.getParameter("rowContext");                    
-                    oModel = oSelectedRow.getObject();
-                    oUiModel.setProperty("/bSubCheck", bSubCheck);
-
-                }else{
+                    oUiModel.setProperty("/bSubCheck", bSub);
+                } else {
                     console.log("mainList row change event");
                 }
 
                 this._setButtonState();
                 console.groupEnd();
-                 
             },
             
             /**
-             * @public 
-             * @see 행복사 :  리스트 내용중 체크된 항목이 하나일때만 반응 ref :  onChangeRow
+             * today
+             * @private
+             * @return yyyy-mm-dd
+             */
+            _getToday : function(){
+                var date_ob = new Date();
+                var date = ("0" + date_ob.getDate()).slice(-2);
+                var month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+                var year = date_ob.getFullYear();
+
+                console.log(year + "-" + month + "-" + date);
+                return year + "-" + month + "-" + date;
+            },
+            
+            /**
+             * UTC 기준 DATE를 반환합니다.
+             * @private
+             * @return "yyyy-MM-dd'T'HH:mm:ss"
+             */
+            _getUtcSapDate : function(){
+                var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
+                    pattern: "yyyy-MM-dd'T'HH:mm"
+                });
+                
+                var oNow = new Date();
+                var utcDate = oDateFormat.format(oNow)+":00Z"; 
+                console.log("utcDate",utcDate);
+                return utcDate;
+            },
+                      
+            /**
+             * 작업 취소버튼 클릭시 발생 ref : onInputChange
+             * @param {mainlist, sublist} tableType 
+             */
+            onCancelChanges : function (tableType) {
+                console.group("onCancelChanges");
+              
+                var tableName = tableType,
+                    bSub = false,
+                    that = this;
+               
+                console.log("tableName: " + tableName);
+
+                if(tableName!="mainList"){ bSub = true; }
+
+                MessageBox.confirm(this.errorIsHasUIChangesCancelSave, {
+                    title: this.confirmCancelTitle,
+                    initialFocus: sap.m.MessageBox.Action.CANCEL,
+                    onClose: function (sButton) {
+                        if (sButton === MessageBox.Action.OK) {
+                            if(!bSub){
+                                that.getView().getModel().resetChanges("MainUpdateGroup");
+                            } else {
+                                that.getView().getModel().resetChanges("SubUpdateGroup");         
+                            }
+                            
+                            //MessageToast.show(this.sucessCancel);
+                            that._setUIChanges(null, false);
+                            that._showMsgStrip("s", that.sucessCancel);
+
+                        } else if (sButton === MessageBox.Action.CANCEL) {
+                            return;
+                        };
+                    }
+                });          
+
+                console.groupEnd();
+            },
+
+            /**
+             * table 행추가, 신규 Row
+             * @public
+             * @param {mainlist, sublist} tableType 
+             */
+            onCreateRow : function (tableType) {
+                console.group("onCreate");   
+              
+                var tableName = tableType,
+                    bSub = false,
+                    oContext,
+                    that = this;
+               
+                console.log("tableName: " + tableName);
+
+                if(tableName!="mainList"){ bSub = true; }
+
+                var oUiModel = this.getModel("ui"), 
+                    oTable = this.byId(tableName);
+
+                var oBinding = oTable.getBinding("rows"),
+                    today = this._getToday(),
+                    utcDate = this._getUtcSapDate(); 
+
+                if(!bSub){
+                    if (oBinding.hasPendingChanges()) {
+                        this._showMsgStrip("e", this.errorSubHasUIChangeCreateRow);
+                        //MessageToast.show(this.errorSubHasUIChangeCreateRow);
+                        return;
+                    }
+
+                    oContext = oBinding.create({
+                        "tenant_id": "1000",
+                        "company_code": "G100",
+                        "control_option_code": "",
+                        "chain_code": "CM",
+                        "control_option_name": "",
+                        "start_date": this._getToday(),
+                        "end_date": "9999-12-31",
+                        "site_yn": false,
+                        "company_yn": false,
+                        "role_yn": false,
+                        "organization_yn": false,
+                        "user_yn": false,
+                        "local_create_dtm": utcDate,
+                        "local_update_dtm": utcDate,
+                        "update_user_id": "Admin"
+                    });
+
+                }else{
+                
+                    //사용자가 행을 추가 했음을 알려준다. 
+                    this._setUIChanges(null, false); 
+
+                    var oMainModel = this.getModel("mainModel"),
+                        oView = this.getView(),
+                        oSubList = this.byId("subList");                
+
+                        oContext = oBinding.create({
+                            "tenant_id": oMainModel.getProperty("/selectrow/tenant_id"),
+                            "company_code": oMainModel.getProperty("/selectrow/company_code"),
+                            "control_option_code": oMainModel.getProperty("/selectrow/control_option_code"),                    
+                            "control_option_level_code": "",
+                            "control_option_level_val": "",
+                            "control_option_val": "",
+                            "local_create_dtm": utcDate,
+                            "local_update_dtm": utcDate,
+                            "update_user_id": "Admin"
+                        });                    
+                }
+
+                this.getView().setBusy(true);
+
+                oContext.created().then(function () {
+                    oBinding.refresh();                    
+                });
+
+                //focus 이동
+                oTable.getRows().some(function (oRows) {
+                    if (oRows.getBindingContext() === oContext) {
+                        oRows.focus();
+                        oRows.setSelected(true);       
+                        return true;
+                    }
+                });
+                if(!bSub){
+                    that._subListFilter(); 
+                }
+                this.getView().setBusy(false);
+                console.groupEnd();
+            },
+
+            /**
+             *행복사 :  리스트 내용중 체크된 항목이 하나일때만 반응 ref :  onChangeRow
              * site_yn, company_yn, role_yn, organization_yn, user_yn 컬럼은 복사하지 않습니다.
+             * @public 
              */
             onCopyRow : function (oEvent) {
                 console.group("onCopyRow");
@@ -343,10 +585,15 @@ sap.ui.define([
 
                 console.log("indices", indices);
         
+                if (this.byId("subList").getBinding("rows").hasPendingChanges()) {
+                    this._showMsgStrip("e", this.errorUIChangeCopyRow);
+                    return;
+                }
+
                 if(indices.length>1){
-                    MessageBox.show("행복사는 선택 항목이 하나여야 합니다.", {
+                    MessageBox.show(this.errorCheckChangeCopyRow, {
                         icon: MessageBox.Icon.ERROR,
-                        title: "항목 선택 오류",
+                        title: this.errorCheckChangeCopyRowTitle,
                         actions: [MessageBox.Action.OK],
                         styleClass: "sapUiSizeCompact"
                     });
@@ -367,139 +614,12 @@ sap.ui.define([
                         "organization_yn": false,
                         "user_yn": false,
                         "local_create_dtm": utcDate,
-                        "local_update_dtm": utcDate,
-                        "create_user_id": "Admin",
-                        "update_user_id": "Admin",
-                        "system_create_dtm": utcDate,
-                        "system_update_dtm": utcDate
+                        "local_update_dtm": utcDate
                 });
                 
                 oTable.clearSelection();
 
-                oContext.created().then(function () {
-                    oBinding.refresh();
-                });
-
-                //focus 이동
-                oTable.getRows().some(function (oRows) {
-                    if (oRows.getBindingContext() === oContext) {
-                        oRows.focus();
-                        oRows.setSelected(true);
-                        return true;
-                    }
-                });
-
-                oContext.created().then(function () {
-                    oBinding.refresh();
-                });
-
-                console.groupEnd();
-            },
-
-            /**
-             * @private
-             * @see today 
-             * @return yyyy-mm-dd
-             */
-            _getToday : function(){
-                var date_ob = new Date();
-                var date = ("0" + date_ob.getDate()).slice(-2);
-                var month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
-                var year = date_ob.getFullYear();
-
-                console.log(year + "-" + month + "-" + date);
-                return year + "-" + month + "-" + date;
-            },
-            
-            /**
-             * @private
-             * @scc UTC 기준 DATE를 반환합니다.
-             * @return "yyyy-MM-dd'T'HH:mm:ss"
-             */
-            _getUtcSapDate : function(){
-                var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
-                    pattern: "yyyy-MM-dd'T'HH:mm"
-                });
-                
-                var oNow = new Date();
-                var utcDate = oDateFormat.format(oNow)+":00Z"; 
-                console.log("utcDate",utcDate);
-                return utcDate;
-            },
-  
-            /**
-             * @public
-             * @param {*} oEvent 
-             * @see table 행추가, 신규 Row
-             */
-            onCreateRow : function (oEvent) {
-                console.group("onCreate");   
-
-                var tableName="mainList",
-                    bSub = false,
-                    oContext;
-                    
-                if(oEvent.getSource().sId.indexOf("buttonSubAddRow")>-1){
-                    tableName = "subList";
-                    bSub = true;
-                }
-               
-                console.log("tableName: " + tableName);
-
-                var oUiModel = this.getModel("ui"), 
-                    oTable = this.byId(tableName);
-
-                var oBinding = oTable.getBinding("rows"),
-                    today = this._getToday(),
-                    utcDate = this._getUtcSapDate(); 
-
-                //mainTable Create Row
-                //system_create_dtm 확인해야함
-                //subTable Crate Row
-                if(!bSub){
-
-                    oContext = oBinding.create({
-                        "tenant_id": "1000",
-                        "company_code": "G100",
-                        "control_option_code": "",
-                        "chain_code": "CM",
-                        "control_option_name": "",
-                        "start_date": this._getToday(),
-                        "end_date": "9999-12-31",
-                        "site_yn": false,
-                        "company_yn": false,
-                        "role_yn": false,
-                        "organization_yn": false,
-                        "user_yn": false,
-                        "local_create_dtm": utcDate,
-                        "local_update_dtm": utcDate,
-                        "create_user_id": "Admin",
-                        "update_user_id": "Admin",
-                        "system_create_dtm": utcDate,
-                        "system_update_dtm": utcDate
-                    });
-                    
-                }else{
-                
-                    var oMainModel = this.getModel("mainModel"),
-                        oView = this.getView(),
-                        oSubList = this.byId("subList");                
-
-                        oContext = oBinding.create({
-                            "tenant_id": oMainModel.getProperty("/selectrow/tenant_id"),
-                            "company_code": oMainModel.getProperty("/selectrow/company_code"),
-                            "control_option_code": oMainModel.getProperty("/selectrow/control_option_code"),                    
-                            "control_option_level_code": "",
-                            "control_option_level_val": "",
-                            "control_option_val": "",
-                            "local_create_dtm": utcDate,
-                            "local_update_dtm": utcDate,
-                            "create_user_id": "Admin",
-                            "update_user_id": "Admin",
-                            "system_create_dtm": utcDate,
-                            "system_update_dtm": utcDate
-                        });                    
-                }
+                this.getView().setBusy(true);
 
                 oContext.created().then(function () {
                     oBinding.refresh();
@@ -512,55 +632,68 @@ sap.ui.define([
                         oRows.setSelected(true);
                         return true;
                     }
-
                 });
 
-                console.groupEnd();
-            },
+                this.getView().setBusy(false);
 
+                console.groupEnd();
+            },            
             /**             
              * @public
-             * @param {
-             * } oControlEvent 
+             * @param {mainlist, sublist} tableType 
              */
-            onDelete : function (oControlEvent) {
+            onDelete : function (tableType) {
                 console.group("onDelete");
 
-                var oTable;
-                
-                if(oControlEvent.getSource().sId.indexOf("buttonSubDeleteRow")>-1){
-                    oTable = this.byId("subList");
-                    console.log("subList Row Delete Button Click");                    
-                }else{
-                    oTable = this.byId("mainList");
-                    console.log("mainList Row Delete Button Click");                    
-                }
+                var tableName = tableType,
+                    oTable,
+                    bSub = false,
+                    that = this;
+
+                if(tableName!="mainList") { bSub = true; }
+
+                    oTable = this.byId(tableType);           
                  
                 var indices = oTable.getSelectedIndices();  
                 if(indices.length<1){
-                    MessageBox.show("삭제할 항목을 선택해야 합니다.", {
+                    MessageBox.show(this.errorDeleteRowChooice, {
                         icon: MessageBox.Icon.ERROR,
-                        title: "항목 선택 오류",
+                        title: this.errorCheckChangeCopyRowTitle,
                         actions: [MessageBox.Action.OK],
                         styleClass: "sapUiSizeCompact"
                     });
 
                 }else{
 
-                    MessageBox.confirm("선택된 항목을 삭제 하시 겠습니까?", {
-                        title : "삭제 확인",
+                    var msg = this.confirmAllDeleteRow;
+                    if(!bSub){
+                        msg = this.confirmDeleteRow;
+                    }
+
+                    MessageBox.confirm(msg, {
+                        title : this.confirmDeleteRowTitle,                        
                         initialFocus : sap.m.MessageBox.Action.CANCEL,
                         onClose : function(sButton) {
                             if (sButton === MessageBox.Action.OK) {
                                 for (var i = 0; i < indices.length; i++) {
                                     var idx = indices[i];     
                                     if (oTable.isIndexSelected(idx)) { 
+                                        that.getView().setBusy(true);
                                         oTable.getContextByIndex(idx).delete("$auto").then(function () {   
-                                                MessageToast.show("삭제가 성공 하였습니다.");
-                                                oTable.clearSelection();
+                                            
+                                            //Note : 실제 하위 데이타 삭제 프로세스가 있으면 하위 과정은 생략해도 된다. 
+                                            if(!bSub){
+                                                 that._subListFilter();    
+                                            }
+                                            that._showMsgStrip("s", that.sucessDelete);
+                                        
+                                            //MessageToast.show(this.sucessDelete);
+                                            
+                                            oTable.clearSelection();  
                                         }.bind(this), function (oError) {
                                             MessageBox.error(oError.message);
                                         });
+                                        that.getView().setBusy(false);
                                     }
                                 }
                             } else if (sButton === MessageBox.Action.CANCEL) {
@@ -573,9 +706,9 @@ sap.ui.define([
 		    },
 
             /**
+             * subList 테이블 아이템을 바인딩 한다. 
              * @private
              * @param {*} oMainListContext rowIndex
-             * @see subList 테이블 아이템을 바인딩 한다. 
              */
             _onSubListBinding : function (rowIndex){
                 console.group("_onSubListBinding");
@@ -603,23 +736,104 @@ sap.ui.define([
                     ]);
 
                 console.groupEnd();
-            },
+            },  
 
             /**
-             * @private
-             * @param {*} bHasUIChanges 
-             * @see Ui에서의 수정사항이 있는지 체크 합니다. 
+             * Row 안에서의 사용자 입력값이나 선택값이 있으면 이벤트 처리 됩니다.
+             * 필수 값에 대한 체크만 진행함.
+             * @public
              */
-            _setUIChanges : function (bHasUIChanges) {
+            onInputChange: function (oEvent) {
+                console.group("onInputChange");
+                var oModel = this.getView().getModel("mainModel"),
+                    bMainTable = true,
+                    tempValue;
 
-                if (this._bTechnicalErrors) {                    
-                    bHasUIChanges = true;
-                } else if (bHasUIChanges === undefined) {
-                    bHasUIChanges = this.getView().getModel().hasPendingChanges();
+                if(oEvent!=null){
+                    if(oEvent.getSource().sId.indexOf("control_option_level_code")>-1){
+                        oModel = this.getView().getModel("subModel");   
+                        bMainTable = false;                 
+                    } else if(oEvent.getSource().sId.indexOf("control_option_level_val")>-1){
+                        oModel = this.getView().getModel("subModel");  
+                        bMainTable = false;                 
+                    }
+                }else{
+                    oEvent = null;
                 }
+
+                if (oEvent.getParameter("escPressed")) {
+                    this._setUIChanges(oEvent, false);  //Model에게 [변경]내역을 위임한다.
+                } else {
+                    this._setUIChanges(oEvent, true);
+
+                    if (bMainTable) {
+                        //input box
+                        if (oEvent.getSource().getParent().getBindingContext().getProperty("control_option_code")) {
+                            oModel.setProperty("/control_option_codeEmpty", false);   //저장 전 필수값 확인시 필요
+                        }
+                        if (oEvent.getSource().getParent().getBindingContext().getProperty("control_option_name")) {
+                            oModel.setProperty("/control_option_nameEmpty", false);
+                        }
+                    } else {
+
+                        if (oEvent.getSource().getParent().getBindingContext().getProperty("control_option_level_code")) {
+                            oModel.setProperty("/control_option_level_codeEdit", false);
+                        }
+
+                        tempValue = oEvent.getSource().getParent().getBindingContext().getProperty("control_option_val");
+
+                        if (oEvent.getSource().getParent().getBindingContext().getProperty("control_option_val")) {
+                            oModel.setProperty("/control_option_valEdit", false);
+
+                            //Note : 키값을 변경하지 못하게 처리 합니다. 
+                            //임시 입니다.  control_option_level_val값만 변경해서 저장시 control_option_val 값필수 값으로 요구하여
+                            //해결전까지 임시로 이전값을 수정했다고 강제로 넣어줍니다.
+
+                            oEvent.getSource().getParent().getBindingContext().setProperty("control_option_val", tempValue);
+                            //this.byId("control_option_val").value= "1";
+                            //l;this.byId("control_option_val").value;              
+                        }
+                    }
+                }
+                console.groupEnd();
+            },
+   
+            /**
+             * Ui에서의 수정사항이 있는지 체크 합니다. 
+             * @param {*} oEvent 
+             * @param {*} bHasUIChanges 
+             */
+            _setUIChanges : function (oEvent, bHasUIChanges) {
+                console.group("_setUIChanges");
+
+                var vProperty = "/hasMainUIChanges";
+
+                if(oEvent!=null){
+                    if(oEvent.getSource().sId.indexOf("control_option_level_code")>-1){
+                        vProperty = "/hasSubUiChanges";
+                    }   
+                    if(oEvent.getSource().sId.indexOf("control_option_level_val")>-1){
+                        vProperty = "/hasSubUiChanges";
+                    }         
+                } else {
+                       this.getModel("ui").setProperty("/hasUIChanges", bHasUIChanges);
+                       this.getModel("ui").setProperty("/hasMainUIChanges", bHasUIChanges);
+                       this.getModel("ui").setProperty("/hasSubUiChanges", bHasUIChanges);                    
+                }
+
+                // if (this._bTechnicalErrors) {                    
+                //     bHasUIChanges = true;
+                // } else if (bHasUIChanges === undefined) {
+                    bHasUIChanges = this.getView().getModel().hasPendingChanges();
+                // }
+
+                console.log("bHasUIChanges", bHasUIChanges);
                 
                 var oUiModel = this.getModel("ui");
-                oUiModel.setProperty("/hasUIChanges", bHasUIChanges);
+                
+                oUiModel.setProperty(vProperty, bHasUIChanges);
+
+                console.groupEnd();
             },
 
             /**
@@ -627,17 +841,25 @@ sap.ui.define([
              * @param {*} oEvent 
              * @see main 과 sub 테이블의 변경 내용을 저장 합니다. 
              */
-            onSave : function (oEvent) {
+            onSave : function (tableType) {
                 console.group("onSave");
-                var sGroupId = "MainUpdateGroup",
-                    oTable;
+                var tableName = tableType,
+                    sGroupId = "MainUpdateGroup",
+                    bSub = false,
+                    that = this,
+                    oTable,                    
+                    oContext;
+                    
+               
+                console.log("tableName: " + tableName);
 
-                if(oEvent.getSource().sId.indexOf("buttonSubSaveRow")>-1){
-                    oTable = this.byId("subList"),
+                oTable = this.byId(tableName);
+
+                if(tableName!="mainList"){ 
+                    bSub = true; 
                     sGroupId = "SubUpdateGroup";
                     console.log("sub save");
                 }else{
-                    oTable = this.byId("mainList");
                     console.log("main save");
                 }
                 
@@ -648,12 +870,12 @@ sap.ui.define([
                     that = this;
 
                 if (!oBinding.hasPendingChanges()) {
-                   MessageBox.error("수정한 내용이 없습니다.");
+                   MessageBox.error(this.noChangeContent);
                    return;
                 }                 
 
-                MessageBox.confirm("저장 하시 겠습니까?", {
-                    title : "저장 확인",
+                MessageBox.confirm(this.confirmSave, {
+                    title : this.confirmSaveTitle,
                     initialFocus : sap.m.MessageBox.Action.CANCEL,
                     onClose : function(sButton) {
                         if (sButton === MessageBox.Action.OK) {
@@ -674,29 +896,43 @@ sap.ui.define([
              */
             _submitBatch : function (sGroupId) {
                 console.group("_submitBatch");
-
-			    var oView = this.getView();
+                
+                var oView = this.getView();
 
                 function resetBusy() {
                     oView.setBusy(false);
                     oView.getModel("ui").setProperty("/hasUIChanges", oView.getModel().hasPendingChanges());
                 }
-
-                oView.setBusy(true);
                 
                 var fnSuccess = function () {
                     oView.setBusy(false);
                     oView.getModel("ui").setProperty("/hasUIChanges", oView.getModel().hasPendingChanges());
-                    MessageToast.show("저장에 성공 하였습니다.");                   
+                    
+                    //저장성공이후 취소 버튼을 활성화 한다. (취소버튼은 버튼 상태 함수에서 처리 하지 않음.)
+
+                    if(sGroupId=="SubUpdateGroup"){
+                        oView.getModel("ui").setProperty("/hasSubUiChanges", false);
+                    } else {
+                        oView.getModel("ui").setProperty("/hasMainUiChanges", false);
+                    }
+                    
+                    this._showMsgStrip("s", this.sucessSave);
+
+                    //main, sub 구분 작업
+                    //this._setUIChanges(null, false);
+                    
+                    //MessageToast.show(this.sucessSave);                   
                 }.bind(this);
 
                 var fnError = function (oError) {
-                    this._setBusy(false);
-                    this._setUIChanges(false);
+                    //this._setBusy(false);
+                    
                     MessageBox.error(oError.message);
                 }.bind(this);
-                            
-                // 동시에 진행하니 에러남.
+                
+                //oView.setBusy(true);
+
+                // Note : 동시에 진행하니 에러남.
                 // 그룹아이디로 진행해도 에러남.
                 // var oTable = this.byId("mainList"),         
                 // indices = oTable.getSelectedIndices(); 
@@ -718,6 +954,27 @@ sap.ui.define([
                 console.groupEnd();
             },
 
+            /**
+             * mainList에서 항목에 대한 추가 액션(추가, 삭제, 복사)일때 subList 테이블 초기화 해준다. 
+             * refresh 등 odata4 에 대한 테이블 초기화 처리가 필요함
+             * mainList 테이블에 종속된 데이타 동시 삭제 로직 handler 필요함 
+             * @private
+             */
+            _subListFilter : function(){
+                console.group("subListFilter");
+                var oSubList = this.byId("subList");  
+              
+                //sub model filter
+                var oFilter1 = new Filter("tenant_id", FilterOperator.EQ, "0000");  
+   
+                var oBinding = oSubList.getBinding("rows");
+
+                    oBinding.filter([                
+                        oFilter1
+                    ]);
+                console.groupEnd();
+            },
+
             /** ------------------------------------------------------------
              * Search Control
              * -------------------------------------------------------------
@@ -733,11 +990,10 @@ sap.ui.define([
                 this._oMultiInput = this.getView().byId("multiInput_office");
                 this._oMultiInput.setTokens(this._getDefaultTokens());
 
+                //Note : 해당 모델은 검색에 대한 화면 확인용 임시 데이타 입니다. 
                 this.oColModel = new JSONModel(sap.ui.require.toUrl("cm/controlOptionMgr/localService/mockdata") + "/columnsModel.json");
                 this.oOfficeModel = new JSONModel(sap.ui.require.toUrl("cm/controlOptionMgr/localService/mockdata") + "/offices.json");
-                this.setModel("officeModel", this.oOfficeModel);                
-//cm/controlOptionMgr/controller/BaseController
-
+                this.setModel(this.oOfficeModel, "officeModel");                
 
                 console.groupEnd();
             },
@@ -818,8 +1074,55 @@ sap.ui.define([
              */
             onValueHelpAfterClose: function () {
 			    this._oValueHelpDialog.destroy();
-            }
-            
+            },
 
+            /**                
+             * MessageStript 출력
+             * type ["Information", "Warning", "Error", "Success"]
+             * 약어 i, w, e, s
+             *  */    
+            _showMsgStrip: function (messageType, message) {
+                console.group("onShowMsgStrip");
+                
+                var oMs = sap.ui.getCore().byId("msgStrip"),
+                    msgType = "Information";
+                    
+                switch(messageType){
+                    case "i" : msgType = "Information"; break;
+                    case "w" : msgType = "Warning"; break;
+                    case "e" : msgType = "Error"; break;
+                    case "s" : msgType = "Success"; break;
+                    default : msgType = "Information";
+                }
+                //i, w, e, s                
+                //messageType ["Information", "Warning", "Error", "Success"];
+
+                if (oMs) {
+                    oMs.destroy();
+                }
+                this._generateMsgStrip(msgType, message);
+                console.groupEnd();
+            },
+
+            _generateMsgStrip: function (messageType, message) {
+                console.group("_generateMsgStrip");
+
+                //i, w, e, s
+                //["Information", "Warning", "Error", "Success"];
+
+                var oVC = this.byId("oVerticalContent"),
+                    oMsgStrip = new MessageStrip("msgStrip", {
+                        text: message,
+                        showCloseButton: true,
+                        showIcon: true,
+                        type: messageType
+                    });
+
+                this.oInvisibleMessage.announce("New Message " + messageType + " " + message, InvisibleMessageMode.Assertive);
+                oVC.addContent(oMsgStrip);
+                
+                console.groupEnd();
+            }
+                    
         });
 });
