@@ -3,7 +3,7 @@ namespace cm;
 using { User } from '@sap/cds/common';
 
 entity Currency {	
-  key tenant_id : String(4)  not null;	
+  key tenant_id : String(5)  not null;	
   key currency_code : String(30)  not null;	
     effective_start_date : DateTime  ;	
     effective_end_date : DateTime  ;	

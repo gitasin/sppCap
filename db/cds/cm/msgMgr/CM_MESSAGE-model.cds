@@ -4,7 +4,7 @@ using { User } from '@sap/cds/common';
 
 entity Message {	
   @comment: '테넌트ID'
-  key tenant_id : String(4)  not null;	
+  key tenant_id : String(5)  not null;	
   @Comment: '메시지코드'
   key message_code : String(30)  not null;
   @Comment: '언어코드'
