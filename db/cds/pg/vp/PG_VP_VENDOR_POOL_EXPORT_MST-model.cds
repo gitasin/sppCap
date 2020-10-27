@@ -1,9 +1,9 @@
 namespace pg;	
 
 using { User } from '@sap/cds/common';	
-	
-entity Vendor_Pool_Mst {	
-    key tenant_id : String(5)  not null @title: '테넌트ID';	
+
+entity Vendor_Pool_Export_Mst {	
+    key tenant_id : String(5) not null @title: '테넌트ID';
     key company_code : String(10) not null @title: '회사코드';
     key operation_org_type_code : String(30) not null @title: '운영조직유형코드';
     key operation_org_code : String(30) not null @title: '운영조직코드';
@@ -27,10 +27,22 @@ entity Vendor_Pool_Mst {
     vendor_pool_history_desc : String(1000) @title: '협력사풀이력설명';
     parent_vendor_pool_code : String(30) @title: '상위협력사풀코드';
     leaf_flag : Boolean @title: '리프여부';
-    level_number : Decimal @title: '레벨번호'; 
+    level_number : Decimal @title: '레벨번호';
     display_sequence : Decimal @title: '표시순번';
-    register_reason_text : String(300) @title: '등록사유텍스트';
-    approval_request_number : String(50) @title: '승인요청번호';
+    vendor_pool_path_sequence : Decimal @title: '협력사풀경로순번';
+    vendor_pool_path_code : String(100) @title: '협력사풀경로코드';
+    vendor_pool_path_name : String(240) @title: '협력사풀경로명';
+    vendor_pool_display_name : String(240) @title: '협력사풀표시명';
+    vendor_pool_level1_code : String(30) @title: '협력사풀레벨1코드';
+    vendor_pool_level2_code : String(30) @title: '협력사풀레벨2코드';
+    vendor_pool_level3_code : String(30) @title: '협력사풀레벨3코드';
+    vendor_pool_level4_code : String(30) @title: '협력사풀레벨4코드';
+    vendor_pool_level5_code : String(30) @title: '협력사풀레벨5코드';
+    vendor_pool_level1_name : String(240) @title: '협력사풀레벨1명';
+    vendor_pool_level2_name : String(240) @title: '협력사풀레벨2명';
+    vendor_pool_level3_name : String(240) @title: '협력사풀레벨3명';
+    vendor_pool_level4_name : String(240) @title: '협력사풀레벨4명';
+    vendor_pool_level5_name : String(240) @title: '협력사풀레벨5명';
     local_create_dtm: DateTime not null @title: '로컬등록시간';
     local_update_dtm: DateTime not null @title: '로컬수정시간';
     create_user_id: User not null @cds.on.insert: $user @title: '등록사용자ID';

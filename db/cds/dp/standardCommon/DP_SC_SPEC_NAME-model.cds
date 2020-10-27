@@ -1,15 +1,16 @@
 namespace dp;	
-using { User } from '@sap/cds/common';	
-using {dp.Sc_Part_Category_Class as Category_Class} from '../standardCommon/DP_SC_PART_CATEGORY_CLASS-model';	
+using { User } from '@sap/cds/common';
+using {dp.Sc_Spec_Name as Spec_Name} from '../standardCommon/DP_SC_SPEC_NAME-model';	
 	
-entity Sc_Part_Category_Class {	
+entity Sc_Spec_Name {	
   key tenent_id : String(5)  not null;	
     company_code : String(10)  ;	
     operation_type : String(200)  ;	
     operation_code : String(200)  ;	
-  key category_code : String(200)  not null;	
-  key class_code : String(200)  not null;	
+  key spec_code : String(200)  not null;	
+    spec_name : String(2000)  ;	
     status_code : String(10)  ;	
+    spec_value_list_code : String(10)  ;	
     local_create_date : DateTime  ;	
     local_update_date : DateTime  ;	
     create_user_id : User not null @cds.on.insert: $user  ;	
