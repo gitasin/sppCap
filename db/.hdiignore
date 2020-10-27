@@ -1,6 +1,16 @@
-# src/gen/cm*
-# src/gen/dp*
-# src/gen/ep*
-# src/gen/op*
-# src/gen/pg*
-# src/gen/sp*
+src/gen/cm*
+src/cm/**
+src/gen/dp*
+src/dp/**
+src/gen/ep*
+src/ep/**
+src/gen/op*
+src/op/**
+src/gen/pg*
+src/pg/**
+src/gen/sp*
+src/sp/**
+#src/gen/xx*
+#src/xx/**
+#src/gen/zz*
+#src/zz/**
