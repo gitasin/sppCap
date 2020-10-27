@@ -18,7 +18,7 @@ entity Vendor_Pool_Manager_Dtl {
                                                 	
     key manager_empno : String(30) not null @title: '담당자사번';
     role_text : String(300) @title: '역할텍스트';
-    use_yn : Boolean @title: '사용여부';
+    use_flag : Boolean @title: '사용여부';
     register_reason_text : String(300) @title: '등록사유텍스트';
     register_approval_request_number : String(50) @title: '등록승인요청번호';
     local_create_dtm: DateTime not null @title: '로컬등록시간';

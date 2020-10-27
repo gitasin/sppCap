@@ -17,17 +17,17 @@ entity Vendor_Pool_Supplier_Dtl {
                                                 ref.vendor_pool_code = vendor_pool_code;
                                                  	
     key vendor_code : String(40) not null @title: '협력사코드';
-    evaluation_target_yn : Boolean @title: '평가대상여부';
-    dlbr_pass_yn : Boolean @title: '심의통과여부';
-    evaluation_control_yn : Boolean @title: '평가제어여부';
+    evaluation_target_flag : Boolean @title: '평가대상여부';
+    dlbr_pass_flag : Boolean @title: '심의통과여부';
+    evaluation_control_flag : Boolean @title: '평가제어여부';
     evaluation_control_start_date : Date @title: '평가제어시작일자';
     evaluation_control_end_date : Date @title: '평가제어종료일자';
     evaluation_restrict_start_date : Date @title: '평가제한시작일자';
     evaluation_restrict_end_date : Date @title: '평가제한종료일자';
     inp_code : String(30) @title: 'I&P코드';
-    rm_control_yn : Boolean @title: '위험관리제어여부';
+    rm_control_flag : Boolean @title: '위험관리제어여부';
     supplier_basic_portion_rate : Decimal @title: '공급업체기준분배비율';
-    use_yn : Boolean @title: '사용여부';
+    use_flag : Boolean @title: '사용여부';
     register_reason_text : String(300) @title: '등록사유텍스트';
     register_approval_request_number : String(50) @title: '등록승인요청번호';
     local_create_dtm: DateTime not null @title: '로컬등록시간';
