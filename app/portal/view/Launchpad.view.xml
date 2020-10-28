@@ -16,19 +16,16 @@
                     </m:layoutData>
                 </m:Button>
                 <m:IconTabHeader
-                    id="iconTabHeader"
-                    selectedKey="invalidKey"
-                    select=".onSelectTab"
+                    id="toolPageTabHeader"
+                    select=".onMenuPress"
                     backgroundDesign="Transparent"
+                    items="{menu>/}"
                     mode="Inline">
                     <m:layoutData>
                         <m:OverflowToolbarLayoutData priority="NeverOverflow" shrinkable="true" />
                     </m:layoutData>
                     <m:items>
-                        <m:IconTabFilter text="Documentation" />
-                        <m:IconTabFilter text="Explored" />
-                        <m:IconTabFilter text="API Reference" />
-                        <m:IconTabFilter text="Demo Apps" />
+                        <m:IconTabFilter text="{menu>name}" key="{menu>id}" />
                     </m:items>
                 </m:IconTabHeader>
                 <m:Button icon="sap-icon://search" type="Transparent">
@@ -56,7 +53,7 @@
             <tnt:SideNavigation id="sideNavigation" selectedKey="subItem3">
                 <tnt:NavigationList width="320px" selectedKey="subItem3" items="{/menus}">
                     <tnt:NavigationListItem text="{name}" key="rootItem1" icon="{icon}" items="{subMenus}">
-                        <tnt:NavigationListItem text="{name}" select=".onMenuPress"/>
+                        <tnt:NavigationListItem text="{name}" select=".onAppPress"/>
                     </tnt:NavigationListItem>
                 </tnt:NavigationList>
 				<tnt:fixedItem>
