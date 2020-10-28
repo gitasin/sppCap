@@ -1,11 +1,10 @@
-namespace pg;	
 using {User} from '@sap/cds/common';	
 	
-entity Mi_Item_Category {	
+entity Mi_Item_Category_Lng {	
   key tenant_id : String(5)  not null  @title: '테넌트ID';	
   key category_code : String(40)  not null  @title: 'Category Code';	
-    parent_category_code : String(40)    @title: '상위 Category Code';	
-    description : String(300)    @title: '설명';	
+  key language_code : String(30)  not null  @title: '언어코드';	
+    category_name : String(240)  not null  @title: 'Category 명';	
     local_create_date : DateTime  ;	
     local_update_date : DateTime  ;	
     create_user_id : User not null @cds.on.insert: $user  ;	
