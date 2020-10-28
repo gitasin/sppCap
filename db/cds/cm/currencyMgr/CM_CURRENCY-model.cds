@@ -7,7 +7,7 @@ entity Currency {
   key currency_code : String(30)  not null;	
     effective_start_date : DateTime  ;	
     effective_end_date : DateTime  ;	
-    use_yn : Boolean  not null;	
+    use_flag : Boolean  not null;	
     scale : Decimal  ;	
     extension_scale : Decimal  ;	
     local_create_dtm : DateTime  not null;	
