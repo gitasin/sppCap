@@ -71,11 +71,10 @@
                                             path : '/CurrencyView',
                                             parameters: {
                                                 $$updateGroupId : 'currencyMstUpdateGroup'
-                                            }
+                                            },
+                                            filters : [{path : 'tenant_id', operator : 'EQ', value1 : '0000'}]
                                         }"
-                                mode="MultiSelect"
                                 updateFinished="onMstUpdateFinished"
-                                
                         >
                         <layoutData>
                             <layout:SplitterLayoutData size="55%" />
@@ -160,15 +159,17 @@
                                         <Text id="currency_code" text="{currency_code}"/>
                                         <Text id="currency_code_name" text="{currency_code_name}"/>
                                         <Text id="currency_code_desc" text="{currency_code_desc}"/>
-                                        <Text id="scale" text="{scale}"/>
-                                        <Text id="extension_scale" text="{extension_scale}"/>
-                                        <Text id="currency_prefix" text="{currecurrency_prefixncy_code_name}"/>
-                                        <Text id="currency_suffix" text="{currency_suffix}"/>
+                                        <Text id="iso" text=""/>
+                                        <Text id="scale" text=""/>
+                                        <Text id="symbol" text=""/>
+                                        <Text id="extension_scale" text=""/>
+                                        <Text id="currency_prefix" text="{currency_prefix}"/>
+                                        <Text id="currency_suffix" text="{currency_suffix}"/>                                        
                                         <Text id="effective_start_date" text="{effective_start_date}"/>
                                         <Text id="effective_end_date" text="{effective_end_date}"/>
                                         <!-- <DatePicker dateValue="{path : 'effective_start_date'}"  valueFormat="yyyyMMdd" displayFormat="yyyy-MM-dd"/>
                                         <DatePicker dateValue="{path : 'effective_end_date'}"  valueFormat="yyyyMMdd" displayFormat="yyyy-MM-dd"/>-->
-                                        <Text id="use_yn" text="{use_yn}"/>
+                                        <Text id="use_yn" text=""/>
                                     </cells>
                                 </ColumnListItem>
                             </items>
@@ -193,22 +194,22 @@
                                         <form:formElements>
                                                 <form:FormElement label="* 통화코드" >
                                                     <form:fields>
-                                                        <Input width="180px" id="input1"/>
+                                                        <Input width="180px" id="input1" value="{Currency>currency_code}" />                                                        
                                                     </form:fields>
                                                 </form:FormElement>
                                                 <form:FormElement label="ISO통화">
                                                     <form:fields>
-                                                        <Input width="180px" id="input2"/>
+                                                        <Input width="180px" id="input2" value="{Currency>currency_code}"/>
                                                     </form:fields>
                                                 </form:FormElement>
                                                 <form:FormElement label="* 소수점자리">
                                                     <form:fields>
-                                                        <Input width="180px" id="input3"/>
+                                                        <Input width="180px" id="input3" value="{Currency>scale}"/>
                                                     </form:fields>
                                                 </form:FormElement>
                                                 <form:FormElement label="확장소수점자리">
                                                     <form:fields>
-                                                        <Input width="180px" id="input4"/>
+                                                        <Input width="180px" id="input4" value="{Currency>extension_scale}"/>
                                                     </form:fields>
                                                 </form:FormElement>
                                         </form:formElements>
@@ -217,7 +218,7 @@
                                         <form:formElements>
                                             <form:FormElement label="Symbol">
                                                 <form:fields>
-                                                    <Input width="180px" id="input5"/>
+                                                    <Input width="180px" id="input5" value="{Currency>extension_scale}"/>
                                                 </form:fields>
                                             </form:FormElement>
                                             <form:FormElement label="* 유효시작일자">
@@ -232,7 +233,7 @@
                                             </form:FormElement>
                                             <form:FormElement label="사용여부">
                                                 <form:fields>
-                                                    <Input width="180px" id="input8"/>
+                                                    <Input width="180px" id="input8" value="{Currency>use_yn}"/>
                                                 </form:fields>
                                             </form:FormElement>
                                         </form:formElements>
@@ -249,9 +250,11 @@
                                                 path : '/CurrencyLng',
                                                 parameters: {
                                                     $$updateGroupId : 'currencyLngUpdateGroup'
-                                                }
+                                                },
+                                                filters : [{path : 'tenant_id', operator : 'EQ', value1 : '0000'}]
                                             }"
                                     mode="MultiSelect"
+                                    updateFinished="onDtlUpdateFinished"
                             >
                             <layoutData>
                                 <layout:SplitterLayoutData size="50%" />
