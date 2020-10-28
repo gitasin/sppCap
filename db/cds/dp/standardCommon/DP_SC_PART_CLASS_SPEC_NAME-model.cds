@@ -1,14 +1,14 @@
 namespace dp;	
-using { User } from '@sap/cds/common';	
-using {dp.Sc_Part_Category_Class as Category_Class} from '../standardCommon/DP_SC_PART_CATEGORY_CLASS-model';	
+using { User } from '@sap/cds/common';
+using {dp.Sc_Part_Class_Spec_Name as Class_Spec_Name} from '../standardCommon/DP_SC_PART_CLASS_SPEC_NAME-model';	
 	
-entity Sc_Part_Category_Class {	
+entity Sc_Part_Class_Spec_Name {	
   key tenent_id : String(5)  not null;	
     company_code : String(10)  ;	
     operation_type : String(200)  ;	
     operation_code : String(200)  ;	
-  key category_code : String(200)  not null;	
   key class_code : String(200)  not null;	
+  key spec_code : String(200)  not null;	
     status_code : String(10)  ;	
     local_create_date : DateTime  ;	
     local_update_date : DateTime  ;	
