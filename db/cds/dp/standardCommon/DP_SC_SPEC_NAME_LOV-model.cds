@@ -1,4 +1,5 @@
 namespace dp;	
+using { User } from '@sap/cds/common';
 using {dp.Sc_Spec_Name_Lov as Spec_Name_Lov} from '../standardCommon/DP_SC_SPEC_NAME_LOV-model';	
 	
 entity Sc_Spec_Name_Lov {	
