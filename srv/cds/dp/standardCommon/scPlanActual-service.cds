@@ -5,7 +5,7 @@ namespace dp;
 @path : '/dp.ScPlanActualService'
 service ScPlanActualService {
 
-    entity YyyyPlanActual as projection on yyyyPlanActualSum.Yyyy_Plan_Actual;
+    entity YyyyPlanActual as projection on yyyyPlanActual.Yyyy_Plan_Actual;
     entity ScPlanActualSum as projection on scPlanActualSum.Sc_Plan_Actual_Sum;
     entity ScPlanActualSumHis as projection on scPlanActualSumHis.Sc_Plan_Actual_Sum_His;
 
@@ -29,8 +29,8 @@ service ScPlanActualService {
         sc.oct,
         sc.nov,
         sc.dec
-    from yyyyPlanActualSum.Yyyy_Plan_Actual as yy 
-    join scPlanActualSum.Sc_Plan_Actual_Sumg as sc 
+    from scPlanActualSum.Sc_Plan_Actual_Sum as sc
+    join yyyyPlanActual.Yyyy_Plan_Actual as yy 
     on sc.tenant_id = yy.tenant_id and sc.operation_code = yy.operation_code and sc.yyyy = yy.yyyy and sc.sc_tpye = yy.sc_type
     ;
 
