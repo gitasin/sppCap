@@ -1,0 +1,60 @@
+VIEW PG_VENDOR_POOL_EXPORT_MST_VIEW AS
+SELECT PARENT_ID
+      ,NODE_ID
+      ,TENANT_ID
+      ,COMPANY_CODE
+      ,OPERATION_ORG_TYPE_CODE
+      ,OPERATION_ORG_CODE
+      ,VENDOR_POOL_CODE
+      ,VENDOR_POOL_LOCAL_NAME
+      ,VENDOR_POOL_ENGLISH_NAME
+      ,REPR_DEPARTMENT_CODE
+      ,EVALUATION_OPERATION_UNIT_CODE
+      ,INP_TYPE_CODE
+      ,MTLMOB_BASIC_CODE
+      ,REGULAR_EVALUATION_FLAG
+      ,INDUSTRY_CLASS_CODE
+      ,SD_EXCEPTION_FLAG
+      ,VENDOR_POOL_EXCEPTION_FLAG
+      ,SITE_INTERNAL_RATE
+      ,SITE_EXTERNAL_RATE
+      ,EQUIPMENT_GRADE_CODE
+      ,EQUIPMENT_TYPE_CODE
+      ,VENDOR_POOL_USE_FLAG
+      ,VENDOR_POOL_DESC
+      ,VENDOR_POOL_HISTORY_DESC
+      ,PARENT_VENDOR_POOL_CODE
+      ,LEAF_FLAG
+      ,LEVEL_NUMBER
+      ,DISPLAY_SEQUENCE
+      ,REGISTER_REASON_TEXT
+      ,APPROVAL_REQUEST_NUMBER
+      ,DISPLAY_SEQUENCE_PATH
+      ,NODE_ID_PATH AS FULL_GROUP_CODE
+      ,NODE_NAME_PATH AS FULL_GROUP_NAME
+      ,REPLACE(NODE_NAME_PATH, '^', ' ') AS DISPLAY_FULL_GROUP_NAME
+      ,SUBSTR_REGEXPR('[^^]+' IN NODE_ID_PATH FROM 1 OCCURRENCE 1) AS GROUP_CODE_LEVEL_1
+      ,SUBSTR_REGEXPR('[^^]+' IN NODE_ID_PATH FROM 1 OCCURRENCE 2) AS GROUP_CODE_LEVEL_2
+      ,SUBSTR_REGEXPR('[^^]+' IN NODE_ID_PATH FROM 1 OCCURRENCE 3) AS GROUP_CODE_LEVEL_3
+      ,SUBSTR_REGEXPR('[^^]+' IN NODE_ID_PATH FROM 1 OCCURRENCE 4) AS GROUP_CODE_LEVEL_4
+      ,SUBSTR_REGEXPR('[^^]+' IN NODE_ID_PATH FROM 1 OCCURRENCE 5) AS GROUP_CODE_LEVEL_5
+      ,SUBSTR_REGEXPR('[^^]+' IN NODE_NAME_PATH FROM 1 OCCURRENCE 1) AS GROUP_NAME_LEVEL_1
+      ,SUBSTR_REGEXPR('[^^]+' IN NODE_NAME_PATH FROM 1 OCCURRENCE 2) AS GROUP_NAME_LEVEL_2
+      ,SUBSTR_REGEXPR('[^^]+' IN NODE_NAME_PATH FROM 1 OCCURRENCE 3) AS GROUP_NAME_LEVEL_3
+      ,SUBSTR_REGEXPR('[^^]+' IN NODE_NAME_PATH FROM 1 OCCURRENCE 4) AS GROUP_NAME_LEVEL_4
+      ,SUBSTR_REGEXPR('[^^]+' IN NODE_NAME_PATH FROM 1 OCCURRENCE 5) AS GROUP_NAME_LEVEL_5
+      ,hierarchy_rank            /*현재node의 순번(sibling order by에 의한)*/
+      ,hierarchy_tree_size       /*현재node포함 하위node 갯수(1이면 leaf node(마지막node))*/
+      ,hierarchy_parent_rank     /*부모node의 순번*/
+      ,hierarchy_level           /*현재node의 Level*/
+      ,hierarchy_root_rank       /*root node의 순번*/
+      ,hierarchy_is_cycle        /*순환구조여부(0:False, 1:True)*/ 
+      ,hierarchy_is_orphan       /*전개후 연결이 끊어진 노드여부(0:False, 1:True)*/	
+FROM   HIERARCHY_ANCESTORS_AGGREGATE(
+                                     SOURCE PG_VENDOR_POOL_MST_VIEW
+                                     MEASURES (STRING_AGG(VENDOR_POOL_CODE, '^') AS NODE_ID_PATH,
+                                               STRING_AGG(VENDOR_POOL_LOCAL_NAME, '^') NODE_NAME_PATH,
+                                     	         STRING_AGG(DISPLAY_SEQUENCE, '^') DISPLAY_SEQUENCE_PATH
+                                    )
+       )
+;
