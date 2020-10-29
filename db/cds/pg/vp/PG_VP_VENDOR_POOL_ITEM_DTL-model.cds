@@ -18,7 +18,7 @@ entity Vendor_Pool_Item_Dtl {
                                                  	
     
     key item_code : String(40) not null @title: '품목코드';
-    use_yn : Boolean @title: '사용여부';
+    use_flag : Boolean @title: '사용여부';
     register_reason_text : String(300) @title: '등록사유텍스트';
     register_approval_request_number : String(50) @title: '등록승인요청번호';
     local_create_dtm: DateTime not null @title: '로컬등록시간';

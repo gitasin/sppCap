@@ -5,7 +5,7 @@ using { ep as vdsel } from './EP_LOI_VENDOR_SELECTION-model';
 using { ep as pub } from './EP_LOI_PUBLISH-model';
 
 entity Loi_Dtl {	
-    key tenant_id : String(4)  not null;	
+    key tenant_id : String(5)  not null;	
     key company_code : String(10)  not null;	
     key loi_write_number : String(100)  not null;	
 
