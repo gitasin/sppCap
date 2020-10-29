@@ -1,23 +1,19 @@
 namespace dp;	
 using { User } from '@sap/cds/common';	
-using {dp.Sc_Uri_Link as Uri_Link} from '../standardCommon/DP_SC_URI_LINK-model';	
+using {dp.Sc_Yyyy_Plan_Actual as Yyyy_Plan_Actual} from '../standardCommon/DP_SC_YYYY_PLAN_ACTUAL-model';	
 	
-entity Sc_Uri_Link {	
+entity Sc_Yyyy_Plan_Actual {	
   key tenent_id : String(5)  not null;	
   key company_code : String(10)  not null;	
   key operation_type : String(10)  not null;	
   key operation_code : String(10)  not null;	
-  key uri_code : String(10)  not null;	
-    uri_name : String(2000)  ;	
-    uri_type : String(10)  ;	
-    if_system : String(2000)  ;	
-    desc : String(2000)  ;	
-    call_key1 : String(2000)  ;	
-    call_key2 : String(2000)  ;	
-    call_key3 : String(2000)  ;	
-    call_key4 : String(2000)  ;	
-    call_key5 : String(2000)  ;	
-    use_yn : Boolean  ;	
+  key yyyy : String(4)  not null;	
+    yyyy_plan_summary : String(2000)  ;	
+    planner : String(200)  ;	
+    progress_status : String(20)  ;	
+    remark : String  ;	
+    plan_attachments : String(2000)  ;	
+    actual_attachments : String(2000)  ;	
     local_create_date : DateTime  ;	
     local_update_date : DateTime  ;	
     create_user_id : User not null @cds.on.insert: $user  ;	
