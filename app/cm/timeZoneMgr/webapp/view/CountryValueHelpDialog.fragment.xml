@@ -26,27 +26,6 @@
 					<Text text="Supplier" />
 				</header>
 			</Column>
-			<Column
-				minScreenWidth="Desktop"
-				demandPopin="true"
-				hAlign="End">
-				<header>
-					<Text text="Dimensions" />
-				</header>
-			</Column>
-			<Column
-				minScreenWidth="Desktop"
-				demandPopin="true"
-				hAlign="Center">
-				<header>
-					<Text text="Weight" />
-				</header>
-			</Column>
-			<Column hAlign="End">
-				<header>
-					<Text text="Product" />
-				</header>
-			</Column>
 		</columns>
 	</TableSelectDialog>
 </core:FragmentDefinition>

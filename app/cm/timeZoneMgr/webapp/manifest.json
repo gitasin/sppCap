@@ -71,7 +71,7 @@
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
           "bundleName": "cm.timeZoneMgr.i18n.i18n"
-        } 
+        }
       },
       "": {
         "dataSource": "mainService",
