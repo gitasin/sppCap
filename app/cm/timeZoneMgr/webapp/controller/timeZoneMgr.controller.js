@@ -1,17 +1,25 @@
 sap.ui.define([
         "sap/ui/core/mvc/Controller",
-        "sap/ui/core/Fragment"
+        "sap/ui/core/Fragment",
+        "sap/ui/model/json/JSONModel",
+        "sap/ui/model/Filter",
+        "sap/ui/model/FilterOperator",
+	    "sap/ui/model/FilterType"
 	],
-	function (Controller, Fragment) {
+	function (Controller, Fragment, JSONModel, Filter, FilterOperator, FilterType) {
 		"use strict";
 
 		return Controller.extend("cm.timeZoneMgr.controller.timeZoneMgr", {
 			onInit: function () {
-                this.getView().getModel();
-                this.byId();
+                var oModel = new JSONModel({
+                    timeZoneCountryInput : ""
 
+                });
+                this.getView().setModel(oModel , "timemodel");
             },
+
             handleValueHelp: function () {
+                var sInputValue = this.byId("timeZoneCountryInput").getValue();
                 if (!this._oValueHelpDialog) {
                     Fragment.load({
                         name: "cm.timeZoneMgr.view.CountryValueHelpDialog",
@@ -19,8 +27,9 @@ sap.ui.define([
                     }).then(function (oValueHelpDialog) {
                         this._oValueHelpDialog = oValueHelpDialog;
                         this.getView().addDependent(this._oValueHelpDialog);
-                        this._configValueHelpDialog();
-                        this._oValueHelpDialog.open();
+                        this._oValueHelpDialog.getBinding("items")
+						.filter([new Filter("country_code", FilterOperator.Contains, sInputValue)]);
+                        this._oValueHelpDialog.open(sInputValue);
                     }.bind(this));
                 } else {
                     this._configValueHelpDialog();
@@ -29,66 +38,69 @@ sap.ui.define([
             },
 
             _configValueHelpDialog: function () {
-
-                var sInputValue = this.byId("productInput").getValue(),
-                    oModel = this.getView().getModel();
-                    //aProducts = oModel.getProperty("/TimeZone");
-
-                // aProducts.forEach(function (oProduct) {
-                //     oProduct.selected = (oProduct.timezone_name === sInputValue);
-                // });
-                // oModel.setProperty("/TimeZone", aProducts);
+                var sInputValue = this.byId("timeZoneCountryInput").getValue(),
+                    oModel = this.getView().getModel("timemodel"),
+                    aCountry = oModel.setProperty("/timeZoneCountryInput", sInputValue);
+                    oModel.setProperty("timeZoneCountryInput", sInputValue);
             },
 
-            handleValueHelpClose: function () {
-                var oModel = this.getView().getModel(),
-                    //aProducts = oModel.getProperty("/TimeZone"),
-                    oInput = this.byId("productInput");
-
-                // var bHasSelected = aProducts.some(function (oProduct) {
-                //     if (oProduct.selected) {
-                //         oInput.setValue(oProduct.timezone_name);
-                //         return true;
-                //     }
-                // });
-
-                // if (!bHasSelected) {
-                //     oInput.setValue(null);
-                // }
+            handleSearch: function (oEvent) {
+                var sValue = oEvent.getParameter("value");
+                var oFilter = new Filter("country_code", FilterOperator.Contains, sValue);
+                var oBinding = oEvent.getSource().getBinding("items");
+                oBinding.filter([oFilter]);
             },
+
+            handleValueHelpClose: function (oEvent) {
+                var vInput = oEvent.getParameters().selectedItem;
+                if (!vInput) {
+                    return;
+                }
+                var vInputData = vInput.getCells()[0].mProperties.text;
+                this.byId("timeZoneCountryInput").setValue(vInputData);
+            },
+
+            onhandleValueHelpClose: function (oEvent) {
+                var sDescription,
+                    oSelectedItem = oEvent.getParameter("selectedItem");
+                oEvent.getSource().getBinding("items").filter([]);
+                if (!oSelectedItem) {
+                    return;
+                }
+                sDescription = oSelectedItem.getDescription();
+                this.byId("timeZoneCountryInput").setSelectedKey(sDescription);
+
+            },
+
             onCreate : function () {
           
             var oList = this.byId("table"), 
                 oBinding = oList.getBinding("rows"),
-
-				// Create a new entry through the table's list binding
 				oContext = oBinding.create({
 					"tenant_id" : "",
 					"timezone_code" : "",
 					"timezone_name" : "",
                     "country_code" : "",
-                    "gmt_offset" : "",
+                    "gmt_offset" : null,
 					"dst_flag" : "",
-					"dst_start_month" : "",
-                    "dst_start_day" : "",
-                    "dst_start_week" : "",
-					"dst_start_day_of_week" : "",
-					"dst_start_time_rate" : "",
-                    "dst_end_month" : "",
-                    "dst_end_day" : "",
-					"dst_end_week" : "",
-					"dst_end_day_of_week" : "",
-                    "dst_end_time_rate" : ""
+					"dst_start_month" : null,
+                    "dst_start_day" : null,
+                    "dst_start_week" : null,
+					"dst_start_day_of_week" : null,
+					"dst_start_time_rate" : null,
+                    "dst_end_month" : null,
+                    "dst_end_day" : null,
+					"dst_end_week" : null,
+					"dst_end_day_of_week" : null,
+                    "dst_end_time_rate" : null
                 });
                 
                   oContext.created().then(function () {
                     oBinding.refresh();                    
                 });     
 
-                //this._setUIChanges(true);
-                this.getView().getModel("appView").setProperty("/usernameEmpty", true);
+                //this.getView().getModel("appView").setProperty("/usernameEmpty", true);
 
-                // Select and focus the table row that contains the newly created entry
                 oList.getRows().some(function (oItem) {
                     if (oItem.getBindingContext() === oContext) {
                         oItem.focus();
@@ -96,6 +108,20 @@ sap.ui.define([
                         return true;
                     }
                 });
-            }
+            },
+
+            onSearch : function () {
+                var oView = this.getView(),
+                    sValue1 = oView.byId("time_zone_code").getValue(),
+                    sValue2 = oView.byId("time_zone").getValue(),
+                    sValue3 = oView.byId("timeZoneCountryInput").getValue(),
+                    oFilter = new Filter("tenant_id", FilterOperator.EQ, "L2100"),
+                    oFilter1 = new Filter("timezone_code", FilterOperator.Contains, sValue1),
+                    oFilter2 = new Filter("timezone_name", FilterOperator.Contains, sValue2),
+                    oFilter3 = new Filter("country_code", FilterOperator.Contains, sValue3);
+
+                oView.byId("table").getBinding("rows").resetChanges();
+                oView.byId("table").getBinding("rows").filter([oFilter,oFilter1,oFilter2,oFilter3]);
+		    }   
 		});
 	});
