@@ -92,6 +92,10 @@ modules:
       name: currencyMgr
       target-path: resources/
     - artifacts:
+      - timeZoneMgr-content.zip
+      name: timeZoneMgr
+      target-path: resources/
+    - artifacts:
       - developmentReceipt-content.zip
       name: developmentReceipt
       target-path: resources/
@@ -138,6 +142,14 @@ modules:
 - name: currencyMgr
   type: html5
   path: app/cm/currencyMgr
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: timeZoneMgr
+  type: html5
+  path: app/cm/timeZoneMgr
   build-parameters:
     builder: custom
     commands:
