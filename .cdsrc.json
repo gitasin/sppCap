@@ -7,38 +7,7 @@
         "src": "srv",
         "options": {
           "model": [
-            "db",
-            "db/cds",
-            "db/cds/xx",
-            "db/cds/xx/sampleMgr",
-            "db/cds/xx/sampleMstMgr",
-            "db/cds/xx/sampleGrpMgr",
-            "db/cds/cm",
-            "db/cds/cm/codeMgr",
-            "db/cds/cm/controlOptionMgr",
-            "db/cds/cm/currencyMgr",
-            "db/cds/cm/countryMgr",
-            "db/cds/dp",
-            "db/cds/dp/standardCommon",
-            "db/cds/dp/developmentReceipt",
-            "db/cds/ep",
-            "db/cds/ep/loiMgr",            
-            "db/cds/op",
-            "db/cds/pg",
-            "db/cds/pg/mi",
-            "db/cds/pg/MI",
-            "db/cds/pg/vp",
-            "db/cds/sp",
-            "db/cds/mc",
-            "srv",
-            "srv/cds",
-            "srv/cds/xx",
-            "srv/cds/cm",
-            "srv/cds/dp",
-            "srv/cds/ep",
-            "srv/cds/op",
-            "srv/cds/pg",
-            "srv/cds/sp"
+            "srv"
           ]
         }
       },
@@ -58,6 +27,8 @@
             "db/cds/cm/controlOptionMgr",
             "db/cds/cm/currencyMgr",
             "db/cds/cm/countryMgr",
+            "db/cds/cm/timeZoneMgr",
+            "db/cds/cm/hrEmployeeMgr",             
             "db/cds/dp",
             "db/cds/dp/standardCommon",
             "db/cds/dp/developmentReceipt",
@@ -66,19 +37,11 @@
             "db/cds/op",
             "db/cds/pg",
             "db/cds/pg/mi",
-            "db/cds/pg/MI",
             "db/cds/pg/vp",
+            "db/cds/pg/md",
             "db/cds/sp",
             "db/cds/mc",
-            "srv",
-            "srv/cds",
-            "srv/cds/xx",
-            "srv/cds/cm",
-            "srv/cds/dp",
-            "srv/cds/ep",
-            "srv/cds/op",
-            "srv/cds/pg",
-            "srv/cds/sp"
+            "srv"
           ]
         }
       }

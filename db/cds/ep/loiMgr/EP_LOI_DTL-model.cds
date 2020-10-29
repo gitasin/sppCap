@@ -5,7 +5,7 @@ using { ep as vdsel } from './EP_LOI_VENDOR_SELECTION-model';
 using { ep as pub } from './EP_LOI_PUBLISH-model';
 
 entity Loi_Dtl {	
-    key tenant_id : String(4)  not null;	
+    key tenant_id : String(5)  not null;	
     key company_code : String(10)  not null;	
     key loi_write_number : String(100)  not null;	
 
@@ -28,11 +28,15 @@ entity Loi_Dtl {
     loi_selection_number : String(100)  ;
     loi_publish_number : String(100)  ;
 
-    selection : Association[0..*] to vdsel.Loi_Vendor_Selection
-        on selection.loi_selection_number = loi_selection_number;  
+    selection : Association[1] to vdsel.Loi_Vendor_Selection
+        on selection.tenant_id = tenant_id 
+        and selection.company_code = company_code     
+        and selection.loi_selection_number = loi_selection_number;  
 
-    publish : Association[0..*] to pub.Loi_Publish
-        on publish.loi_publish_number = loi_publish_number;  
+    publish : Association[1] to pub.Loi_Publish
+        on publish.tenant_id = tenant_id 
+        and publish.company_code = company_code     
+        and publish.loi_publish_number = loi_publish_number;  
 
     rfq_number : String(100)  ;	
     rfq_item_number : String(100)  ;	
