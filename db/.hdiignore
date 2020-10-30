@@ -11,10 +11,6 @@
 #src/gen/sp*
 #src/sp/**
 src/gen/xx*
-<<<<<<< HEAD
-src/xx/**
-=======
 src/xx/**
 src/gen/zz*
 src/zz/** 
->>>>>>> 44b06da096fabc93216513f13570d51a3a61f6d7
