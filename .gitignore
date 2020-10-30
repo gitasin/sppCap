@@ -3,7 +3,7 @@
 
 # added by cds deploy
 connection.properties
-./package.json
+/package.json
 .flattened-pom.xml
 
 
@@ -16,4 +16,3 @@ db/.hdiignore
 node_modules/
 app/uxFreeStyleDemo/
 *.zip
-

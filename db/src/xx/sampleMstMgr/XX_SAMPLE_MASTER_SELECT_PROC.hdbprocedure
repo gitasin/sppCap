@@ -1,4 +1,5 @@
 PROCEDURE XX_SAMPLE_MASTER_SELECT_PROC (
+    in CD NVARCHAR(5000),
     out o_table XX_SAMPLE_MASTER_PROC_TYPE
 )
 LANGUAGE SQLSCRIPT
@@ -9,6 +10,7 @@ BEGIN
     o_table =   SELECT  A.MASTER_ID
                        ,A.CD
                        ,A.NAME
-                FROM    XX_SAMPLE_MASTER A;
+                FROM    XX_SAMPLE_MASTER A
+                WHERE   A.CD = :CD;
 
 END

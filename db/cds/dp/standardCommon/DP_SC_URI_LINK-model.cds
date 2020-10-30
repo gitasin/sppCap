@@ -4,11 +4,13 @@ using {dp.Sc_Uri_Link as Uri_Link} from '../standardCommon/DP_SC_URI_LINK-model'
 	
 entity Sc_Uri_Link {	
   key tenent_id : String(5)  not null;	
-    company_code : String(10)  ;	
+  key company_code : String(10)  not null;	
+  key operation_type : String(10)  not null;	
+  key operation_code : String(10)  not null;	
   key uri_code : String(10)  not null;	
     uri_name : String(2000)  ;	
     uri_type : String(10)  ;	
-    target_system : String(2000)  ;	
+    if_system : String(2000)  ;	
     desc : String(2000)  ;	
     call_key1 : String(2000)  ;	
     call_key2 : String(2000)  ;	
