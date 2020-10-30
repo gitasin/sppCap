@@ -12,6 +12,8 @@ srv/target/
 srv/src/gen/
 srv/src/main/resources/edmx/
 db/src/gen/
+db/.hdiignore
 node_modules/
 app/uxFreeStyleDemo/
 *.zip
+
