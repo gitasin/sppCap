@@ -9,7 +9,7 @@
     xmlns:t="sap.ui.table"    
     xmlns:layout="sap.ui.layout" displayBlock="true"
 	xmlns:mvc="sap.ui.core.mvc">
-	<App>
+	<App id="app">
     
         <f:DynamicPage id="dynamicPageId" toggleHeaderOnTitleClick="true" headerExpanded="true">
             <!--DynamicPage Title -->
@@ -86,11 +86,7 @@
                 <VBox fitContainer="true">
                     <t:Table id="table"
                     selectionMode="MultiToggle" 
-                    rows="{ path : '/TimeZone',
-                            		parameters : {
-                                        $count : true,
-						                $$updateGroupId : 'TimeZoneUpdateGroup'
-					              }
+                    rows="{ path : '/TimeZone'
                     }"
                     cellClick=".onCellClick"                   
                     visibleRowCount="7"  
@@ -109,16 +105,16 @@
                             <t:RowSettings highlight="{}"/>
                         </t:rowSettingsTemplate>                                
                         <t:columns>
-                            <t:Column  width="0rem" hAlign="Center" >                                        
+                            <t:Column  width="0rem" hAlign="Center" visible="false">                                        
                                     <Label text="tenant_id"/>           
                                 <t:template>
-                                    <Input id="tenant_id" value="{tenant_id}"/> 
+                                    <Text id="tenant_id" text="{tenant_id}"/> 
                                 </t:template>
                             </t:Column>
-                            <t:Column>
+                            <t:Column width="3rem">
                                 <Label text="No." textAlign="Center" width="100%"/>
                                 <t:template> 
-                                    <Input value="" valueLiveUpdate="true"/>
+                                    <Text text="" />
                                 </t:template>
                             </t:Column>
                             <t:Column>
@@ -152,7 +148,7 @@
                                     <Label text="적용여부" textAlign="Center" width="100%"/>
                                 </t:multiLabels>
                                 <t:template> 
-                                        <Select>
+                                        <Select width="100%">
                                             <core:Item key="No" text="No" />
                                             <core:Item key="Yes" text="Yes" />
                                         </Select>
@@ -164,7 +160,7 @@
                                     <Label text="월" textAlign="Center" width="100%"/>
                                 </t:multiLabels>
                                 <t:template> 
-                                    <Input value="{dst_start_month}" valueLiveUpdate="true"/>
+                                    <Input value="{dst_start_month}" valueLiveUpdate="true" type="Number"/>
                                 </t:template>
                             </t:Column>
                             <t:Column>
@@ -173,7 +169,7 @@
                                     <Label text="일" textAlign="Center" width="100%"/>
                                 </t:multiLabels>
                                 <t:template> 
-                                    <Input value="{dst_start_day}" valueLiveUpdate="true"/>
+                                    <Input value="{dst_start_day}" valueLiveUpdate="true" type="Number" />
                                 </t:template>
                             </t:Column>
                             <t:Column>
@@ -182,7 +178,7 @@
                                     <Label text="주" textAlign="Center" width="100%"/>
                                 </t:multiLabels>
                                 <t:template> 
-                                    <Input value="{dst_start_week}" valueLiveUpdate="true"/>
+                                    <Input value="{dst_start_week}" valueLiveUpdate="true" type="Number"/>
                                 </t:template>
                             </t:Column>
                             <t:Column>
@@ -191,7 +187,7 @@
                                     <Label text="요일" textAlign="Center" width="100%"/>
                                 </t:multiLabels>
                                 <t:template> 
-                                    <Input value="{dst_start_day_of_week}" valueLiveUpdate="true"/>
+                                    <Input value="{dst_start_day_of_week}" valueLiveUpdate="true" type="Number"/>
                                 </t:template>
                             </t:Column>
                             <t:Column>
@@ -200,7 +196,7 @@
                                     <Label text="시간" textAlign="Center" width="100%"/>
                                 </t:multiLabels>
                                 <t:template> 
-                                    <Input value="{dst_start_time_rate}"  valueLiveUpdate="true"/>
+                                    <Input value="{dst_start_time_rate}"  valueLiveUpdate="true" type="Number"/>
                                 </t:template>
                             </t:Column>
                             <t:Column headerSpan="5">
@@ -209,7 +205,7 @@
                                     <Label text="월" textAlign="Center" width="100%"/>
                                 </t:multiLabels>
                                 <t:template> 
-                                    <Input value="{dst_end_month}" valueLiveUpdate="true"/>
+                                    <Input value="{dst_end_month}" valueLiveUpdate="true" type="Number"/>
                                 </t:template>
                             </t:Column>
                             <t:Column>
@@ -218,16 +214,16 @@
                                     <Label text="일" textAlign="Center" width="100%"/>
                                 </t:multiLabels>
                                 <t:template> 
-                                    <Input value="{dst_end_day}" valueLiveUpdate="true"/>
+                                    <Input value="{dst_end_day}" valueLiveUpdate="true" type="Number"/>
                                 </t:template>
                             </t:Column>
                             <t:Column>
                                 <t:multiLabels>
                                     <Label text="서머타임종료"/>
-                                    <Label text="주" textAlign="Center" width="100%"/>
+                                    <Label text="주" textAlign="Center" width="100%" />
                                 </t:multiLabels>
                                 <t:template> 
-                                    <Input value="{dst_end_week}" valueLiveUpdate="true"/>
+                                    <Input value="{dst_end_week}" valueLiveUpdate="true" type="Number"/>
                                 </t:template>
                             </t:Column>
                             <t:Column>
@@ -236,7 +232,7 @@
                                     <Label text="요일" textAlign="Center" width="100%"/>
                                 </t:multiLabels>
                                 <t:template> 
-                                    <Input value="{dst_end_day_of_week}" valueLiveUpdate="true"/>
+                                    <Input value="{dst_end_day_of_week}" valueLiveUpdate="true" type="Number"/>
                                 </t:template>
                             </t:Column>
                             <t:Column>
@@ -245,36 +241,7 @@
                                     <Label text="시간" textAlign="Center" width="100%"/>
                                 </t:multiLabels>
                                 <t:template> 
-                                    <Input value="{dst_end_time_rate}" valueLiveUpdate="true"/>
-                                </t:template>
-                            </t:Column>
-                            <t:Column headerSpan="1">
-                                <t:multiLabels>
-                                    <Label text="표준시" textAlign="Center" width="100%"/>
-                                    <Label text="코드" textAlign="Center" width="100%"/>
-                                </t:multiLabels>
-                                <t:template> 
-                                    <Input value="" valueLiveUpdate="true"/>
-                                </t:template>
-                            </t:Column>
-                            <t:Column
-                                headerSpan="1">
-                                <t:multiLabels>
-                                    <Label text="서머타임" textAlign="Center" width="100%"/>
-                                    <Label text="표준코드" textAlign="Center" width="100%"/>
-                                </t:multiLabels>
-                                <t:template> 
-                                    <Input value="" valueLiveUpdate="true"/>
-                                </t:template>
-                            </t:Column>
-                            <t:Column
-                                headerSpan="1">
-                                <t:multiLabels>
-                                    <Label text="주타임존" textAlign="Center" width="100%"/>
-                                    <Label text="여부" textAlign="Center" width="100%"/>
-                                </t:multiLabels>
-                                <t:template> 
-                                    <Input value="" valueLiveUpdate="true"/>
+                                    <Input value="{dst_end_time_rate}" valueLiveUpdate="true" type="Number"/>
                                 </t:template>
                             </t:Column>
                         </t:columns>
