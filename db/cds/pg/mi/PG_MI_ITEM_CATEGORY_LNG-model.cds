@@ -1,4 +1,4 @@
-using { User } from '@sap/cds/common';	
+using {User} from '@sap/cds/common';	
 	
 entity Mi_Item_Category_Lng {	
   key tenant_id : String(5)  not null  @title: '테넌트ID';	

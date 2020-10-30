@@ -8,7 +8,6 @@
 #src/op/**
 #src/gen/pg*
 #src/pg/**
-#src/gen/pg.Md*
 #src/gen/sp*
 #src/sp/**
 src/gen/xx*

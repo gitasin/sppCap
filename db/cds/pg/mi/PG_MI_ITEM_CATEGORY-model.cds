@@ -1,5 +1,5 @@
 namespace pg;	
-using { User } from '@sap/cds/common';	
+using {User} from '@sap/cds/common';	
 	
 entity Mi_Item_Category {	
   key tenant_id : String(5)  not null  @title: '테넌트ID';	

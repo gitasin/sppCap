@@ -1,5 +1,5 @@
 namespace pg;	
-using { User } from '@sap/cds/common';	
+using {User} from '@sap/cds/common';	
 using {pg as mst} from './PG_MI_ITEM_MASTER-model';	
 	
 entity Mi_Market_Price {	

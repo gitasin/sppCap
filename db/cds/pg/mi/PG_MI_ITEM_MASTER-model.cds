@@ -1,12 +1,12 @@
 namespace pg;	
-using { User } from '@sap/cds/common';	
+using {User} from '@sap/cds/common';	
 using {pg as mst} from './PG_MI_ITEM_CATEGORY-model';	
 	
 entity Mi_Item_Master {	
   key tenant_id : String(5)  not null  @title: '테넌트ID';	
   key mi_item_code : String(40)  not null  @title: '시황품목번호';	
     category_code : String(40)  not null  @title: 'Category Code';	
-    use_flag : Boolean default true not null  @title: '사용여부';	
+    use_flag : Boolean default 'TRUE' not null  @title: '사용여부';	
   ref: Association to mst.Mi_Item_Category on ref.tenant_id = tenant_id and	
                                               ref.category_code = category_code;
     local_create_date : DateTime  ;	
