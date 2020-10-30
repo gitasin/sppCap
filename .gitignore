@@ -3,7 +3,7 @@
 
 # added by cds deploy
 connection.properties
-./package.json
+/package.json
 .flattened-pom.xml
 
 
