@@ -3,7 +3,7 @@
 
 # added by cds deploy
 connection.properties
-package.json
+/package.json
 .flattened-pom.xml
 
 
@@ -12,4 +12,7 @@ srv/target/
 srv/src/gen/
 srv/src/main/resources/edmx/
 db/src/gen/
+db/.hdiignore
 node_modules/
+app/uxFreeStyleDemo/
+*.zip
