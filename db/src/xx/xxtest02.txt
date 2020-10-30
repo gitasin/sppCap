@@ -6,4 +6,4 @@ test02
 test02
 test02
 G02
-E0202
+E020202
