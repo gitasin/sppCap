@@ -1,8 +1,4 @@
 namespace pg;
-<<<<<<< HEAD
-=======
-
->>>>>>> 545dac28bfea96b000682724e08cabd796aa1887
 using {User} from '@sap/cds/common';	
 	
 entity Mi_Item_Category_Lng {	
