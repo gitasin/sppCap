@@ -15,8 +15,8 @@ import com.sap.cds.services.handler.annotations.ServiceName;
 
 import java.time.Instant;
 
-import cds.gen.cm.CodeDtl_;
-import cds.gen.cm.CodeLng_;
+import cds.gen.cm.codemgrservice.CodeDetails_;
+import cds.gen.cm.codemgrservice.CodeLanguages_;
 import cds.gen.cm.codemgrservice.*;
 import cds.gen.cm.codemgrservice.CodeMasters_;
 
@@ -81,7 +81,7 @@ public class CodeMgr implements EventHandler {
 
     // Code Detail
 
-    @Before(event = CdsService.EVENT_CREATE, entity=CodeDtl_.CDS_NAME)
+    @Before(event = CdsService.EVENT_CREATE, entity=CodeDetails_.CDS_NAME)
     public void beforeCreateCodeDetails(List<CodeDetails> codeDetails) {
         
         Instant current = Instant.now();
@@ -97,7 +97,7 @@ public class CodeMgr implements EventHandler {
 
     }
 
-    @Before(event = CdsService.EVENT_UPDATE, entity=CodeDtl_.CDS_NAME)
+    @Before(event = CdsService.EVENT_UPDATE, entity=CodeDetails_.CDS_NAME)
     public void beforeUpdateCodeDetails(List<CodeDetails> codeDetails) {
         
         Instant current = Instant.now();
@@ -114,7 +114,7 @@ public class CodeMgr implements EventHandler {
 
     // Code Language
 
-    @Before(event = CdsService.EVENT_CREATE, entity=CodeLng_.CDS_NAME)
+    @Before(event = CdsService.EVENT_CREATE, entity=CodeLanguages_.CDS_NAME)
     public void beforeCreateCodeLanguages(List<CodeLanguages> codeLanguages) {
         
         Instant current = Instant.now();
@@ -130,7 +130,7 @@ public class CodeMgr implements EventHandler {
 
     }
 
-    @Before(event = CdsService.EVENT_UPDATE, entity=CodeLng_.CDS_NAME)
+    @Before(event = CdsService.EVENT_UPDATE, entity=CodeLanguages_.CDS_NAME)
     public void beforeUpdateCodeLanguages(List<CodeLanguages> codeLanguages) {
         
         Instant current = Instant.now();

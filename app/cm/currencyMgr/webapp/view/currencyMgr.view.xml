@@ -12,7 +12,7 @@
 
   <!-- <Shell id="shell"> -->
     <App id="app">
-        <f:DynamicPage id="codeMgrPage" toggleHeaderOnTitleClick="true" headerExpanded="true">
+        <f:DynamicPage id="currencyMgrPage" toggleHeaderOnTitleClick="true" headerExpanded="true">
             <f:title>
                 <f:DynamicPageTitle>
                     <f:heading>
@@ -31,7 +31,8 @@
                                             <form:fields>            													
                                                 <SearchField 
                                                     id="search_currency_code" 
-                                                    width="100%"/>
+                                                    width="100%"
+                                                    search=".onSearch"/>
                                             </form:fields>
                                         </form:FormElement>  
                                   
@@ -183,8 +184,7 @@
                                             <ToolbarSpacer/>
                                             <Button icon="sap-icon://create" text="신규" press="onCreate" type="Accept" />
                                             <Button icon="sap-icon://save" text="저장" press="onSave" type="Attention" />
-                                            <Button icon="sap-icon://delete" text="삭제" press="onDelete" type="Reject" />
-                                            <ToolbarSpacer/>
+                                            <Button icon="sap-icon://delete" text="삭제" press="onDelete" type="Reject" />                                           
                                         </content>
                                     </Toolbar>
                                 </form:toolbar>
