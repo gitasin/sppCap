@@ -7,7 +7,7 @@ entity Mi_Item_Master {
   key mi_item_code : String(40)  not null  @title: '시황품목번호';	
     category_code : String(40)  not null  @title: 'Category Code';	
     use_flag : Boolean default 'TRUE' not null  @title: '사용여부';	
-  ref: Association to mst.Mi_Item_Category on ref.tenant_id = tenant_id and	
+    ref: Association to mst.Mi_Item_Category on ref.tenant_id = tenant_id and	
                                               ref.category_code = category_code;
     local_create_date : DateTime  ;	
     local_update_date : DateTime  ;	
