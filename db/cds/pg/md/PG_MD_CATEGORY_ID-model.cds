@@ -16,7 +16,7 @@ namespace pg;
 using { User } from '@sap/cds/common';
 
 entity Md_Category_Id {
-    key tenant_id            : String(4) not null;
+    key tenant_id            : String(5) not null;
     key company_code         : String(10) not null;
     key md_category_id       : String(4) not null;
         md_category_name     : String(40) not null;
