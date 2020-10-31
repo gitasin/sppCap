@@ -92,8 +92,17 @@ modules:
       name: currencyMgr
       target-path: resources/
     - artifacts:
+<<<<<<< HEAD
       - purchaseMgr-content.zip
       name: purchaseMgr
+=======
+      - timeZoneMgr-content.zip
+      name: timeZoneMgr
+      target-path: resources/
+    - artifacts:
+      - developmentReceipt-content.zip
+      name: developmentReceipt
+>>>>>>> 94bb3a584268ec877edf39bcd3c7e9526490c526
       target-path: resources/
 - name: sampleMstMgr
   type: html5
@@ -143,9 +152,23 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
+<<<<<<< HEAD
 - name: purchaseMgr
   type: html5
   path: app/pg/purchaseMgr
+=======
+- name: timeZoneMgr
+  type: html5
+  path: app/cm/timeZoneMgr
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: developmentReceipt
+  type: html5
+  path: app/dp/developmentReceipt
+>>>>>>> 94bb3a584268ec877edf39bcd3c7e9526490c526
   build-parameters:
     builder: custom
     commands:

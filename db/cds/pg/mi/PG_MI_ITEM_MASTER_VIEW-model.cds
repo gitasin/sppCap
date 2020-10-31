@@ -8,21 +8,13 @@
   3. 컬럼(속성)
   - 소문자로 작성
   4. .hdbview, .hdbfunction 등으로 이미 생성된 DB Object 사용시
-  entity 위에 @cds.persistence.exists 명시  
+  entity 위에 @cds.persistence.exists 명시
 *************************************************/
 namespace pg;
 
 @cds.persistence.exists
 entity Mi_Item_Master_View {
-   key mi_item_code : String;
-       mi_item_name : String;
-       currency : String;
-       uom : String;
-       exchange : String;
-       terms : String;
-       sourcing_group : String;
-       category_code : String;
-       category_name : String;
-       exchange_uom : String;
-       manage_period : String;
+    key tenant_id : String;	
+    key mi_item_code : String;	
+    category_code : String;
 }

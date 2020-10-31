@@ -231,8 +231,8 @@
                         <table:extension>
                             <OverflowToolbar class="sapFDynamicPageAlignContent"> 									
                             <ToolbarSpacer/>
-                            <Button text="Add" id="buttonSignalAddRow" press=".onCreateRow()"  type="Transparent"/>
-                            <Button text="Delete" id="buttonSignalDeleteRow" press=".ondelete1()"   type="Transparent"/>
+                            <Button text="Add" id="buttonSignalAddRow" press=".onSignalListAddRow()"  type="Transparent"/>
+                            <Button text="Delete" id="buttonSignalDeleteRow" press=".onSignalListDelete()"   type="Transparent"/>
                             </OverflowToolbar>
                         </table:extension>
                         <table:columns>

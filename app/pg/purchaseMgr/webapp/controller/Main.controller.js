@@ -1,7 +1,14 @@
 /**
- * 작성일 :
+ * 작성일 : 2020.10.21
  * 화면ID :
  * 
+ * 1. delete 작업시 message confirm 작업 
+ * 2. edit 버튼 작업시 uiModel 활용 으로 정리
+ * 3. 각 버튼 처리 확인
+ * 4. signalList 에서의 담당자 fragment 오픈 처리
+ * 5. 화면 기획서 문서와 담당자 확인 필요.
+ * 6. 각종 버튼 이벤트 처리 완료시 메세지 처리
+ * 7. History Window 재처리 
  */
 
 sap.ui.define([      
@@ -35,20 +42,19 @@ sap.ui.define([
 			onInit: function () {
                 console.group("onInit");
 
-            //this.getContentDensityClass();
+             //this.getContentDensityClass();
 
                 //view page 초기 셋팅 (컨트롤 등)
                 this._createView();
 
                 //조회나 수정 페이지 일경우 사용자 데이타 로드 
-                this._getLoadData();
+                //this._getLoadData();
 
                 //view page controls set key or item or values
                 this._setSetData();
 
                 console.groupEnd();
             },
-                   
                     
             /**
              * Note : controller.js 내부에서 사용될 메세지를 정의 합니다. (i18n 구성이후 변경)
@@ -70,32 +76,38 @@ sap.ui.define([
                 this.oInvisibleMessage = InvisibleMessage.getInstance();
                 
                 var oUiModel = new JSONModel({                          
-                            bEditMode : true
-                            
+                    bEditMode : true,
+                    busy : false
                 });     
+
+                this.oViewParam = new JSONModel({
+                    signalList : false
+                }); 
 
                 this.setModel(oUiModel, "ui");     
 
                 console.groupEnd();
             },   
 
-
             /**
-             * 화면에 필요한 데이타를 로드 
+             * 화면에 필요한 데이타 로드 
+             * Note: manifest.jso 파일 model설정으로 참고 (이외 참조 model 사용시 작업)
              * @private
              * @param (String) : mid
              */
             _getLoadData : function(mid) {
               console.group("_getLoadData");
 
-              var oView = this.getView();          
+              //var oView = this.getView();  
+              
+              
               console.groupEnd();
             },
  
             /**
              * 선택한 대상에 맞는 데이타 컨트롤에 셋팅
-             * 사용자가 선택한 항목에 대한 값을 컨트롤에 셋팅한다. 테이블은 바로 바인딩 과정 없이 바인딩 한다. 
-             * 실제 데이타 모델로 변경해야함
+             * 사용자가 선택한 항목에 대한 값을 컨트롤에 셋팅한다. 배열 객체는 직접 바인딩 한다. 
+             * Note : manifest.json에서 실제 데이타 모델로 변경필요, table 모델에 따라 변경필요.
              * 배열로 구성된 데이타 부분은 직접 바인딩 함
              * @private
              * @param (String) : mid
@@ -156,13 +168,8 @@ sap.ui.define([
 
               //시그널
               //Signal
-              
-              
-
-
               console.groupEnd();
             },
-
           
             /**
              * today
@@ -219,6 +226,7 @@ sap.ui.define([
              * MessageStript 출력
              * type ["Information", "Warning", "Error", "Success"]
              * 약어 i, w, e, s
+             * @private
              *  */    
             _showMsgStrip: function (messageType, message) {
                 console.group("onShowMsgStrip");
@@ -243,6 +251,12 @@ sap.ui.define([
                 console.groupEnd();
             },
 
+            /**
+             * Strip Message 호출
+             * @private
+             * @param {String} messageType 
+             * @param {String} message 
+             */
             _generateMsgStrip: function (messageType, message) {
                 console.group("_generateMsgStrip");
 
@@ -266,16 +280,16 @@ sap.ui.define([
             
             /**
              * signalList Insert Data(Items)
+             * signalList Row Insert
+             * Note: sid 및 value 값 수정 필요 
+             * Odata 바인딩 작업시 변경이 필요할수 있음
              * @public
              */
-            onCreateRow : function(oEvent) {
+            onSignalListAddRow : function(oEvent) {
                 console.group("onCreateRow");
                 
                 var oModel = this.getOwnerComponent().getModel("odata");
-                //this.getView().getModel("odata");
-                // var oTable = this.getView().byId("signalList");
-                // var oModel = oTable.getModel();
-                // oModel.push(oNewData);
+
                 var oSignal = oModel.getProperty("/SignalCollection");
                 var oNewData = {
                                 sid : Math.floor(Math.random() * 1000),
@@ -295,54 +309,47 @@ sap.ui.define([
                 console.groupEnd();
             },
 
-            ondelete1 : function (oEvent) {
-                console.group("ondelete1");
-                var m = oEvent.getSource().getParent();
-                var tbl = this.getView().byId("signalList");
-                var idx = m.getBindingContextPath();
-                idx = idx.charAt(idx.lastIndexOf('/')+1);
+            /**
+             * SignalList Row Item 삭제
+             * Note: Odata 바인딩 작업시 변경이 필요할수 있음
+             * @public
+             */
+            onSignalListDelete : function (oEvent) {
+                console.group("onSignalListDelete");
 
-                if (idx !== -1) {
-                    var a = tbl.getModel(); // if named model - var a= tbl.getModel(ModelName);
-                    var data = a.getData();
-                    var removed = data.splice(idx,1);
-                    a.setData(data);
-                }
-                console.groupEnd();
-            },
-
-            onDelete : function () {
-                console.group("onDelete-");
-                //oModel = this.getView().getModel("odata"),
                 var oModel = this.getOwnerComponent().getModel("odata"),
                     oSignal = oModel.getProperty("/SignalCollection"),
                     oTable = this.byId("signalList"),
                     oIindices  = oTable.getSelectedIndices();
 
-                    
                 if (oIindices.length > 0) {
-                    //this.getView().setBusy(true);                    
-                    for (var i = 0; i < oIindices.length; i++) {
+                    
+                    this.getView().setBusy(true);   
+                    
+                    for (var i = oIindices.length; i >-1; i--) {
                         var idx = oIindices[i];     
-                        if (oTable.isIndexSelected(idx)) { 
-                           
-                           console.log("oIindices[i]", oIindices[i]);
-                            console.log("idx", idx);
-                            console.log("oSignal", oSignal);
-                            oSignal.splice(idx, 1);  
-                            oModel.setProperty("/SignalCollection", oSignal);                            
-                    
+                        if (oTable.isIndexSelected(idx)) {       
+                            oSignal.splice(oIindices[i], 1);  
                         }
-                    
-                   // this.getView().setBusy(false);
                     }
+                    this.getView().setBusy(false);
+                    oModel.setProperty("/SignalCollection", oSignal);  
                     oTable.clearSelection();   
                     oModel.refresh(true);
-                    MessageToast.show("삭제 되었습니다.");
-
-                }else{
-                    MessageBox.error("선택된 행이 없습니다.");
                 }
+                console.groupEnd();
+            },
+
+            /**
+             * view item 삭제
+             * @private
+             */
+            onDelete : function () {
+                console.group("onDelete-");
+            
+                   // MessageToast.show("삭제 되었습니다.");
+
+                  //  MessageBox.error("선택된 행이 없습니다.");
                 console.groupEnd();
             },
 
@@ -388,7 +395,9 @@ sap.ui.define([
              * -------------------------------------------------------------
              */
 
-
+            /**
+             * system function
+             */
             onExit : function () {
                 if (this._oPopover) {
                     this._oPopover.destroy();
