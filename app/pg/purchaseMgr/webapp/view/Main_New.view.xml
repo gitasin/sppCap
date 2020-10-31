@@ -1,0 +1,387 @@
+<!--
+    디자인 1차 완성본
+    -남은 작업
+    -1) 스마트 컨트롤 
+    -2)데이타바이딩
+    -3)history 윈도우
+    -4)데이타 저장(수정) 및 삭제 
+    -5)벨류 체크
+    
+
+-->
+  <mvc:View
+	class="sapUiSizeCompact"
+	controllerName="pg.purchaseMgr.controller.Main"	
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:demo="sap.ui.core.sample.common"
+	xmlns:f="sap.ui.layout.form"
+    xmlns:table="sap.ui.table"    
+    xmlns:l="sap.ui.layout"
+	xmlns:html="http://www.w3.org/1999/xhtml"	
+    xmlns:u="sap.ui.unified"    
+    xmlns:rte="sap.ui.richtexteditor" 
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+	xmlns:smartTable="sap.ui.comp.smarttable"        
+	xmlns:mvc="sap.ui.core.mvc">
+	<App>    
+	    <Page id="page" floatingFooter="true" showHeader="false">
+ 	<smartFilterBar:SmartFilterBar
+		id="smartFilterBar"
+		entitySet="Products"
+		persistencyKey="SmartFilterPKey">
+		<smartFilterBar:controlConfiguration>
+			<smartFilterBar:ControlConfiguration
+				key="Category"
+				visibleInAdvancedArea="true"
+				preventInitialDataFetchInValueHelpDialog="false">
+			</smartFilterBar:ControlConfiguration>
+		</smartFilterBar:controlConfiguration>
+	</smartFilterBar:SmartFilterBar>
+            <VBox>
+                <Toolbar design="Transparent">
+                    <Label design="Bold" labelFor="partCategoryManagement" text="Part Category Management">
+                        <layoutData>
+                            <ToolbarLayoutData shrinkable="false" />
+                        </layoutData>
+                    </Label>		
+                    <ToolbarSpacer />	<!--빈 툴바 영역 -->		
+                    <ToolbarSpacer />   <!--빈 툴바 영역 -->		
+                    <Button press="onEdit" id="buttonEdit" text="Edit"/>
+                    <Button press="onRemove" id="buttonRemove" text="Delete"/>
+                    <Button press="onSave" id="buttonSave" text="Save"/>
+                    <Button press="onHistory" id="buttonHistory" text="History"/>
+                </Toolbar>
+            </VBox>
+            <VBox>
+                <f:SimpleForm 
+                    editable="true" 
+                    layout="ResponsiveGridLayout">
+                <f:content>
+                    <!--1 row-->
+                    <Label text="구분" design="Bold" >
+                        <layoutData>
+                            <l:GridData span="XL2 L2 M2 S12"/>
+                        </layoutData>
+                    </Label>
+                    <ComboBox selectedKey="PR/PO관리" >
+                        <core:Item key="PR/PO관리" text="PR/PO관리" />
+                        <core:Item key="계약관리" text="계약관리" />
+                        <core:Item key="납기관리" text="납기관리" />
+                        <core:Item key="단가관리" text="단가관리" />
+                        <layoutData>
+                            <l:GridData span="XL2 L4 M2 S12"/>
+                        </layoutData>
+                     </ComboBox>	
+                    <Label text="시나리오" design="Bold">
+                        <layoutData>
+                            <l:GridData span="XL2 L2 M2 S12"/>
+                        </layoutData>
+                    </Label>
+                    <ComboBox  selectedKey="수입PO 생성지연" >
+                            <core:Item key="수입PO 생성지연" text="수입PO 생성지연" />
+                            <core:Item key="미결PO관리-원재료" text="미결PO관리-원재료" />
+                            <core:Item key="PR미진행" text="PR미진행" />
+                            <core:Item key="서브원 미결 PO" text="서브원 미결 PO" />
+                            <core:Item key="보증보험증권접수관리" text="보증보험증권 접수 관리" />
+                            <core:Item key="외국환거래법준수관리" text="외국환거래법 준수 관리" />
+                            <core:Item key="외자PO합의" text="외자PO합의" />
+                            <core:Item key="납기관리-설비/공사선집행" text="납기관리-설비/공사 선집행" />
+                            <core:Item key="Plant별단가차이" text="Plant별 단가차이" />
+                            <core:Item key="가단가정리" text="가단가 정리" />
+                            <core:Item key="장기미변동 단가(단가이력추이)" text="장기 미변동 단가(단가이력추이)" />
+                        <layoutData>
+                            <l:GridData span="XL2 L2 M2 S12"/>
+                        </layoutData>
+                     </ComboBox>	
+                    <Label text="　" design="Bold" class="sapMLabelNoText">
+                        <layoutData>
+                            <l:GridData span="XL2 L2 M2 S12"/>
+                        </layoutData>
+                    </Label>
+                    <RadioButtonGroup columns="2" width="100%" >
+                        <RadioButton  text="Active" />
+                        <RadioButton text="In Active"/>
+                        <layoutData>
+                            <l:GridData span="XL2 L2 M2 S12"/>
+                        </layoutData>
+                    </RadioButtonGroup>	 
+                                     
+                    <!--2 row-->
+                    <Label text="구매유형" design="Bold">
+                        <layoutData>
+                            <l:GridData span="XL2 L2 M2 S12"/>
+                        </layoutData>
+                    </Label>
+                    <ComboBox selectedKey="원재료" >
+                        <core:Item key="원재료" text="원재료" />
+                        <core:Item key="설비" text="설비" />
+                        <core:Item key="공사" text="공사" /> 
+                        <layoutData>
+                            <l:GridData span="XL2 L2 M2 S12"/>
+                        </layoutData>                        
+                    </ComboBox>     
+                    <!--빈칸 -->
+                    <Text text="　" ><layoutData><l:GridData span="XL2 L2 M2 S12"/></layoutData></Text>
+                    <Text text="　" ><layoutData><l:GridData span="XL2 L2 M2 S12"/></layoutData></Text>
+                    <Text text="　" ><layoutData><l:GridData span="XL2 L2 M2 S12"/></layoutData></Text>
+                    <Text text="　" ><layoutData><l:GridData span="XL2 L2 M2 S12"/></layoutData></Text>
+                    <!--3 row-->
+                    <Label text="회사" design="Bold" >
+                        <layoutData>
+                            <l:GridData span="XL2 L2 M2 S12"/>
+                        </layoutData>
+                    </Label>
+                    <ComboBox  selectedKey="LG전자" >
+                        <core:Item key="LG전자" text="LG전자" />
+                        <core:Item key="LG디스플레이" text="LG디스플레이" />
+                        <core:Item key="LG이노텍" text="LG이노텍" />
+                        <core:Item key="LG화학" text="LG화학" />
+                        <core:Item key="LG생활건강" text="LG생활건강" />
+                        <core:Item key="LG하우시스" text="LG하우시스" />
+                        <core:Item key="LG MMA" text="LG MMA" />
+                        <core:Item key="LG유플러스" text="LG유플러스" />
+                        <core:Item key="LG지투알" text="LG지투알" />
+                        <core:Item key="LG상사" text="LG상사" />
+                        <core:Item key="LG CNS" text="LG CNS" />
+                        <layoutData>
+                            <l:GridData span="XL2 L2 M2 S12"/>
+                        </layoutData>                        
+                    </ComboBox>	
+
+                    <Label text="법인" design="Bold">
+                        <layoutData>
+                            <l:GridData span="XL2 L2 M2 S12"/>
+                        </layoutData>
+                    </Label>
+
+                    <ComboBox selectedKey="국내">
+                        <core:Item key="국내" text="국내" />
+                        <core:Item key="국외등" text="국외 등" />
+                        <layoutData>
+                            <l:GridData span="XL2 L2 M2 S12"/>
+                        </layoutData>                                                
+                    </ComboBox>	
+                    <Text text="　" ><layoutData><l:GridData span="XL2 L2 M2 S12"/></layoutData></Text>
+                    <Text text="　" ><layoutData><l:GridData span="XL2 L2 M2 S12"/></layoutData></Text>                    
+                    <!--4 row-->                 
+                    <Label text="담당자" >
+                        <layoutData>
+                            <l:GridData span="XL2 L2 M2 S12"/>
+                        </layoutData>
+                    </Label>
+                   <MultiInput
+                        valueHelpOnly="true"
+                        value="손홍민"
+                        valueHelpRequest=".onValueHelpRequested">
+                        <layoutData>
+                            <l:GridData span="XL2 L2 M2 S12"/>
+                        </layoutData> 
+                    </MultiInput>                    
+                    <Text text="　" ><layoutData><l:GridData span="XL8 L8 M8 S12"/></layoutData></Text>
+                    <Label text="　"  class="sapMLabelNoText"> 
+                        <layoutData>
+                            <l:GridData span="XL2 L2 M2 S12"/>
+                        </layoutData>
+                    </Label>
+                    <table:Table
+                        selectionMode="MultiToggle" 
+                        visibleRowCount="3" 
+                        rows="{ path : 'main>/UserCollection'}"
+                        ariaLabelledBy="title"
+                        class="sapUiTinyMarginTop">
+                        <table:columns>
+                            <table:Column  width="10rem" hAlign="Center" >                                        
+                                <Label text="담당자"/>           
+                                <table:template>
+                                    <Label text="{main>manager}"/>
+                                </table:template>
+                            </table:Column>
+                            <table:Column  width="10rem" hAlign="Center">                                        
+                                <Label text="Title"/>           
+                                <table:template>
+                                    <Label text="{main>title}"/>
+                                </table:template>
+                            </table:Column>
+                            <table:Column  width="10rem" hAlign="Center">                                        
+                                <Label text="휴대폰"/>           
+                                <table:template>
+                                    <Label text="{main>mobile}"/>
+                                </table:template>
+                            </table:Column>
+                            <table:Column width="10rem" hAlign="Center">
+                                <Label text="Department"/>
+                                <table:template>                                           
+                                    <Label text="{main>dept}"/>                                           
+                                </table:template>                                        
+                            </table:Column>									
+                        </table:columns>
+   
+                    </table:Table>  
+                    <!--6 row-->
+                    <Label text="모니터링 목적" design="Bold">
+                        <layoutData>
+                            <l:GridData span="XL2 L2 M2 S12"/>
+                        </layoutData>
+                    </Label>
+                    <rte:RichTextEditor class="sapUiTinyMarginTop" editorType="TinyMCE4" width="100%" customToolbar="true" showGroupFont="true" showGroupLink="true" showGroupInsert="true"/>			
+                    <!--7 row-->
+                    <Label text="시나리오 설명" design="Bold">
+                        <layoutData>
+                            <l:GridData span="XL2 L2 M2 S12"/>
+                        </layoutData>
+                    </Label>
+                    <rte:RichTextEditor class="sapUiTinyMarginTop" editorType="TinyMCE4" width="100%" customToolbar="true" showGroupFont="true" showGroupLink="true" showGroupInsert="true"/>			
+                    <!--8 row-->
+                    <Label text="운영방식" design="Bold">
+                        <layoutData>
+                            <l:GridData span="XL2 L2 M2 S12"/>
+                        </layoutData>
+                    </Label>  
+                    <HBox class="sapUiContentPadding">
+                        <VBox width="70px">
+                        <CheckBox text="조회" />
+                            </VBox>
+                        <VBox width="70px">
+                            <CheckBox text="소명" />
+                        </VBox>                        
+                        <VBox width="70px">
+                            <CheckBox text="알람" />
+                        </VBox>  		
+                    </HBox>   
+                    <!--9 row-->
+                    <Label text="소스시스템" design="Bold">
+                        <layoutData>
+                            <l:GridData span="XL2 L2 M2 S12"/>
+                        </layoutData>
+                    </Label>
+                    <rte:RichTextEditor class="sapUiTinyMarginTop" editorType="TinyMCE4" width="100%" customToolbar="true" showGroupFont="true" showGroupLink="true" showGroupInsert="true"/>			
+                    <!--10 row-->
+                    <Label text="소스시스템/상세설명" design="Bold">
+                        <layoutData>
+                            <l:GridData span="XL2 L2 M2 S12"/>
+                        </layoutData>
+                    </Label>
+                    <rte:RichTextEditor class="sapUiTinyMarginTop" editorType="TinyMCE4" width="100%" customToolbar="true" showGroupFont="true" showGroupLink="true" showGroupInsert="true"/>			
+                    <!--11 row-->
+                    <Label text="Signal" design="Bold">
+                        <layoutData>
+                            <l:GridData span="XL2 L2 M2 S12"/>
+                        </layoutData>
+                    </Label>
+                    <table:Table id="subList"
+                        selectionMode="MultiToggle"
+                        rows="{ path : 'sub>/SignalCollection'}" 
+                        visibleRowCount="3"
+                        class="sapUiTinyMarginTop" 
+                        >
+                        <table:extension>
+                            <OverflowToolbar class="sapFDynamicPageAlignContent"> 									
+                            <ToolbarSpacer/>
+                            <Button text="Create" id="buttonMainCreateRow" press=".onCreateRow('subList')"  type="Transparent"/>
+                            <Button text="Delete" id="buttonMainDeleteRow" press=".onDelete('subList')"   type="Transparent"/>
+                            <!-- enabled="{ui>/bMainSelected}" -->
+                            </OverflowToolbar>
+                        </table:extension>
+                        <table:rowSettingsTemplate>
+                            <table:RowSettings highlight="{}"/>
+                        </table:rowSettingsTemplate>                                
+                        <table:columns>
+                            <table:Column  width="10rem" hAlign="Center" >                                        
+                                    <Label text="condition"/>           
+                                <table:template>
+                                    <ComboBox  selectedKey="{sub>condition}">
+                                        <core:Item key="LessThen" text="LessThen" />
+                                        <core:Item key="Between" text="Between" />
+                                        <core:Item key="Equal" text="Equal" />
+                                    </ComboBox>	
+                                </table:template>
+                            </table:Column>
+                            <table:Column  width="10rem" hAlign="Center">                                        
+                                    <Label text="Value 1"/>           
+                                <table:template>
+                                    <Input  value="{sub>value1}"/>
+                                </table:template>
+                            </table:Column>
+                            <table:Column  width="10rem" hAlign="Center">                                        
+                                    <Label text="Value 2"/>           
+                                <table:template>
+                                    <Input  value="{sub>value2}"/>
+                                </table:template>
+                            </table:Column>
+                            <table:Column width="10rem" hAlign="Center">
+                                <Label text="Status"/>
+                                <table:template>  
+                                    <ComboBox  selectedKey="{sub>status}">
+                                        <core:Item key="A" text="A" />
+                                        <core:Item key="B" text="B" />
+                                        <core:Item key="C" text="C" />
+                                    </ComboBox>	                                      
+                                </table:template>                                        
+                            </table:Column>									
+                        </table:columns>
+                    </table:Table>  
+                    <!--주기 row-->
+                    <Label text="주기" design="Bold" >
+                        <layoutData>
+                            <l:GridData span="XL2 L2 M2 S12"/>
+                        </layoutData>
+                    </Label>
+                    <!--items-->
+                    <MultiComboBox
+                        selectionChange="handleSelectionChange"
+                        selectionFinish="handleSelectionFinish"
+                        class="sapUiTinyMarginTop"
+                        >
+                        <core:Item key="일" text="일"/>
+                        <core:Item key="월" text="월"/>
+                        <core:Item key="분기" text="분기"/>
+                        <core:Item key="반기" text="반기"/>
+                        <layoutData><l:GridData span="XL2 L2 M2 S12"/></layoutData>
+                    </MultiComboBox> 
+
+                </f:content>
+              </f:SimpleForm>
+              <f:SimpleForm 
+                  editable="true" 
+                  layout="ResponsiveGridLayout"
+                  class="sapUiTinyMarginTop marginMinusTop"
+                  >
+                <f:content>   
+                    <!--첨부파일-->
+                    <Label text="첨부파일" design="Bold">
+                        <layoutData>
+                            <l:GridData span="XL2 L2 M2 S12"/>
+                        </layoutData>
+                    </Label>
+                    <VBox>
+                    <UploadCollection
+                          id="UploadCollection"
+                          maximumFilenameLength="55"
+                          maximumFileSize="10"
+                          multiple="true"
+                          sameFilenameAllowed="true"
+                          instantUpload="false"
+                          noDataDescription="Drop files or use the &quot;Add&quot; button to keep files ready for upload"
+                          change="onChange"
+                          fileDeleted="onFileDeleted"
+                          filenameLengthExceed="onFilenameLengthExceed"
+                          fileSizeExceed="onFileSizeExceed"
+                          typeMissmatch="onTypeMissmatch"
+                          uploadComplete="onUploadComplete"
+                          beforeUploadStarts="onBeforeUploadStarts" />                                        
+                      <u:FileUploader
+                      id="fileUploader"
+                      name="myFileUpload"
+                      uploadUrl="upload/"
+                      tooltip="Upload your file to the local server"
+                      uploadComplete="handleUploadComplete"/>
+                  <Button text="Upload File" press="handleUploadPress"/>
+                  </VBox>
+                </f:content>
+              </f:SimpleForm>                           
+            </VBox>
+
+        </Page>        
+    </App>
+</mvc:View>

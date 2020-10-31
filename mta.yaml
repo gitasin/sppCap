@@ -91,6 +91,10 @@ modules:
       - currencyMgr-content.zip
       name: currencyMgr
       target-path: resources/
+    - artifacts:
+      - purchaseMgr-content.zip
+      name: purchaseMgr
+      target-path: resources/
 - name: sampleMstMgr
   type: html5
   path: app/xx/sampleMstMgr
@@ -134,6 +138,14 @@ modules:
 - name: currencyMgr
   type: html5
   path: app/cm/currencyMgr
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: purchaseMgr
+  type: html5
+  path: app/pg/purchaseMgr
   build-parameters:
     builder: custom
     commands:
