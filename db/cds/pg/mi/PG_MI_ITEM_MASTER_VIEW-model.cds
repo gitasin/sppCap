@@ -14,7 +14,17 @@ namespace pg;
 
 @cds.persistence.exists
 entity Mi_Item_Master_View {
-    key tenant_id : String;	
-    key mi_item_code : String;	
-    category_code : String;
+    key tenant_id : String;
+    key   mi_item_code : String;
+       category_code : String;
+       use_flag : Boolean;
+       description : String;
+    key   language_code : String;
+       category_name : String;
+       local_create_date : DateTime;
+       local_update_date : DateTime;
+       create_user_id : String;
+       update_user_id : String;
+       system_create_date : DateTime;
+       system_update_date : DateTime;
 }
