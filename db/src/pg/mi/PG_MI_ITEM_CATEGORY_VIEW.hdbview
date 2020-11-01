@@ -1,5 +1,6 @@
 VIEW PG_MI_ITEM_CATEGORY_VIEW AS
-SELECT pmic.category_code,
+SELECT pmic.tenant_id,
+       pmic.category_code,
        pmic.description,
        pmic.use_flag,
        pmic.parent_category_code,

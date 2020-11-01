@@ -14,6 +14,7 @@ namespace pg;
 
 @cds.persistence.exists
 entity Mi_Item_Category_View {
+    key tenant_id : String;
     key   category_code : String;
        description : String;
        use_flag : Boolean;
