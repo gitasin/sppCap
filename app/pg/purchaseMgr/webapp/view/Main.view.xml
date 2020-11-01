@@ -32,6 +32,12 @@
                 </Toolbar>
             </VBox>
             <VBox>
+                <l:VerticalLayout
+                        id="oVerticalContent"
+                        width="100%">
+                        <l:content>                     
+                        </l:content>
+                </l:VerticalLayout>             
                 <f:SimpleForm 
                     editable="true" 
                     layout="ResponsiveGridLayout">
@@ -237,7 +243,7 @@
                         </table:extension>
                         <table:columns>
                             <table:Column  width="10rem" hAlign="Center" >                                        
-                                    <Label text="condition"/>           
+                                <Label text="condition"/>           
                                 <table:template>
                                     <ComboBox  selectedKey="{odata>condition}">
                                         <core:Item key="LessThen" text="LessThen" />
@@ -299,12 +305,16 @@
                   >
                 <f:content>   
                     <!--첨부파일-->
-                    <Label text="첨부파일" design="Bold">
+                    <Label text="첨부파일1" design="Bold">
                         <layoutData>
                             <l:GridData span="XL2 L2 M2 S12"/>
                         </layoutData>
                     </Label>
-                    <VBox>
+                    <VBox >
+                    <!-- instantUpload false 찾아보기 삭제 바로 업로드 진행
+                    7번 부터  확인
+                    https://blogs.sap.com/2019/12/29/sapui5-and-odata-uploadcollection-example/
+                     -->
                     <UploadCollection
                           id="UploadCollection"
                           maximumFilenameLength="55"
@@ -320,13 +330,6 @@
                           typeMissmatch="onTypeMissmatch"
                           uploadComplete="onUploadComplete"
                           beforeUploadStarts="onBeforeUploadStarts" />                                        
-                      <u:FileUploader
-                      id="fileUploader"
-                      name="myFileUpload"
-                      uploadUrl="upload/"
-                      tooltip="Upload your file to the local server"
-                      uploadComplete="handleUploadComplete"/>
-                  <Button text="Upload File" press="handleUploadPress"/>
                   </VBox>
                 </f:content>
               </f:SimpleForm>                           

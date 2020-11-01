@@ -47,6 +47,9 @@ sap.ui.define([
                 //view page 초기 셋팅 (컨트롤 등)
                 this._createView();
 
+                //message setting
+                this._setMessage();
+
                 //조회나 수정 페이지 일경우 사용자 데이타 로드 
                 //this._getLoadData();
 
@@ -56,15 +59,6 @@ sap.ui.define([
                 console.groupEnd();
             },
                     
-            /**
-             * Note : controller.js 내부에서 사용될 메세지를 정의 합니다. (i18n 구성이후 변경)
-             * @private
-             */
-            _setMessage : function() {
-                console.group("_setMessage");
-
-                console.groupEnd();
-            },
 
             /**
              *  view에서 사용할 객체를 생성합니다.
@@ -88,6 +82,22 @@ sap.ui.define([
 
                 console.groupEnd();
             },   
+
+            /**
+             * Note : controller.js 내부에서 사용될 메세지를 정의 합니다. (i18n 구성이후 변경)
+             * @private
+             */
+            _setMessage : function() {
+                console.group("_setMessage");
+               
+                this.errorDeleteRowChooice = "삭제할 항목을 선택해야 합니다.";
+                this.confirmAllDeleteRow = "선택된 항목을 삭제 하시 겠습니까? 하위 등록된 데이타도 같이 삭제 됩니다.";
+                this.confirmDeleteRow = "선택된 항목을 삭제 하시 겠습니까?";
+                this.confirmDeleteRowTitle = "삭제 확인";
+                this.sucessDelete = "삭제가 성공 하였습니다.";
+
+                console.groupEnd();                
+            },            
 
             /**
              * 화면에 필요한 데이타 로드 
@@ -286,26 +296,61 @@ sap.ui.define([
              * @public
              */
             onSignalListAddRow : function(oEvent) {
-                console.group("onCreateRow");
+                console.group("onSignalListAddRow");
                 
-                var oModel = this.getOwnerComponent().getModel("odata");
-
-                var oSignal = oModel.getProperty("/SignalCollection");
-                var oNewData = {
+                var oModel = this.getOwnerComponent().getModel("odata"),
+                    oSignal = oModel.getProperty("/SignalCollection"),
+                    oTable = this.byId("signalList"),
+                    oNewData = {
                                 sid : Math.floor(Math.random() * 1000),
                                 condition : "LessThen",
                                 value1 : Math.floor(Math.random() * 100),
                                 value2 : Math.floor(Math.random() * 100),
                                 status : "A"
-                };                
-            
+                };   
+                           
                 oSignal.push(oNewData);
                 oModel.refresh(true);
-                //setFirstVisibleRow( )
-                //신규등록행으로 포커스 이동 
                 console.dir(oSignal);
+                //oTable.setSelectedIndex(oSignal.length-1);
+                //focus 안됨...
+                // var oRows = oTable.getRows();
+                // var oCell = oRows[oSignal.length-1].getCells()[1]; 
+                // oCell.setFocus(); 
 
+                /**odata4 */
+                // var oModel = this.getOwnerComponent().getModel("odata"),
+                //     oSignal = oModel.getProperty("/SignalCollection"),
+                //     oTable = this.byId("signalList"),
+                //     oBinding = oTable.getBinding("rows");                  
+                
+                //     var oContext = oBinding.create({
+                //         "sid" : Math.floor(Math.random() * 1000),
+                //         "condition" : "LessThen",
+                //         "value1" : Math.floor(Math.random() * 100),                        
+                //         "value2" : Math.floor(Math.random() * 100),
+                //         "status" : "A"
+                //     });
 
+                //     oTable.clearSelection();
+
+                //     this.getView().setBusy(true);
+
+                //     oContext.created().then(function () {
+                //         oBinding.refresh();
+                //     });
+
+                //     //focus 이동
+                //     oTable.getRows().some(function (oRows) {
+                //         if (oRows.getBindingContext() === oContext) {
+                //             oRows.focus();
+                //             oRows.setSelected(true);
+                //             return true;
+                //         }
+                //     });
+
+                //     this.getView().setBusy(false);
+                
                 console.groupEnd();
             },
 
@@ -320,23 +365,83 @@ sap.ui.define([
                 var oModel = this.getOwnerComponent().getModel("odata"),
                     oSignal = oModel.getProperty("/SignalCollection"),
                     oTable = this.byId("signalList"),
+                    that = this,
                     oIindices  = oTable.getSelectedIndices();
 
                 if (oIindices.length > 0) {
                     
-                    this.getView().setBusy(true);   
-                    
-                    for (var i = oIindices.length; i >-1; i--) {
-                        var idx = oIindices[i];     
-                        if (oTable.isIndexSelected(idx)) {       
-                            oSignal.splice(oIindices[i], 1);  
+                    var msg = this.confirmDeleteRow;
+                    this.getView().setBusy(true);
+
+                    MessageBox.confirm(msg, {
+                        title : this.confirmDeleteRowTitle,                        
+                        initialFocus : sap.m.MessageBox.Action.CANCEL,
+                        onClose : function(sButton) {
+                            if (sButton === MessageBox.Action.OK) {
+
+                                console.log("oIindices.length", oIindices.length);
+                                console.log("delete ok")
+                             
+                                //json
+                                for (var i = oIindices.length; i >-1; i--) {
+                                    var idx = oIindices[i];     
+                                    if (oTable.isIndexSelected(idx)) {       
+                                        oSignal.splice(oIindices[i], 1);  
+                                    }
+                                }
+
+                                //odata v4
+                                // for (var i = 0; i < oIindices.length; i++) {
+                                //     var idx = oIindices[i];     
+                                //     if (oTable.isIndexSelected(idx)) { 
+                                //         that.getView().setBusy(true);
+                                //         oTable.getContextByIndex(idx).delete("$auto").then(function () {   
+                                            
+      
+                                //             that._showMsgStrip("s", that.sucessDelete);
+                                        
+                                //             //MessageToast.show(this.sucessDelete);
+                                            
+                                //             oTable.clearSelection();  
+                                //         }.bind(this), function (oError) {
+                                //             MessageBox.error(oError.message);
+                                //         });
+                                //         that.getView().setBusy(false);
+                                //     }
+                                // }
+
+
+                                that.getView().setBusy(false);
+                                oModel.setProperty("/SignalCollection", oSignal);  
+                                oTable.clearSelection();   
+                                oModel.refresh(true);  
+                                
+                                //MsgStrip 최상단에 있어 확인하기 어려움 메세지 박스 호출로 대체
+                                MessageBox.show(that.confirmDeleteRowTitle, {
+                                    icon: MessageBox.Icon.ERROR,
+                                    title: that.sucessDelete,
+                                    actions: [MessageBox.Action.OK],
+                                    styleClass: "sapUiSizeCompact"
+                                });                                
+
+                            } else if (sButton === MessageBox.Action.CANCEL) {
+                               
+                                this.getView().setBusy(false);
+                                return;
+                            };
                         }
-                    }
-                    this.getView().setBusy(false);
-                    oModel.setProperty("/SignalCollection", oSignal);  
-                    oTable.clearSelection();   
-                    oModel.refresh(true);
+                    });                          
+
+
+                } else {
+                     MessageBox.show(this.errorDeleteRowChooice, {
+                        icon: MessageBox.Icon.ERROR,
+                        title: this.errorCheckChangeCopyRowTitle,
+                        actions: [MessageBox.Action.OK],
+                        styleClass: "sapUiSizeCompact"
+                    });
                 }
+                
                 console.groupEnd();
             },
 
