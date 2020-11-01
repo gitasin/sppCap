@@ -1,0 +1,22 @@
+VIEW PG_MI_ITEM_CATEGORY_VIEW AS
+SELECT pmic.category_code,
+       pmic.description,
+       pmic.use_flag,
+       pmic.parent_category_code,
+       pmicl_p.category_name AS parent_category_name,
+       pmicl.language_code,
+       pmicl.category_name,
+       pmic.local_create_date,
+       pmic.local_update_date,
+       pmic.create_user_id,
+       pmic.update_user_id,
+       pmic.system_create_date,
+       pmic.system_update_date
+FROM pg_mi_item_category pmic
+INNER JOIN pg_mi_item_category_lng pmicl
+  ON pmic.tenant_id = pmicl.tenant_id
+  AND pmic.category_code = pmicl.category_code
+LEFT OUTER JOIN pg_mi_item_category_lng pmicl_p
+  ON pmic.tenant_id = pmicl_p.tenant_id
+  AND pmic.parent_category_code = pmicl_p.category_code
+WHERE pmicl.language_code = pmicl_p.language_code;
