@@ -1220,3 +1220,9 @@ var removed = data.splice(idx,1);
 a.setData(data);
 
 
+ var bSelect = oUiModel.getProperty("/bSubListTrue"),
+bSearch =  oUiModel.getProperty("/bSearch"); 
+
+ var oUiModel = this.getModel("ui"),
+enabled="{=${ui>/bAdd}}"
+this.setModel(oUiModel, "ui");     

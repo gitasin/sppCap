@@ -70,7 +70,7 @@ sap.ui.define([
                 this.oInvisibleMessage = InvisibleMessage.getInstance();
                 
                 var oUiModel = new JSONModel({                          
-                    bEditMode : true,
+                    bEditMode : false,
                     busy : false
                 });     
 
@@ -286,7 +286,25 @@ sap.ui.define([
                 
                 console.groupEnd();
             },
+            
+            /**
+             * view EditMode
+             * @public
+             */
+            onEdit : function () {
+                console.group("onEdit");
+                var oUiModel = this.getModel("ui");
 
+                console.log(oUiModel.getProperty("/bEditMode")); 
+
+                if(oUiModel.getProperty("/bEditMode")){                                 
+                    oUiModel.setProperty("/bEditMode", false);      
+                }
+                else{
+                    oUiModel.setProperty("/bEditMode", true); 
+                }
+                console.groupEnd();
+            },
             
             /**
              * signalList Insert Data(Items)
@@ -312,6 +330,7 @@ sap.ui.define([
                 oSignal.push(oNewData);
                 oModel.refresh(true);
                 console.dir(oSignal);
+
                 //oTable.setSelectedIndex(oSignal.length-1);
                 //focus 안됨...
                 // var oRows = oTable.getRows();
@@ -365,11 +384,13 @@ sap.ui.define([
                 var oModel = this.getOwnerComponent().getModel("odata"),
                     oSignal = oModel.getProperty("/SignalCollection"),
                     oTable = this.byId("signalList"),
-                    that = this,
-                    oIindices  = oTable.getSelectedIndices();
+                    oData = oModel.getData(),
+                    oPath,
+                    that = this;
 
-                if (oIindices.length > 0) {
-                    
+                var oSelected  = this.byId("signalList").getSelectedContexts();
+                if (oSelected.length > 0) {
+
                     var msg = this.confirmDeleteRow;
                     this.getView().setBusy(true);
 
@@ -378,30 +399,25 @@ sap.ui.define([
                         initialFocus : sap.m.MessageBox.Action.CANCEL,
                         onClose : function(sButton) {
                             if (sButton === MessageBox.Action.OK) {
-
-                                console.log("oIindices.length", oIindices.length);
                                 console.log("delete ok")
-                             
-                                //json
-                                for (var i = oIindices.length; i >-1; i--) {
-                                    var idx = oIindices[i];     
-                                    if (oTable.isIndexSelected(idx)) {       
-                                        oSignal.splice(oIindices[i], 1);  
-                                    }
-                                }
 
+                                //json
+                                for ( var i = oSelected.length - 1; i >= 0; i--) {
+                                    //oSelected[0].getObject()
+                                    
+                                    var idx = parseInt(oSelected[0].sPath.substring(oSelected[0].sPath.lastIndexOf('/') + 1));
+                                    //oData.lineitems.splice(idx, 1);
+                                    oSignal.splice(idx, 1);
+                                }
+                                
                                 //odata v4
                                 // for (var i = 0; i < oIindices.length; i++) {
                                 //     var idx = oIindices[i];     
                                 //     if (oTable.isIndexSelected(idx)) { 
                                 //         that.getView().setBusy(true);
                                 //         oTable.getContextByIndex(idx).delete("$auto").then(function () {   
-                                            
-      
                                 //             that._showMsgStrip("s", that.sucessDelete);
-                                        
                                 //             //MessageToast.show(this.sucessDelete);
-                                            
                                 //             oTable.clearSelection();  
                                 //         }.bind(this), function (oError) {
                                 //             MessageBox.error(oError.message);
@@ -410,10 +426,10 @@ sap.ui.define([
                                 //     }
                                 // }
 
-
                                 that.getView().setBusy(false);
                                 oModel.setProperty("/SignalCollection", oSignal);  
                                 oTable.clearSelection();   
+                                oTable.removeSelections();
                                 oModel.refresh(true);  
                                 
                                 //MsgStrip 최상단에 있어 확인하기 어려움 메세지 박스 호출로 대체
@@ -432,7 +448,6 @@ sap.ui.define([
                         }
                     });                          
 
-
                 } else {
                      MessageBox.show(this.errorDeleteRowChooice, {
                         icon: MessageBox.Icon.ERROR,
@@ -441,6 +456,10 @@ sap.ui.define([
                         styleClass: "sapUiSizeCompact"
                     });
                 }
+
+                oModel.setProperty("/SignalCollection", oSignal);  
+                oTable.clearSelection();   
+                oModel.refresh(true);  
                 
                 console.groupEnd();
             },
