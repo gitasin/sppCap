@@ -119,7 +119,7 @@ sap.ui.define([
 					"timezone_name"             : "",
                     "country_code"              : "",
                     "gmt_offset"                : null,
-					"dst_flag"                  : false,
+					"dst_flag"                  : false, 
 					"dst_start_month"           : null,
                     "dst_start_day"             : null,
                     "dst_start_week"            : null,
@@ -326,11 +326,34 @@ sap.ui.define([
 
                 console.groupEnd();
             },
-            onCheck : function(){
-                debugger;
+            onCheck : function(){ 
             },
             onCellClick : function(){
+            },
+            onDelete : function () {
                 debugger;
+                var oSelected  = this.byId("table").getSelectedContexts();
+
+                if (oSelected.length > 0) {
+
+                    for(var idx = 0; idx < oSelected.length; idx++){
+
+                        var oView = this.getView();
+                        oView.setBusy(true);
+
+                        oSelected[idx].delete("$auto").then(function () {
+                            oView.setBusy(false);
+                            MessageToast.show("삭제 되었습니다.");
+                            this.onLngRefresh();
+                        }.bind(this), function (oError) {
+                            oView.setBusy(false);
+                            MessageBox.error(oError.message);
+                        });
+
+                    }
+                }else{
+                    MessageBox.error("선택된 행이 없습니다.");
+                }
             }
 		}); 
 	});

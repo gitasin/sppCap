@@ -1,3 +1,6 @@
+<!-- delete 추가 
+rows copy ??
+ui.table > m.table 변환하기   -->
   <mvc:View
 	class="sapUiSizeCompact"
 	controllerName="cm.timeZoneMgr.controller.timeZoneMgr"
@@ -98,7 +101,7 @@
                         <OverflowToolbar class="sapFDynamicPageAlignContent"> 									
                         <ToolbarSpacer/>
                         <Button text="생성" id="buttonMainCreateRow" press=".onCreate"  type="Transparent"/>
-                        <Button text="복사" id="buttonMainCopyRow" press=".onCopyRow"   type="Transparent"/>									
+                        <!-- <Button text="복사" id="buttonMainCopyRow" press=".onCopyRow"   type="Transparent"/>									 -->
                         <Button text="삭제" id="buttonMainDeleteRow" press=".onDelete"   type="Transparent"/>
                         <Button text="저장" id="buttonMainSaveRow" press=".onSave"   type="Transparent"/>				 
                         </OverflowToolbar>
