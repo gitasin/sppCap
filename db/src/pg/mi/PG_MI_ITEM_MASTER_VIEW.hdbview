@@ -1,6 +1,26 @@
 VIEW PG_MI_ITEM_MASTER_VIEW AS
+<<<<<<< HEAD
 SELECT TENANT_ID
       ,MI_ITEM_CODE	
       ,CATEGORY_CODE
 FROM   PG_MI_ITEM_MASTER
 ;
+=======
+SELECT pmim.tenant_id,
+       pmim.mi_item_code,
+       pmim.category_code,
+       pmim.use_flag,
+       pmic.description,
+       pmic.language_code,
+       pmic.category_name,
+       pmim.local_create_date,
+       pmim.local_update_date,
+       pmim.create_user_id,
+       pmim.update_user_id,
+       pmim.system_create_date,
+       pmim.system_update_date
+  FROM pg_mi_item_master pmim
+  INNER JOIN pg_mi_item_category_view pmic
+  ON pmic.tenant_id = pmim.tenant_id
+  AND pmic.category_code = pmim.category_code;
+>>>>>>> b29e4687eabaf1138632d8d405354efba424ad8c

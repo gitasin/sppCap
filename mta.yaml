@@ -93,6 +93,7 @@ modules:
       target-path: resources/
     - artifacts:
 <<<<<<< HEAD
+<<<<<<< HEAD
       - purchaseMgr-content.zip
       name: purchaseMgr
 =======
@@ -104,6 +105,11 @@ modules:
       name: developmentReceipt
 >>>>>>> 94bb3a584268ec877edf39bcd3c7e9526490c526
       target-path: resources/
+=======
+      - timeZoneMgr-content.zip
+      name: timeZoneMgr
+      target-path: resources/
+>>>>>>> b29e4687eabaf1138632d8d405354efba424ad8c
 - name: sampleMstMgr
   type: html5
   path: app/xx/sampleMstMgr
@@ -153,10 +159,13 @@ modules:
     - npm run build
     supported-platforms: []
 <<<<<<< HEAD
+<<<<<<< HEAD
 - name: purchaseMgr
   type: html5
   path: app/pg/purchaseMgr
 =======
+=======
+>>>>>>> b29e4687eabaf1138632d8d405354efba424ad8c
 - name: timeZoneMgr
   type: html5
   path: app/cm/timeZoneMgr
@@ -165,6 +174,7 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
+<<<<<<< HEAD
 - name: developmentReceipt
   type: html5
   path: app/dp/developmentReceipt
@@ -174,6 +184,8 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
+=======
+>>>>>>> b29e4687eabaf1138632d8d405354efba424ad8c
 resources:
 - name: sppDb_hdi_dev
   type: com.sap.xs.hdi-container
