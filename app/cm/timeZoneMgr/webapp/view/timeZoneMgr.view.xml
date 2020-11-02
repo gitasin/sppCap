@@ -86,10 +86,13 @@
                 <VBox fitContainer="true">
                     <t:Table id="table"
                     selectionMode="MultiToggle" 
-                    rows="{ path : '/TimeZone'
+                    rows="{ path : '/TimeZone',
+                    parameters: {
+									$count: true,
+									$$updateGroupId : 'updateGroupTimeZone'
+								}
                     }"
-                    cellClick=".onCellClick"                   
-                    visibleRowCount="7"  
+                    cellClick=".onCellClick"
                     rowSelectionChange = ".onCheck"                 
                     ariaLabelledBy="title">
                         <t:extension>
@@ -102,7 +105,8 @@
                             </OverflowToolbar>
                         </t:extension>
                         <t:rowSettingsTemplate>
-                            <t:RowSettings highlight="{}"/>
+                            <!-- <t:RowSettings highlight="Success"/> -->
+                            <!-- <t:RowSettings highlight="Success"/> -->
                         </t:rowSettingsTemplate>                                
                         <t:columns>
                             <t:Column  width="0rem" hAlign="Center" visible="false">                                        
@@ -141,17 +145,17 @@
                                     <Input value="{gmt_offset}" valueLiveUpdate="true"/>
                                 </t:template>
                             </t:Column>
-                            <t:Column
-                                headerSpan="1">
+                            <t:Column headerSpan="1" hAlign="Center">
                                 <t:multiLabels>
                                     <Label text="서머타임" textAlign="Center" width="100%"/>
                                     <Label text="적용여부" textAlign="Center" width="100%"/>
                                 </t:multiLabels>
                                 <t:template> 
-                                        <Select width="100%">
-                                            <core:Item key="No" text="No" />
-                                            <core:Item key="Yes" text="Yes" />
-                                        </Select>
+                                    <CheckBox selected="{dst_flag}" textAlign="Center"/>
+                                        <!-- <Select width="100%">
+                                            <core:Item key="{!dst_flag}" text="{dst_flag}" />
+                                            <core:Item key="{dst_flag}" text="{dst_flag}" />
+                                        </Select> -->
                                 </t:template>
                             </t:Column>
                             <t:Column headerSpan="5">

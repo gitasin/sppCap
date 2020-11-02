@@ -107,7 +107,7 @@
                                     <form:formElements>
                                         <form:FormElement label="사용여부">
                                             <form:fields>
-                                                <ComboBox   id="search_use_yn"    
+                                                <ComboBox   id="search_use_flag"    
                                                             items="{
                                                                         path : '/CodeCombo',
                                                                         filters : [
@@ -243,7 +243,7 @@
                                         <Input id="mst_group_code" value="{group_code}"/>
                                         <Input id="mst_group_name" value="{group_name}"/>
                                         <Input id="mst_group_description" value="{group_description}"/>
-                                        <Input id="mst_use_yn" value="{use_yn}"/>
+                                        <Input id="mst_use_flag" value="{use_flag}"/>
                                         <Text id="mst_create_user_id" text="{create_user_id}"/>
                                         <Text id="mst_update_user_id" text="{update_user_id}"/>
                                         <Text id="mst_local_create_dtm" text="{local_create_dtm}"/>
