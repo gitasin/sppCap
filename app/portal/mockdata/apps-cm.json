@@ -32,8 +32,8 @@
                 },
                 {
                     "name": "메시지 관리",
-                    "url": "../cm/controlOptionMgr/webapp",
-                    "component": "cm.controlOptionMgr"
+                    "url": "../cm/msgMgr/webapp",
+                    "component": "cm.msgMgr"
                 },
                 {
                     "name": "통화 관리",
