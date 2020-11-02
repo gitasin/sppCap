@@ -7,7 +7,7 @@
 		search=".handleSearch"
 		confirm=".handleValueHelpClose"
 		cancel=".handleValueHelpClose"
-		showClearButton="true"
+		showClearButton="false"
         items="{
 			path : 'country>/Country'
 		}">

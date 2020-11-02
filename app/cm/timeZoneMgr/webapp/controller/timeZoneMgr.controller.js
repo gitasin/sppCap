@@ -25,6 +25,7 @@ sap.ui.define([
 				oMessageModelBinding = oMessageModel.bindList("/", undefined, [],
 					new Filter("technical", FilterOperator.EQ, true)),
 				oViewModel = new JSONModel({
+                        selectedrows : [],
                         timeZoneCountryInput : "",
                         busy : false,
                         hasUIChanges : false,
@@ -60,12 +61,15 @@ sap.ui.define([
                         this._oValueHelpDialog = oValueHelpDialog;
                         this.getView().addDependent(this._oValueHelpDialog);
                         this._oValueHelpDialog.getBinding("items")
-						.filter([new Filter("country_code", FilterOperator.Contains, sInputValue)]);
+                        .filter([new Filter("country_code", FilterOperator.Contains, sInputValue)]);
                         this._oValueHelpDialog.open(sInputValue);
                     }.bind(this));
                 } else {
                     this._configValueHelpDialog();
-                    this._oValueHelpDialog.open();
+                    this._oValueHelpDialog.getBinding("items")
+                    .filter([new Filter("country_code", FilterOperator.Contains, sInputValue)]);
+                    this._oValueHelpDialog.open(sInputValue);
+                    
                 }
             },
 
@@ -266,7 +270,6 @@ sap.ui.define([
                 console.log[indices.length-1];
                 for (var i = 0 ; i <= indices.length-1; i++ ){
                     var index = indices[i];
-                    debugger;
                     console.log[rows[index].getCells().length-1];
                     for(var j = 0 ; j <= rows[index].getCells().length-1; j++){
                         
@@ -322,6 +325,12 @@ sap.ui.define([
                 this.getView().setBusy(false);
 
                 console.groupEnd();
+            },
+            onCheck : function(){
+                debugger;
+            },
+            onCellClick : function(){
+                debugger;
             }
 		}); 
 	});
