@@ -13,7 +13,7 @@ entity TestMgr {
     message_type_code : String(30)  not null;	
     message_contents : String(1000)  not null;	
     local_create_dtm: DateTime not null;	
-    local_update_dtm: DateTime not null;	
+    local_update_dtm: DateTime not null;	  
     create_user_id: User not null @cds.on.insert: $user ;
     update_user_id: User not null @cds.on.insert: $user @cds.on.update: $user @title: '변경사용자ID';
     system_create_dtm: DateTime not null @cds.on.insert: $now @title: '시스템등록시간';
