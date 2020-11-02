@@ -3,7 +3,5 @@ using { pg as vpSearchView } from '../../../../../db/cds/pg/vp/PG_VENDOR_POOL_SE
 namespace pg;
 @path : '/pg.vendorPoolSearchService'
 service VpSearchService {
-
     entity vPSearchView as projection on vpSearchView.Vendor_Pool_Search_View;
-
 }
