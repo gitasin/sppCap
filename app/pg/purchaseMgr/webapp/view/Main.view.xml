@@ -1,3 +1,6 @@
+  <!--
+화면명 : 모니터링 항목 관리 App 개발
+  -->
   <mvc:View
 	  class="sapUiSizeCompact"
 	  controllerName="pg.purchaseMgr.controller.Main"	
@@ -261,7 +264,7 @@
                                     <Label text="Value 2"/>
                                 </header>
                             </Column>
-                            <Column hAlign="Status" width="200px">
+                            <Column hAlign="Center" width="200px">
                                 <header>
                                     <Label text="Department"/>
                                 </header>

@@ -1,109 +1,111 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:core="sap.ui.core">
     <Dialog title="User History Contents" contentWidth="80%"  >
+        <content>
         <Table  id="historyTable" 
+                growing="true" 
+                autoPopinMode = "true"
+                growingThreshold="5"                
                 items="{
-                        path : '/HistoryData',
+                        path : 'odata>/HistoryData',
                         sorter: { path: 'new_date', descending : true}
                 }" 
-                mode="Single"
-
+                mode="SingleSelectMaster"
+                selectionChange=".onHistoryItemPress"
                 >
             <columns>
-                <Column hAlign="Center" width="40px">
+                <Column hAlign="Center">
                     <header>
                         <Label text="Office"/>
                     </header>
                 </Column>
-                <Column hAlign="Center" width="40px">
+                <Column hAlign="Center">
                     <header>
                         <Label text="Team"/>
                     </header>
                 </Column>
-                <Column hAlign="Center" width="40px">
+                <Column hAlign="Center">
                     <header>
                         <Label text="Title"/>
                     </header>
                 </Column>
-                <Column hAlign="Center" width="40px">
+                <Column hAlign="Center">
                     <header>
                         <Label text="Name"/>
                     </header>
-                </Column>                     
-                <Column hAlign="Center" width="200px">
-                    <header>
-                        <Label text="Content"/>
-                    </header>
-                </Column>    
-                <Column hAlign="Center" width="40px">
+                </Column>                    
+    
+                <Column hAlign="Center">
                     <header>
                         <Label text="RegDate"/>
                     </header>
                 </Column>                                                               
             </columns>
             <items>
-                <ColumnListItem type="Active" press="onHistoryItemPress">
+                <ColumnListItem type="Active">
                     <cells>
-                        <Text text="{office}"/>
-                        <Text text="{team}"/>
-                        <Text text="{title}"/>
-                        <Text text="{name}"/>
-                        <Text text="계약관리 | Change Content : PR/PO관리"/>                        
-                        <Text text="{regdate}"/>                        
+                        <Text text="{odata>office}"/>
+                        <Text text="{odata>team}"/>
+                        <Text text="{odata>title}"/>
+                        <Text text="{odata>name}"/>
+                        <Text text="{odata>regdate}"/>                        
                     </cells>
                 </ColumnListItem>
             </items>
         </Table>
 
-       <Table id="historyDetailTable" items="{
-                            path : '/HistoryData',
-                            sorter: { path: 'new_date', descending : true}
-                        }" mode="Single">
+       <Table id="historyDetailTable"    
+            items="{
+                    path : 'odata>/HistoryData/0/modifyHistory/',
+                    sorter: { path: 'new_date', descending : true}
+            }" 
+            mode="SingleSelectMaster"
+            class="sapUiLargeMarginTop"
+            >
+			<headerToolbar>
+				<Toolbar>
+					<Title level="H3" text="작업 상세 내역" />
+					<ToolbarSpacer />
+				</Toolbar>
+			</headerToolbar>            
             <columns>
-                <Column hAlign="Center" width="40px">
+                <Column hAlign="Center">
                     <header>
-                        <Label text="Office"/>
+                        <Label text="History No"/>
+                    </header>
+                </Column>            
+                <Column hAlign="Center">
+                    <header>
+                        <Label text="Item"/>
                     </header>
                 </Column>
-                <Column hAlign="Center" width="40px">
+                <Column hAlign="Center">
                     <header>
-                        <Label text="Team"/>
+                        <Label text="Org Content"/>
                     </header>
                 </Column>
-                <Column hAlign="Center" width="40px">
+                <Column hAlign="Center">
                     <header>
-                        <Label text="Title"/>
+                        <Label text="New Content"/>
                     </header>
                 </Column>
-                <Column hAlign="Center" width="40px">
-                    <header>
-                        <Label text="Name"/>
-                    </header>
-                </Column>                     
-                <Column hAlign="Center" width="200px">
-                    <header>
-                        <Label text="Content"/>
-                    </header>
-                </Column>    
-                <Column hAlign="Center" width="40px">
-                    <header>
-                        <Label text="RegDate"/>
-                    </header>
-                </Column>                                                               
+
             </columns>
             <items>
-                <ColumnListItem type="Active"  press="onHistoryItemPress">
+                <ColumnListItem type="Active"  press=".onHistoryItemPress">
                     <cells>
-                        <Text text="{office}"/>
-                        <Text text="{team}"/>
-                        <Text text="{title}"/>
-                        <Text text="{name}"/>
-                        <Text text="계약관리 | Change Content : PR/PO관리"/>                        
-                        <Text text="{regdate}"/>                        
+                        <Text text="{odata>number}"/>
+                        <Text text="{odata>item}"/>
+                        <Text text="{odata>name}"/>
+                        <Text text="{odata>old_content}"/>                        
+                        <Text text="{odata>change_content}"/>                        
                     </cells>
                 </ColumnListItem>
             </items>
         </Table>    
-           
+      </content>     
+			<beginButton>
+				<Button text="닫기" press=".onHistoryPopoverClose" />
+			</beginButton>
     </Dialog>
 </core:FragmentDefinition>
