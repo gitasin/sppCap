@@ -1,0 +1,109 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Dialog title="User History Contents" contentWidth="80%"  >
+        <Table  id="historyTable" 
+                items="{
+                        path : '/HistoryData',
+                        sorter: { path: 'new_date', descending : true}
+                }" 
+                mode="Single"
+
+                >
+            <columns>
+                <Column hAlign="Center" width="40px">
+                    <header>
+                        <Label text="Office"/>
+                    </header>
+                </Column>
+                <Column hAlign="Center" width="40px">
+                    <header>
+                        <Label text="Team"/>
+                    </header>
+                </Column>
+                <Column hAlign="Center" width="40px">
+                    <header>
+                        <Label text="Title"/>
+                    </header>
+                </Column>
+                <Column hAlign="Center" width="40px">
+                    <header>
+                        <Label text="Name"/>
+                    </header>
+                </Column>                     
+                <Column hAlign="Center" width="200px">
+                    <header>
+                        <Label text="Content"/>
+                    </header>
+                </Column>    
+                <Column hAlign="Center" width="40px">
+                    <header>
+                        <Label text="RegDate"/>
+                    </header>
+                </Column>                                                               
+            </columns>
+            <items>
+                <ColumnListItem type="Active" press="onHistoryItemPress">
+                    <cells>
+                        <Text text="{office}"/>
+                        <Text text="{team}"/>
+                        <Text text="{title}"/>
+                        <Text text="{name}"/>
+                        <Text text="계약관리 | Change Content : PR/PO관리"/>                        
+                        <Text text="{regdate}"/>                        
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+
+       <Table id="historyDetailTable" items="{
+                            path : '/HistoryData',
+                            sorter: { path: 'new_date', descending : true}
+                        }" mode="Single">
+            <columns>
+                <Column hAlign="Center" width="40px">
+                    <header>
+                        <Label text="Office"/>
+                    </header>
+                </Column>
+                <Column hAlign="Center" width="40px">
+                    <header>
+                        <Label text="Team"/>
+                    </header>
+                </Column>
+                <Column hAlign="Center" width="40px">
+                    <header>
+                        <Label text="Title"/>
+                    </header>
+                </Column>
+                <Column hAlign="Center" width="40px">
+                    <header>
+                        <Label text="Name"/>
+                    </header>
+                </Column>                     
+                <Column hAlign="Center" width="200px">
+                    <header>
+                        <Label text="Content"/>
+                    </header>
+                </Column>    
+                <Column hAlign="Center" width="40px">
+                    <header>
+                        <Label text="RegDate"/>
+                    </header>
+                </Column>                                                               
+            </columns>
+            <items>
+                <ColumnListItem type="Active"  press="onHistoryItemPress">
+                    <cells>
+                        <Text text="{office}"/>
+                        <Text text="{team}"/>
+                        <Text text="{title}"/>
+                        <Text text="{name}"/>
+                        <Text text="계약관리 | Change Content : PR/PO관리"/>                        
+                        <Text text="{regdate}"/>                        
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>    
+           
+    </Dialog>
+</core:FragmentDefinition>

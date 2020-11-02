@@ -1,17 +1,19 @@
 namespace cm;
 
 using { User } from '@sap/cds/common';
-using { cm as detail } from './CM_CONTROL_OPTION_DTL-model';
 
 entity Control_Option_Mst {
 
     key tenant_id: String(5) not null @title: '테넌트ID';
     key control_option_code: String(30) @title: '제어옵션코드';
 
+<<<<<<< HEAD
+=======
     children: Composition of many detail.Control_Option_Dtl
         on children.tenant_id = tenant_id 
         and children.control_option_code = control_option_code;
 
+>>>>>>> 94bb3a584268ec877edf39bcd3c7e9526490c526
     chain_code: String(30) not null @title: '체인코드';
     control_option_name: String(240) @title: '제어옵션명';
     start_date: Date not null @title: '시작일자';

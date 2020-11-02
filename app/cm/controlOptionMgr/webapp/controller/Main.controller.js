@@ -523,7 +523,7 @@ sap.ui.define([
                         "user_yn": false,
                         "local_create_dtm": utcDate,
                         "local_update_dtm": utcDate,
-                        "update_user_id": "Admin"
+                        "update_user_id": ""
                     });
 
                 }else{
@@ -613,6 +613,7 @@ sap.ui.define([
                         "role_yn": false,
                         "organization_yn": false,
                         "user_yn": false,
+                        "update_user_id": "Y",
                         "local_create_dtm": utcDate,
                         "local_update_dtm": utcDate
                 });

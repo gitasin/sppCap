@@ -1,4 +1,11 @@
 VIEW PG_MI_ITEM_MASTER_VIEW AS
+<<<<<<< HEAD
+SELECT TENANT_ID
+      ,MI_ITEM_CODE	
+      ,CATEGORY_CODE
+FROM   PG_MI_ITEM_MASTER
+;
+=======
 SELECT pmim.tenant_id,
        pmim.mi_item_code,
        pmim.category_code,
@@ -16,3 +23,4 @@ SELECT pmim.tenant_id,
   INNER JOIN pg_mi_item_category_view pmic
   ON pmic.tenant_id = pmim.tenant_id
   AND pmic.category_code = pmim.category_code;
+>>>>>>> b29e4687eabaf1138632d8d405354efba424ad8c

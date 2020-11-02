@@ -1,0 +1,81 @@
+                //삭제 프로세스 
+                
+                this.errorDeleteRowChooice = "삭제할 항목을 선택해야 합니다.";
+                this.confirmAllDeleteRow = "선택된 항목을 삭제 하시 겠습니까? 하위 등록된 데이타도 같이 삭제 됩니다.";
+                this.confirmDeleteRow = "선택된 항목을 삭제 하시 겠습니까?";
+                this.confirmDeleteRowTitle = "삭제 확인";
+                this.sucessDelete = "삭제가 성공 하였습니다.";
+
+
+                                if(indices.length<1){
+                    MessageBox.show(this.errorDeleteRowChooice, {
+                        icon: MessageBox.Icon.ERROR,
+                        title: this.errorCheckChangeCopyRowTitle,
+                        actions: [MessageBox.Action.OK],
+                        styleClass: "sapUiSizeCompact"
+                    });
+
+                }else{
+
+var msg = this.confirmAllDeleteRow;
+                    if(!bSub){
+                        msg = this.confirmDeleteRow;
+                    }
+
+                    MessageBox.confirm(msg, {
+                        title : this.confirmDeleteRowTitle,                        
+                        initialFocus : sap.m.MessageBox.Action.CANCEL,
+                        onClose : function(sButton) {
+                            if (sButton === MessageBox.Action.OK) {
+                                for (var i = 0; i < indices.length; i++) {
+                                    var idx = indices[i];     
+                                    if (oTable.isIndexSelected(idx)) { 
+                                        that.getView().setBusy(true);
+                                        oTable.getContextByIndex(idx).delete("$auto").then(function () {   
+                                            
+                                            //Note : 실제 하위 데이타 삭제 프로세스가 있으면 하위 과정은 생략해도 된다. 
+                                            if(!bSub){
+                                                 that._subListFilter();    
+                                            }
+                                            that._showMsgStrip("s", that.sucessDelete);
+                                        
+                                            //MessageToast.show(this.sucessDelete);
+                                            
+                                            oTable.clearSelection();  
+                                        }.bind(this), function (oError) {
+                                            MessageBox.error(oError.message);
+                                        });
+                                        that.getView().setBusy(false);
+                                    }
+                                }
+                            } else if (sButton === MessageBox.Action.CANCEL) {
+                                return;
+                            };
+                        }
+                    });                          
+
+                    // 업로드 
+ <VBox >
+                    <UploadCollection
+                          id="UploadCollection"
+                          maximumFilenameLength="55"
+                          maximumFileSize="10"
+                          multiple="true"
+                          sameFilenameAllowed="true"
+                          instantUpload="false"
+                          noDataDescription="Drop files or use the &quot;Add&quot; button to keep files ready for upload"
+                          change="onChange"
+                          fileDeleted="onFileDeleted"
+                          filenameLengthExceed="onFilenameLengthExceed"
+                          fileSizeExceed="onFileSizeExceed"
+                          typeMissmatch="onTypeMissmatch"
+                          uploadComplete="onUploadComplete"
+                          beforeUploadStarts="onBeforeUploadStarts" />                                        
+                      <u:FileUploader
+                      id="fileUploader"
+                      name="myFileUpload"
+                      uploadUrl="upload/"
+                      tooltip="Upload your file to the local server"
+                      uploadComplete="handleUploadComplete"/>
+                  <Button text="Upload File" press="handleUploadPress"/>
+                  </VBox>                    
