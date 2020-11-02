@@ -15,6 +15,7 @@ sap.ui.define([], function () {
               case "" :
                return false;
               case "AddRow" :
+              case "ModifyRow" :
                   switch (oEntity)     // 전달되는 값이 없을경우(저장되지 않은 데이터)  수정가능 ..
                     {
                     case "" :

@@ -9,7 +9,6 @@ sap.ui.define([
         "sap/ui/model/FilterType",
         "sap/ui/model/Sorter",
         "sap/ui/model/json/JSONModel",
-        "sap/ui/table/RowSettings",
         "sap/ui/thirdparty/jquery",
         "sap/m/Token",
         "cm/msgMgr/model/formatter",
@@ -17,7 +16,7 @@ sap.ui.define([
 	/**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-	function (Controller, Log, MessageBox, MessageToast, DateFormat, Filter, FilterOperator, FilterType, Sorter, JSONModel, RowSettings, jquery, Token, formatter) {
+	function (Controller, Log, MessageBox, MessageToast, DateFormat, Filter, FilterOperator, FilterType, Sorter, JSONModel, jquery, Token, formatter) {
 		"use strict";
 
 		return Controller.extend("cm.msgMgr.controller.mainView", {
@@ -84,6 +83,7 @@ sap.ui.define([
                             bAdd : true,
                             bDelete : false,                                                    
                             bCopy : false,
+                            bModify : false,
                             bSave : true,
                             bSelect : false,
                             bCheck : false,
@@ -243,15 +243,18 @@ sap.ui.define([
                         oUiModel.setProperty("/bAdd", true); 
                         oUiModel.setProperty("/bCopy", true); 
                         oUiModel.setProperty("/bDelete", true);
+                        oUiModel.setProperty("/bModify", true); 
                         
                         //체크한 Row수 체크 
                         if(indices.length>1){
                             oUiModel.setProperty("/bCopy", false); 
+                            oUiModel.setProperty("/bModify", false); 
                         } 
                 
                     }else{
                         oUiModel.setProperty("/bCopy", false); 
                         oUiModel.setProperty("/bDelete", false);
+                        oUiModel.setProperty("/bModify", false); 
                     } 
                 }else{
                     if(!oUiModel.getProperty("/bSubListTrue")){
@@ -395,7 +398,8 @@ sap.ui.define([
             onCopyRow : function (oEvent) {
                 console.group("onCopyRow");
                 var oTable = this.byId("mainList"),
-                    oBinding = oTable.getBinding("rows"),                    
+                    oBinding = oTable.getBinding("rows"), 
+                    that = this,                   
                     rows = oTable.getRows(), 
                     indices = oTable.getSelectedIndices(),                    
                     today = this._getToday(),
@@ -415,20 +419,33 @@ sap.ui.define([
                     return;
                 }
                 var mainModel = this.getModel("mainModel");
-                var oContext = oBinding.create({
-                        "tenant_id": mainModel.tenant_id,
-                        "message_code": mainModel.message_code,
-                        "language_code": mainModel.language_code,
-                        "chain_code": mainModel.chain_code,
-                        "message_type_code": mainModel.message_type_code,
-                        "message_contents": mainModel.message_contents,
-                        "local_create_dtm": "2020-10-13T00:00:00Z",
-                        "local_update_dtm": "2020-10-13T00:00:00Z",
-                        "create_user_id": "Admin",
-                        "update_user_id": "",
-                        "system_create_dtm": "2020-10-13T00:00:00Z",
-                        "system_update_dtm": "2020-10-13T00:00:00Z",
-                });
+
+                for (var i = 0; i < indices.length; i++) {
+                    var idx = indices[i];     
+                    if (oTable.isIndexSelected(idx)) { 
+                        that.getView().setBusy(true);
+                            
+                        var oContext = oBinding.create({
+                                "tenant_id": rows[idx].getRowBindingContext().getValue("tenant_id"),
+                                "message_code": rows[idx].getRowBindingContext().getValue("message_code"),
+                                "language_code": rows[idx].getRowBindingContext().getValue("language_code"),
+                                "chain_code": rows[idx].getRowBindingContext().getValue("chain_code"),
+                                "message_type_code": rows[idx].getRowBindingContext().getValue("message_type_code"),
+                                "message_contents": rows[idx].getRowBindingContext().getValue("message_contents"),
+                                "local_create_dtm": "2020-10-13T00:00:00Z",
+                                "local_update_dtm": "2020-10-13T00:00:00Z",
+                                "create_user_id": "Admin",
+                                "update_user_id": "",
+                                "system_create_dtm": "2020-10-13T00:00:00Z",
+                                "system_update_dtm": "2020-10-13T00:00:00Z",
+                        });
+                        
+                        oTable.getContextByIndex(idx);
+                        that.getView().setBusy(false);
+                    }
+                }
+
+                
 
                 oUiModel.setProperty("/bEvent", "AddRow"); 
                 
@@ -449,6 +466,56 @@ sap.ui.define([
                     }
                 });
 
+                this.getView().setBusy(false);
+
+                console.groupEnd();
+            },
+
+            /**
+             *행복사 :  리스트 내용중 체크된 항목이 하나일때만 반응 ref :  onChangeRow
+             * site_yn, company_yn, role_yn, organization_yn, user_yn 컬럼은 복사하지 않습니다.
+             * @public 
+             */
+            onModifyRow : function (oEvent) {
+
+                console.group("onModifyRow");
+                 var oTable = this.byId("mainList"),     
+                      that = this,
+                      oBinding = oTable.getBinding("rows"),                    
+                      rows = oTable.getRows(), 
+                      oUiModel = this.getModel("ui"),
+                      indices = oTable.getSelectedIndices();                   
+
+                console.log("indices", indices);        
+
+                if(indices.length>1){
+                    MessageBox.show(this.errorCheckChangeCopyRow, {
+                        icon: MessageBox.Icon.ERROR,
+                        title: this.errorCheckChangeCopyRowTitle,
+                        actions: [MessageBox.Action.OK],
+                        styleClass: "sapUiSizeCompact"
+                    });
+                    return;
+                }
+
+                oUiModel.setProperty("/bEvent", "ModifyRow"); 
+                
+                //oTable.clearSelection();
+
+                this.getView().setBusy(true);
+
+                oUiModel.setProperty("/bEvent", "ModifyRow"); 
+
+                for (var i = 0; i < indices.length; i++) {
+                    var idx = indices[i];     
+                    if (oTable.isIndexSelected(idx)) { 
+                        that.getView().setBusy(true);
+                            rows[idx].getRowBindingContext().setProperty("update_user_id", "");
+                        oTable.getContextByIndex(idx);
+                        that.getView().setBusy(false);
+                    }
+                }
+                
                 this.getView().setBusy(false);
 
                 console.groupEnd();
