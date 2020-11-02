@@ -5,7 +5,8 @@ using { cm as master } from './CM_CONTROL_OPTION_MST-model';
 
 entity Control_Option_Dtl {
     
-    key tenant_id: String(5) not null @title: '테넌트ID';
+    key tenant_id: String(4) not null @title: '테넌트ID';
+    key company_code: String(10) not null @title: '회사코드';
     key control_option_code: String(30) @title: '제어옵션코드';
     
     parent: Association to master.Control_Option_Mst
