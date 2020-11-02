@@ -213,7 +213,7 @@ xmlns:mvc="sap.ui.core.mvc"
 								    <table:Column  width="12rem" hAlign="Center" >                                        
                                             <Label text="{i18n>TblHdMessage_contents}"/>           
 										<table:template>
-											<Input id="input_Message_contents" value="{message_contents}"
+											<Input class="msgMgrInput" id="input_Message_contents" value="{message_contents}"
                                                                         enabled="{=%{parts: [
                                                                             {path: 'message_contents'},
                                                                             {path: 'update_user_id'},
