@@ -54,10 +54,10 @@ sap.ui.define([
                 if(!this.isValNull(search_currency_code)){
                     filters.push(new Filter("currency_code", FilterOperator.Contains, search_currency_code));
                 }
-                //CurrencyView에 use_flag 없어서 조회 필터 사용 못함
-                // if(!this.isValNull(comboBox_use_yn)){
-                //     filters.push(new Filter("use_flag", FilterOperator.Contains, comboBox_use_yn));
-                // }
+                
+                if(!this.isValNull(comboBox_use_yn)){
+                   // filters.push(new Filter("use_flag", FilterOperator.Contains, comboBox_use_yn));
+                }
 
                 var mstBinding = this.byId("currencyTable").getBinding("items");
                 //var mstBinding = this.byId("codeMstTable").getBinding("rows");
@@ -208,6 +208,11 @@ sap.ui.define([
                 //oProductDetailPanel.bindElement("/Currency(tenant_id='1000',currency_code='CNY')");
                 oCurrencyDetail.bindElement({ path: sPath.replace("CurrencyView","Currency")});
 
+                oCurrencyDetail.bindElement({ path: sPath.replace("CurrencyView","Currency")
+                                            , parameters: {
+                                                    $$updateGroupId : 'CurrencyUpdateGroup'
+                                            }});
+
                 this.fn_searchCodeDtl(v_searchCond);
 
             },            
@@ -228,7 +233,11 @@ sap.ui.define([
                     var oCurrencyDetail = this.getView().byId("currencyDetail");
                     //oProductDetailPanel.bindElement({ path: sPath, model: "Currency" });
                     //oProductDetailPanel.bindElement("/Currency(tenant_id='1000',currency_code='CNY')");
-                    oCurrencyDetail.bindElement({ path: sPath.replace("CurrencyView","Currency")});
+                    
+                    oCurrencyDetail.bindElement({ path: sPath.replace("CurrencyView","Currency")
+                                                , parameters: {
+                                                    $$updateGroupId : 'CurrencyUpdateGroup'
+                                                }});
 
                     this.fn_searchCodeDtl(v_searchCond);
                 }
