@@ -95,10 +95,6 @@ modules:
       - timeZoneMgr-content.zip
       name: timeZoneMgr
       target-path: resources/
-    - artifacts:
-      - developmentReceipt-content.zip
-      name: developmentReceipt
-      target-path: resources/
 - name: sampleMstMgr
   type: html5
   path: app/xx/sampleMstMgr
@@ -150,14 +146,6 @@ modules:
 - name: timeZoneMgr
   type: html5
   path: app/cm/timeZoneMgr
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: developmentReceipt
-  type: html5
-  path: app/dp/developmentReceipt
   build-parameters:
     builder: custom
     commands:
