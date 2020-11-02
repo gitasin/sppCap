@@ -190,7 +190,7 @@
                                             <Input id="control_option_code" 
                                                    value="{control_option_code}"
                                                    valueLiveUpdate="true"
-                                                   liveChange=".onInputChange"                                                        
+                                                   liveChange=".onInputChange"
                                                    placeholder="제어옵션코드 필수."/>                                             
 										</table:template>                                        
 									</table:Column>

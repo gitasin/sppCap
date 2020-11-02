@@ -4,8 +4,6 @@
 #src/dp/**
 #src/gen/ep*
 #src/ep/**
-#src/gen/mc*
-#src/mc/**
 #src/gen/op*
 #src/op/**
 #src/gen/pg*
@@ -16,4 +14,3 @@ src/gen/xx*
 src/xx/**
 src/gen/zz*
 src/zz/**
-XX*

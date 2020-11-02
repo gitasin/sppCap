@@ -2,33 +2,30 @@
 	xmlns="sap.m"
 	xmlns:core="sap.ui.core">
 	<TableSelectDialog
-		noDataText="No country Found"
-		title="country"
+		noDataText="No Products Found"
+		title="Select Product"
 		search=".handleSearch"
 		confirm=".handleValueHelpClose"
 		cancel=".handleValueHelpClose"
-		showClearButton="true"
-        items="{
-			path : 'country>/Country'
-		}">
-		<ColumnListItem>
+		showClearButton="true">
+		<ColumnListItem selected="{selected}">
 			<cells>
-				<Text text="{country>iso_code}" />
-				<Text text="{country>country_code}" />
+				<ObjectIdentifier title="1" text="1" />
+				<Text text="1" />
+				<Text text="1" />
 			</cells>
 		</ColumnListItem>
 		<columns>
-			<Column>
+			<Column width="12em">
 				<header>
-					<Text text="iso_code" />
+					<Text text="Product" />
 				</header>
 			</Column>
-			<Column >
+			<Column minScreenWidth="Tablet" demandPopin="true">
 				<header>
-					<Text text="country_code" />
+					<Text text="Supplier" />
 				</header>
 			</Column>
 		</columns>
-
 	</TableSelectDialog>
 </core:FragmentDefinition>
