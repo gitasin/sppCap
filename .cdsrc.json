@@ -31,6 +31,7 @@
             "db/cds/cm/hrEmployeeMgr",
             "db/cds/dp",
             "db/cds/dp/standardCommon",
+            "db/cds/dp/moldMgt",
             "db/cds/ep",
             "db/cds/ep/loiMgr",
             "db/cds/op",
