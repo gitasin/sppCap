@@ -1,3 +1,23 @@
+/************************************************
+  1. namespace
+  - 모듈코드 소문자로 작성
+  - 소모듈 존재시 대모듈.소모듈 로 작성
+  2. entity
+  - 대문자로 작성
+  - 테이블명 생성을 고려하여 '_' 추가
+  3. 컬럼(속성)
+  - 소문자로 작성
+  4. .hdbview, .hdbfunction 등으로 이미 생성된 DB Object 사용시
+  entity 위에 @cds.persistence.exists 명시  
+  
+  5. namespace : xx
+  6. function : XX_DB_SYSDATE_MTZ_FUNC_02
+  7. function description : DateTime과 From_Time_Zone, To_Time_Zone을 입력받아 시간을 To_Time_Zone기준으로 변환하여 반환
+  8. history
+  -. 2020.10.28 : 차재근 최초작성
+  -. 2020.10.29 : 차재근 Source 테이블 변경 
+*************************************************/
+
 FUNCTION XX_DB_SYSDATE_MTZ_FUNC_02 (P_TENANT_ID NVARCHAR(5), P_SYSDATE DATE, P_FROM_TIME_ZONE NVARCHAR(5), P_TO_TIME_ZONE NVARCHAR(5))
 RETURNS D_RETURN TIMESTAMP
 LANGUAGE SQLSCRIPT
@@ -45,7 +65,7 @@ BEGIN
                 		, 'AS054'
                 	)
         INTO	V_FROM_TIME_ZONE            
-        FROM	CM_DUMMY
+        FROM	DUMMY
         ;
     ELSE
         V_FROM_TIME_ZONE := P_FROM_TIME_ZONE;
@@ -86,7 +106,7 @@ BEGIN
     LEFT  OUTER  JOIN  (
             SELECT  TO_TIMESTAMP(IFNULL(D_SYSDATE, CURRENT_TIMESTAMP))  AS  D_SYS_DT
                    ,TO_CHAR(TO_DATE(IFNULL(D_SYSDATE, CURRENT_TIMESTAMP)), 'YYYY')  +  0  AS  YYYY
-            FROM    CM_DUMMY
+            FROM    DUMMY
             )  D
           ON  X.WNUMBER  =  1
     LEFT  OUTER JOIN  (
@@ -128,13 +148,13 @@ BEGIN
         --D_RETURN  :=  D_SYS_DT;
         SELECT  D_SYS_DT
         INTO    D_RETURN
-        FROM    CM_DUMMY;
+        FROM    DUMMY;
     ELSE
         -- To Time Zone 시간으로 변환 (From/To Gap 만큼 OffSet)
         --D_RETURN  :=  D_SYS_DT  +  V_GAP_TIME  /  24;
         SELECT  ADD_SECONDS(D_SYS_DT,  V_GAP_TIME * 60 * 60) --From/To Gap만큰 Offset * 1분(60-SEC)*1시간(60분)
         INTO    D_RETURN
-        FROM    CM_DUMMY;
+        FROM    DUMMY;
         
         -- To DST Check
         IF (V_TO_DST_FLAG  =  'Y') THEN
@@ -160,7 +180,7 @@ BEGIN
                 --D_RETURN  :=  D_RETURN  +  1/24;
 	        SELECT  ADD_SECONDS(:D_SYS_DT,  60 * 60)  -- 1분(60-SEC)*1시간(60분)
 	        INTO    D_RETURN
-	        FROM    CM_DUMMY;
+	        FROM    DUMMY;
             END IF;
         END IF;
     END IF;
