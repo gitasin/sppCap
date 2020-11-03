@@ -2,6 +2,7 @@
 	controllerName="spp.portal.controller.Launchpad"
 	xmlns="sap.uxap"
 	xmlns:m="sap.m"
+    xmlns:core="sap.ui.core"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns:tnt="sap.tnt"
 	xmlns:layout="sap.ui.layout"
@@ -9,25 +10,22 @@
 	<tnt:ToolPage id="toolPage">
         <tnt:header>
             <tnt:ToolHeader>
-                <m:Button icon="sap-icon://menu2" type="Transparent" press=".onHomePress">
+                <m:Button id="sideNavigationToggleButton" icon="sap-icon://menu2" type="Transparent" press=".onSideNavButtonPress">
                     <m:layoutData>
                         <m:OverflowToolbarLayoutData priority="NeverOverflow" />
                     </m:layoutData>
                 </m:Button>
                 <m:IconTabHeader
-                    id="iconTabHeader"
-                    selectedKey="invalidKey"
-                    select=".onSelectTab"
+                    id="toolPageTabHeader"
+                    select=".onMenuPress"
                     backgroundDesign="Transparent"
+                    items="{menu>/}"
                     mode="Inline">
                     <m:layoutData>
                         <m:OverflowToolbarLayoutData priority="NeverOverflow" shrinkable="true" />
                     </m:layoutData>
                     <m:items>
-                        <m:IconTabFilter text="Documentation" />
-                        <m:IconTabFilter text="Explored" />
-                        <m:IconTabFilter text="API Reference" />
-                        <m:IconTabFilter text="Demo Apps" />
+                        <m:IconTabFilter text="{menu>name}" key="{menu>id}" />
                     </m:items>
                 </m:IconTabHeader>
                 <m:Button icon="sap-icon://search" type="Transparent">
@@ -53,26 +51,9 @@
         </tnt:header>
         <tnt:sideContent>
             <tnt:SideNavigation id="sideNavigation" selectedKey="subItem3">
-                <tnt:NavigationList width="320px" selectedKey="subItem3">
-                    <tnt:NavigationListItem text="Item 1" key="rootItem1" icon="sap-icon://employee">
-                        <tnt:NavigationListItem text="Sub Item 1" />
-                        <tnt:NavigationListItem text="Sub Item 2" />
-                        <tnt:NavigationListItem text="Sub Item 3" id="subItemThree" key="subItem3" />
-                        <tnt:NavigationListItem text="Sub Item 4" />
-                        <tnt:NavigationListItem text="Invisible Sub Item 5" visible="false" />
-                        <tnt:NavigationListItem text="Invisible Sub Item 6" visible="false" />
-                    </tnt:NavigationListItem>
-                    <tnt:NavigationListItem text="Invisible Section" icon="sap-icon://employee" visible="false">
-                        <tnt:NavigationListItem text="Sub Item 1" />
-                        <tnt:NavigationListItem text="Sub Item 2" />
-                        <tnt:NavigationListItem text="Sub Item 3" />
-                        <tnt:NavigationListItem text="Sub Item 4" />
-                    </tnt:NavigationListItem>
-                    <tnt:NavigationListItem text="Item 2" icon="sap-icon://building">
-                        <tnt:NavigationListItem text="Sub Item 1" />
-                        <tnt:NavigationListItem text="Sub Item 2" />
-                        <tnt:NavigationListItem text="Sub Item 3" />
-                        <tnt:NavigationListItem text="Sub Item 4" />
+                <tnt:NavigationList width="320px" selectedKey="subItem3" items="{/menus}">
+                    <tnt:NavigationListItem text="{name}" key="rootItem1" icon="{icon}" items="{subMenus}">
+                        <tnt:NavigationListItem text="{name}" select=".onAppPress"/>
                     </tnt:NavigationListItem>
                 </tnt:NavigationList>
 				<tnt:fixedItem>
@@ -83,29 +64,29 @@
             </tnt:SideNavigation>
         </tnt:sideContent>
 		<tnt:mainContents>
-            <m:NavContainer id="pageContainer" initialPage="page2">
-                <m:pages>
-                    <m:ScrollContainer id="root2" horizontal="false" vertical="true" height="100%">
-                        <ObjectPageLayout id="launchpadSections" sections="{/groups}">
-                            <sections>
-                                <ObjectPageSection titleUppercase="true" title="{title}" subSections="{subGroups}">
-                                    <subSections>
-                                        <ObjectPageSubSection title="{title}" titleUppercase="false">
-                                            <m:HBox items="{apps}">
-                                                <m:GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{header}" press="press">
-                                                    <m:TileContent unit="{footer/unit}" footer="{footer/desc}">
-                                                        <m:ImageContent src="{footer/image}"/>
-                                                    </m:TileContent>
-                                                </m:GenericTile>
-                                            </m:HBox>
-                                        </ObjectPageSubSection> 
-                                    </subSections>
-                                </ObjectPageSection>
-                            </sections>
-                        </ObjectPageLayout>
-                    </m:ScrollContainer>
-                </m:pages>
-            </m:NavContainer>
+            <m:ScrollContainer horizontal="false" vertical="true" height="100%">
+                <m:NavContainer id="pageContainer" initialPage="page2" >
+                    <m:pages>
+                            <ObjectPageLayout id="launchpadSections" sections="{/groups}">
+                                <sections>
+                                    <ObjectPageSection titleUppercase="true" title="{title}" subSections="{subGroups}">
+                                        <subSections>
+                                            <ObjectPageSubSection title="{title}" titleUppercase="false">
+                                                <m:HBox items="{apps}">
+                                                    <m:GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout {appId}" header="{header}" press=".onTilePress">
+                                                        <m:TileContent unit="{footer/unit}" footer="{footer/desc}">
+                                                            <m:ImageContent src="{footer/image}"/>
+                                                        </m:TileContent>
+                                                    </m:GenericTile>
+                                                </m:HBox>
+                                            </ObjectPageSubSection> 
+                                        </subSections>
+                                    </ObjectPageSection>
+                                </sections>
+                            </ObjectPageLayout>
+                    </m:pages>
+                </m:NavContainer>
+            </m:ScrollContainer>
         </tnt:mainContents>
     </tnt:ToolPage>
 </mvc:View>
