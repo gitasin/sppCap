@@ -8,7 +8,10 @@ sap.ui.define([
     	"sap/m/ButtonType",
     	"sap/m/List",
         "sap/m/StandardListItem",
-	    "sap/m/Text"
+        "sap/ui/thirdparty/jquery",
+        "sap/ui/table/RowSettings",
+        "sap/m/Text"
+        
 
 	],
 	/**
@@ -43,6 +46,24 @@ sap.ui.define([
                 // this.byId("search_use_yn").getBinding("items")
 
             },
+
+            onUpdate: function () {
+
+                var oTable = this.byId("hremployeeTable"),     
+                    // that = this,
+                    // oBinding = oTable.getBinding("rows"),                    
+                    // rows = oTable.getRows(), 
+                    // oUiModel = this.getModel("ui"),
+                    // indices = oTable.getSelectedIndices();     
+                    selectedRow = oTable.getSelectedIndices();
+
+
+                    alert("selectedRow : " + selectedRow);
+               
+
+
+            },
+
 
 			onSearch: function () {
 
@@ -108,7 +129,7 @@ sap.ui.define([
                 var v_searchCond = {
                     tenant_id : oEvent.getSource().getBindingContext().getValue('tenant_id'),
                     employee_number   : oEvent.getSource().getBindingContext().getValue('employee_number'),
-                    email_id  : oEvent.getSource().getBindingContext().getValue('email_id '),
+                    email_id  : oEvent.getSource().getBindingContext().getValue('email_id'),
                     user_korean_name    : oEvent.getSource().getBindingContext().getValue('user_korean_name'),    
                     user_english_name  : oEvent.getSource().getBindingContext().getValue('user_english_name'),
                     local_create_dtm    : oEvent.getSource().getBindingContext().getValue('local_create_dtm'),
@@ -121,6 +142,15 @@ sap.ui.define([
                 // var sPath = oContext.getPath();
                 // var oProductDetailPanel = this.getView().byId("currencyDetail");
                 // oProductDetailPanel.bindElement({ path: sPath, model: "Currency" });
+
+                alert("email_id : " + oEvent.getSource().getBindingContext().getValue('email_id'));
+
+                this.getView().byId("i_employee_number").setValue(oEvent.getSource().getBindingContext().getValue('employee_number'));
+                this.getView().byId("i_tenant_id").setValue("");
+                this.getView().byId("i_user_korean_name").setValue("");                
+                this.getView().byId("i_user_english_name").setValue("");                
+                this.getView().byId("i_email_id").setValue( oEvent.getSource().getBindingContext().getValue('email_id'));
+                this.getView().byId("i_user_lang").setValue("");
 
                 this.fn_searchCodeDtl(v_searchCond);
 
@@ -158,7 +188,29 @@ sap.ui.define([
 
                 this._retrieveParam.dtlParam = p_searchCond;
 
-            }
+            },
+
+            handleChange: function (oEvent) {
+			var oValidatedComboBox = oEvent.getSource(),
+				sSelectedKey = oValidatedComboBox.getSelectedKey(),
+				sValue = oValidatedComboBox.getValue();
+
+                var tctenantid = this.getView().byId("c_tenant_id");            
+
+               alert("sSelectedKey : " +  sSelectedKey + " ||sValue : " + sValue );
+
+                if(sSelectedKey=="Y")
+                {
+                    tctenantid.setVisible(true);
+                }
+                else{
+                    tctenantid.setVisible(false);
+                }
+
+
+
+
+		}
 
 		});
 	});

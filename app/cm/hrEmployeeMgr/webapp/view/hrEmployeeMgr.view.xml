@@ -11,7 +11,7 @@
     displayBlock="true">
 
 
-
+ 
 	<!-- <Shell id="shell"> -->
 		<App id="app">
         <f:DynamicPage id="employeeMgrPage" toggleHeaderOnTitleClick="true" headerExpanded="true">
@@ -96,6 +96,7 @@
                                             <form:fields >
                                                 <ComboBox id="search_comboBox_use_yn"
                                                     selectedKey="Y"
+			                                        change="handleChange"                                                    
                                                     width="350px">
                                                     <core:Item key="Y" text="Yes"/>                                                            
                                                     <core:Item key="N" text="No"/>
@@ -113,6 +114,7 @@
                     <HBox width="100%" alignItems="Center" alignContent="End" justifyContent="End">
                         <items>
                             <Button text="검색" press="onSearch"/>
+                            <Button text="수정" press="onUpdate"/>
                         </items>
                     </HBox>
                 </f:DynamicPageHeader>
@@ -127,6 +129,7 @@
                                                 $$updateGroupId : 'hremployeeMstUpdateGroup'
                                             }
                                         }"
+                                mode="MultiSelect"                                        
                                 updateFinished="onMstUpdateFinished"
                         >
                         <layoutData>
@@ -145,7 +148,7 @@
                                 </OverflowToolbar>
                             </headerToolbar>
                             <columns>
-                                <Column hAlign="Center" width="100px">
+                                <Column hAlign="Center" width="100px" id="c_tenant_id">
                                     <header>
                                         <Label text="TENANT ID"/>
                                     </header>
@@ -295,7 +298,7 @@
                                         <form:formElements>
                                                 <form:FormElement label="사번" >
                                                     <form:fields>
-                                                        <Input width="180px" id="i_employee_number" text = "{employee_number}" />
+                                                        <Input width="180px" id="i_employee_number" />
                                                     </form:fields>
                                                 </form:FormElement>
                                                 <form:FormElement label="Tenant ID">
