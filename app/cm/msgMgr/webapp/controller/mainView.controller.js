@@ -535,11 +535,16 @@ sap.ui.define([
                       rows = oTable.getRows(), 
                       oUiModel = this.getModel("ui");
 
-                 this.getView().setBusy(true);
+                 
+
+                
+                if (rows[oEvent.mParameters.rowIndex].getRowBindingContext() === null)
+                {
+                      return;
+                }
 
                 oUiModel.setProperty("/bEvent", "ModifyRow"); 
 
- 
                 that.getView().setBusy(true);
 
                     if (rows[oEvent.mParameters.rowIndex].getRowBindingContext().getValue("update_user_id") === 'M')              
@@ -548,14 +553,24 @@ sap.ui.define([
                     }
                     else
                     {
-                        this.sUpdate_user_id = "Modify" ;
-                        rows[oEvent.mParameters.rowIndex].getRowBindingContext().setProperty("update_user_id", "M");
+                        switch (oEvent.mParameters.columnIndex)
+                        {
+                            case "3" :
+                            case "4" :
+                            case "5" :
+                                 this.sUpdate_user_id = "Modify" ;
+                                 rows[oEvent.mParameters.rowIndex].getRowBindingContext().setProperty("update_user_id", "M");
+                            default :
+                        }                       
                     }
    
 
                 that.getView().setBusy(false);
      
                 console.groupEnd();     
+            },
+            OnLiveChange(oEvent){
+                var sNewValue = oEvent.getParameter("value");
             },
 
             /**
