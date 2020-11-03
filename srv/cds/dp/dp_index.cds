@@ -1,1 +1,1 @@
-using from './developmentReceipt/developmentReceipt-service'; 
+using from './moldMgt/developmentReceipt-service'; 
