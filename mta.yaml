@@ -92,8 +92,6 @@ modules:
       name: currencyMgr
       target-path: resources/
     - artifacts:
-      - sampleTemplate-content.zip
-      name: sampleTemplate
       - timeZoneMgr-content.zip
       name: timeZoneMgr
       target-path: resources/
@@ -157,9 +155,6 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
-- name: sampleTemplate
-  type: html5
-  path: app/xx/sampleTemplate
 - name: timeZoneMgr
   type: html5
   path: app/cm/timeZoneMgr
