@@ -1,9 +1,17 @@
 namespace ep;	
-	
-entity Ep_Loi_Publish {	
-  key tenant_id : String(4)  not null;	
-  key company_code : String(10)  not null;	
-  key loi_publish_number : String(100)  not null;	
+
+using { ep as dtl } from './EP_LOI_DTL-model';
+
+entity Loi_Publish {	
+    key tenant_id : String(5)  not null;	
+    key company_code : String(10)  not null;	
+    key loi_publish_number : String(100)  not null;	
+
+    item : Association[*] to dtl.Loi_Dtl
+        on item.tenant_id = tenant_id 
+        and item.company_code = company_code        
+        and item.loi_publish_number = loi_publish_number;  
+
     loi_publish_ttl : String(100)  ;	
     progress_status_code : String(30)  ;	
     vendor_code : String(15)  ;	
@@ -24,5 +32,5 @@ entity Ep_Loi_Publish {
     create_user_id : String(50)  not null;	
     update_user_id : String(50)  not null;	
     system_create_dtm : DateTime  not null;	
-    system_update_dtm : DateTime  ;	
+    system_update_dtm : DateTime  not null;	
 }	
