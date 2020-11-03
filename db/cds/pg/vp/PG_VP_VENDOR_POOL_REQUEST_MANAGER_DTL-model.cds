@@ -1,7 +1,7 @@
 namespace pg;
 
 using { User } from '@sap/cds/common';
-	
+ 	
 entity Vendor_Pool_Request_Manager_Dtl {	
   key tenant_id : String(5)  not null @title: '테넌트ID';	
   key company_code : String(10)  not null @title: '회사코드';	

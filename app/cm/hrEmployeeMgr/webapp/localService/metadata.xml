@@ -16,7 +16,7 @@
           <PropertyRef Name="tenant_id"/>
           <PropertyRef Name="employee_number"/>
         </Key>
-        <Property Name="tenant_id" Type="Edm.String" MaxLength="4" Nullable="false"/>
+        <Property Name="tenant_id" Type="Edm.String" MaxLength="5" Nullable="false"/>
         <Property Name="employee_number" Type="Edm.String" MaxLength="30" Nullable="false"/>
         <Property Name="user_status_code" Type="Edm.String" MaxLength="30" Nullable="false"/>
         <Property Name="email_id" Type="Edm.String" MaxLength="240"/>

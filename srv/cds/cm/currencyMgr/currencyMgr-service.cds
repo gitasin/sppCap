@@ -15,7 +15,6 @@ service CurrencyMgrService {
         key c.currency_code,
         c.effective_start_date,
         c.effective_end_date,
-        c.use_flag,
         l.language_code,
         l.currency_code_name,
         l.currency_code_desc,
