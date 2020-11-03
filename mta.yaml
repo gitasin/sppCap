@@ -107,6 +107,10 @@ modules:
       - vendorPoolSearch-content.zip
       name: vendorPoolSearch
       target-path: resources/
+    - artifacts:
+      - detailSpecEntry-content.zip
+      name: detailSpecEntry
+      target-path: resources/
 - name: sampleMstMgr
   type: html5
   path: app/xx/sampleMstMgr
@@ -182,6 +186,14 @@ modules:
 - name: vendorPoolSearch
   type: html5
   path: app/pg/vp/vendorPoolSearch
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: detailSpecEntry
+  type: html5
+  path: app/dp/detailSpecEntry
   build-parameters:
     builder: custom
     commands:
