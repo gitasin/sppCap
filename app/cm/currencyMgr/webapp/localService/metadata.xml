@@ -16,7 +16,7 @@
         <Property Name="currency_code" Type="Edm.String" MaxLength="30" Nullable="false"/>
         <Property Name="effective_start_date" Type="Edm.DateTimeOffset"/>
         <Property Name="effective_end_date" Type="Edm.DateTimeOffset"/>
-        <Property Name="use_flag" Type="Edm.Boolean" Nullable="false"/>
+        <Property Name="use_yn" Type="Edm.Boolean" Nullable="false"/>
         <Property Name="scale" Type="Edm.Decimal" Scale="variable"/>
         <Property Name="extension_scale" Type="Edm.Decimal" Scale="variable"/>
         <Property Name="local_create_dtm" Type="Edm.DateTimeOffset" Nullable="false"/>
@@ -55,7 +55,7 @@
         <Property Name="currency_code" Type="Edm.String" MaxLength="30" Nullable="false"/>
         <Property Name="effective_start_date" Type="Edm.DateTimeOffset"/>
         <Property Name="effective_end_date" Type="Edm.DateTimeOffset"/>
-        <Property Name="use_flag" Type="Edm.Boolean" Nullable="false"/>
+        <Property Name="use_yn" Type="Edm.Boolean" Nullable="false"/>
         <Property Name="scale" Type="Edm.Decimal" Scale="variable"/>
         <Property Name="extension_scale" Type="Edm.Decimal" Scale="variable"/>
         <Property Name="language_code" Type="Edm.String" MaxLength="30"/>

@@ -1,7 +1,7 @@
 namespace pg;	
 
 using { User } from '@sap/cds/common';
-using {pg as mst} from './PG_VP_VENDOR_POOL_MST-model'; 
+using {pg as mst} from './PG_VP_VENDOR_POOL_MST-model';
 
 entity Vendor_Pool_Item_Dtl {	
     key tenant_id : String(5) not null @title: '테넌트ID';
