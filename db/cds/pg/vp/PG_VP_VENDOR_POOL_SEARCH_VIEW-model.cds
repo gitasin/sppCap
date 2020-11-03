@@ -1,7 +1,7 @@
 namespace pg;	
  
 @cds.persistence.exists
-entity Vendor_Pool_Search_View {	
+entity Vp_Vendor_Pool_Search_View {	
   evaluation_operation_unit_code: String(30) @title: '평가운영단위코드';
   evaluation_operation_unit_name: String(12) @title: '평가운영단위';
   vendor_pool_level1_name: String @title: 'V/P(Level1)';
