@@ -20,6 +20,9 @@ entity Code_Dtl {
     sort_no: Decimal not null @title: '정렬번호';
     start_date: Date not null @title: '시작일';
     end_date: Date not null @title: '종료일';
+    remark: String(500) not null @title: '비고';
+    parent_code: String(30) not null @title: '상위코드';
+
     
     local_create_dtm: DateTime not null @title: '로컬등록시간';
     local_update_dtm: DateTime not null @title: '로컬수정시간';
