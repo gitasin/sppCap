@@ -243,7 +243,7 @@ xmlns:mvc="sap.ui.core.mvc"
 								    <table:Column  width="12rem" hAlign="Center" >                                        
                                             <Label text="{i18n>TblHdUpdate_user_id}"/>           
 										<table:template>
-											<Label id="input_Update_user_id" text="{insert_user_id}"/> 
+											<Label id="input_Update_user_id" text="{create_user_id}"/> 
 										</table:template>
 									</table:Column>
                                 </table:columns>
