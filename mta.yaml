@@ -92,6 +92,8 @@ modules:
       name: currencyMgr
       target-path: resources/
     - artifacts:
+      - sampleTemplate-content.zip
+      name: sampleTemplate
       - timeZoneMgr-content.zip
       name: timeZoneMgr
       target-path: resources/
@@ -102,6 +104,10 @@ modules:
     - artifacts:
       - hrEmployeeMgr-content.zip
       name: hrEmployeeMgr
+      target-path: resources/
+    - artifacts:
+      - vendorPoolSearch-content.zip
+      name: vendorPoolSearch
       target-path: resources/
 - name: sampleMstMgr
   type: html5
@@ -151,6 +157,9 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
+- name: sampleTemplate
+  type: html5
+  path: app/xx/sampleTemplate
 - name: timeZoneMgr
   type: html5
   path: app/cm/timeZoneMgr
@@ -170,6 +179,14 @@ modules:
 - name: hrEmployeeMgr
   type: html5
   path: app/cm/hrEmployeeMgr
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: vendorPoolSearch
+  type: html5
+  path: app/pg/vp/vendorPoolSearch
   build-parameters:
     builder: custom
     commands:
