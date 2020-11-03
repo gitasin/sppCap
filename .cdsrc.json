@@ -22,6 +22,7 @@
             "db/cds/xx/sampleMgr",
             "db/cds/xx/sampleMstMgr",
             "db/cds/xx/sampleGrpMgr",
+            "db/cds/xx/testTable",
             "db/cds/cm",
             "db/cds/cm/codeMgr",
             "db/cds/cm/controlOptionMgr",
