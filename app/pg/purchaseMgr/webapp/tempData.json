@@ -44,7 +44,7 @@
     "reMonitoringPurpose" : "모니터링 목적",
     "reMonitoringPurposeDetail" : "시나리오 설명",
     "reSourceSystem" : "소스시스템",
-    "reSourceSystemDetail" : "소스시스템 상세설명",    
+    "reSourceSystemDetail" : "소스시스템 상세설명",
     "HistoryData" : [
                         {
                             "name": "손흥민(hungmin.son)",
