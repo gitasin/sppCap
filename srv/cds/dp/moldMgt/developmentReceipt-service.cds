@@ -1,4 +1,4 @@
-using { dp as moldMst } from '../../../../db/cds/dp/developmentReceipt/DP_MOLD_MST-model';
+using { dp as moldMst } from '../../../../db/cds/dp/moldMgt/DP_MOLD_MST-model';
 
 namespace dp;
 @path : '/dp.DevelopmentReceiptService'
