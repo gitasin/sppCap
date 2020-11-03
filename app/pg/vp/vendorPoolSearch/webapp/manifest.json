@@ -1,7 +1,7 @@
 {
   "_version": "1.12.0",
   "sap.app": {
-    "id": "cm.timeZoneMgr",
+    "id": "pg.vendorPoolSearch",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -17,19 +17,11 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "srv-api/odata/v4/cm.TimeZoneMgrService/",
+        "uri": "srv-api/odata/v4/pg.VpSearchService/",
         "type": "OData",
         "settings": {
           "odataVersion": "4.0",
           "localUri": "localService/metadata.xml"
-        }
-      },
-      "countryMgrSources": {
-        "uri" : "../../../cm/countryMgr/srv-api/odata/v4/cm.CountryMgrService/",
-        "type": "OData",
-        "settings": {
-        "odataVersion": "4.0",
-        "localUri": "localService/metadata.xml"
         }
       }
     }
@@ -57,10 +49,10 @@
   "sap.ui5": {
     "flexEnabled": false,
     "rootView": {
-      "viewName": "cm.timeZoneMgr.view.timeZoneMgr",
+      "viewName": "pg.vendorPoolSearch.view.VendorPoolSearch",
       "type": "XML",
       "async": true,
-      "id": "timeZoneMgr"
+      "id": "VendorPoolSearch"
     },
     "dependencies": {
       "minUI5Version": "1.60.1",
@@ -78,7 +70,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "cm.timeZoneMgr.i18n.i18n"
+          "bundleName": "pg.vendorPoolSearch.i18n.i18n"
         }
       },
       "": {
@@ -90,18 +82,7 @@
           "synchronizationMode": "None",
           "autoExpandSelect": true
         }
-      },
-      "country" : {
-        "dataSource": "countryMgrSources",
-        "preload": true,
-        "settings": {
-          "operationMode": "Server",
-          "groupId": "$direct",
-          "synchronizationMode": "None",
-          "autoExpandSelect": true
-        }
       }
-
     },
     "resources": {
       "css": [
@@ -115,27 +96,27 @@
         "routerClass": "sap.m.routing.Router",
         "viewType": "XML",
         "async": true,
-        "viewPath": "cm.timeZoneMgr.view",
+        "viewPath": "pg.vendorPoolSearch.view",
         "controlAggregation": "pages",
         "controlId": "app",
         "clearControlAggregation": false
       },
       "routes": [
         {
-          "name": "RoutetimeZoneMgr",
-          "pattern": "RoutetimeZoneMgr",
+          "name": "RouteVendorPoolSearch",
+          "pattern": "RouteVendorPoolSearch",
           "target": [
-            "TargettimeZoneMgr"
+            "TargetVendorPoolSearch"
           ]
         }
       ],
       "targets": {
-        "TargettimeZoneMgr": {
+        "TargetVendorPoolSearch": {
           "viewType": "XML",
           "transition": "slide",
           "clearControlAggregation": false,
-          "viewId": "timeZoneMgr",
-          "viewName": "timeZoneMgr"
+          "viewId": "VendorPoolSearch",
+          "viewName": "VendorPoolSearch"
         }
       }
     }
