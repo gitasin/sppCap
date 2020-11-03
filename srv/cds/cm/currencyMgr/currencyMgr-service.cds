@@ -16,6 +16,8 @@ service CurrencyMgrService {
         c.effective_start_date,
         c.effective_end_date,
         c.use_flag,
+        c.scale,
+        c.extension_scale,
         l.language_code,
         l.currency_code_name,
         l.currency_code_desc,

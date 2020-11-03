@@ -13,8 +13,10 @@
 
 namespace pg;
 
+using { User } from '@sap/cds/common';
+
 entity Md_Category_Item {
-    key tenant_id                : String(5) not null;
+    key tenant_id                : String(4) not null;
     key company_code             : String(10) not null;
     key md_category_id           : String(4) not null;
     key md_category_item_code    : String(4) not null;
@@ -29,5 +31,19 @@ entity Md_Category_Item {
         update_user_id           : String(50) not null;
         system_create_date       : UTCDateTime not null;
         system_update_date       : UTCDateTime not null; */
+
+    @Comment: '로컬등록시간'
+    local_create_date: DateTime not null;
+    @Comment: '로컬수정시간'
+    local_update_date: DateTime not null;
+    @Comment: '등록사용자ID'
+    create_user_id: User not null @cds.on.insert: $user;
+    @Comment: '변경사용자ID'
+    update_user_id: User not null @cds.on.insert: $user @cds.on.update: $user;
+    @Comment: '시스템등록시간'
+    system_create_date: DateTime not null @cds.on.insert: $now;
+    @Comment: '시스템수정시간'
+    system_update_date: DateTime not null @cds.on.insert: $now  @cds.on.update: $now;
+
 
 }

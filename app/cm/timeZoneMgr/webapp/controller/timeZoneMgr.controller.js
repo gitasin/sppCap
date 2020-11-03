@@ -25,6 +25,7 @@ sap.ui.define([
 				oMessageModelBinding = oMessageModel.bindList("/", undefined, [],
 					new Filter("technical", FilterOperator.EQ, true)),
 				oViewModel = new JSONModel({
+                        selectedrows : [],
                         timeZoneCountryInput : "",
                         busy : false,
                         hasUIChanges : false,
@@ -60,12 +61,15 @@ sap.ui.define([
                         this._oValueHelpDialog = oValueHelpDialog;
                         this.getView().addDependent(this._oValueHelpDialog);
                         this._oValueHelpDialog.getBinding("items")
-						.filter([new Filter("country_code", FilterOperator.Contains, sInputValue)]);
+                        .filter([new Filter("country_code", FilterOperator.Contains, sInputValue)]);
                         this._oValueHelpDialog.open(sInputValue);
                     }.bind(this));
                 } else {
                     this._configValueHelpDialog();
-                    this._oValueHelpDialog.open();
+                    this._oValueHelpDialog.getBinding("items")
+                    .filter([new Filter("country_code", FilterOperator.Contains, sInputValue)]);
+                    this._oValueHelpDialog.open(sInputValue);
+                    
                 }
             },
 
@@ -115,7 +119,7 @@ sap.ui.define([
 					"timezone_name"             : "",
                     "country_code"              : "",
                     "gmt_offset"                : null,
-					"dst_flag"                  : false,
+					"dst_flag"                  : false, 
 					"dst_start_month"           : null,
                     "dst_start_day"             : null,
                     "dst_start_week"            : null,
@@ -266,7 +270,6 @@ sap.ui.define([
                 console.log[indices.length-1];
                 for (var i = 0 ; i <= indices.length-1; i++ ){
                     var index = indices[i];
-                    debugger;
                     console.log[rows[index].getCells().length-1];
                     for(var j = 0 ; j <= rows[index].getCells().length-1; j++){
                         
@@ -322,6 +325,35 @@ sap.ui.define([
                 this.getView().setBusy(false);
 
                 console.groupEnd();
+            },
+            onCheck : function(){ 
+            },
+            onCellClick : function(){
+            },
+            onDelete : function () {
+                debugger;
+                var oSelected  = this.byId("table").getSelectedContexts();
+
+                if (oSelected.length > 0) {
+
+                    for(var idx = 0; idx < oSelected.length; idx++){
+
+                        var oView = this.getView();
+                        oView.setBusy(true);
+
+                        oSelected[idx].delete("$auto").then(function () {
+                            oView.setBusy(false);
+                            MessageToast.show("삭제 되었습니다.");
+                            this.onLngRefresh();
+                        }.bind(this), function (oError) {
+                            oView.setBusy(false);
+                            MessageBox.error(oError.message);
+                        });
+
+                    }
+                }else{
+                    MessageBox.error("선택된 행이 없습니다.");
+                }
             }
 		}); 
 	});

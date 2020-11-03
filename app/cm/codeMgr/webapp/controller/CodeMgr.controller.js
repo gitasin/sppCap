@@ -35,8 +35,8 @@ sap.ui.define([
             onAfterRendering: function () {
 
                 //debugger
-                // search_use_flag
-                // this.byId("search_use_flag").getBinding("items")
+                // search_use_yn
+                // this.byId("search_use_yn").getBinding("items")
 
             },
 
@@ -47,7 +47,7 @@ sap.ui.define([
                 var search_tenant_id = "";
                 var search_company_code = "";
                 var search_chain_code = "";
-                var search_use_flag = "";
+                var search_use_yn = "";
                 var search_group_code = this.getView().byId("search_group_code").getValue();
                 var search_group_name = this.getView().byId("search_group_name").getValue();
                 var search_group_description = this.getView().byId("search_group_description").getValue();
@@ -65,8 +65,8 @@ sap.ui.define([
                     search_chain_code = this.byId("search_chain_code").getSelectedItem().getKey();
                 }
 
-                if(this.byId("search_use_flag").getSelectedItem()){
-                    search_use_flag = this.byId("search_use_flag").getSelectedItem().getKey();
+                if(this.byId("search_use_yn").getSelectedItem()){
+                    search_use_yn = this.byId("search_use_yn").getSelectedItem().getKey();
                 }
 
                 // 필터 추가 
@@ -82,8 +82,8 @@ sap.ui.define([
                     filters.push(new Filter("chain_code", FilterOperator.Contains, search_chain_code));
                 }
 
-                if(!this.isValNull(search_use_flag)){
-                    //filters.push(new Filter("use_flag", FilterOperator.Contains, search_use_flag));
+                if(!this.isValNull(search_use_yn)){
+                    //filters.push(new Filter("use_yn", FilterOperator.Contains, search_use_yn));
                 }
 
                 if(!this.isValNull(search_group_code)){
@@ -124,8 +124,18 @@ sap.ui.define([
                         "chain_code" : "",
                         "group_name" : "",
                         "group_description" : "",
-                        "use_flag" : true
+                        "use_yn" : true
                     });
+
+                      /*
+                        ,
+                        "local_create_dtm" : "2020-10-13T00:00:00Z",
+                        "local_update_dtm" : "2020-10-13T00:00:00Z",
+                        "create_user_id" : "Admin",
+                        "update_user_id" : "Admin",
+                        "system_create_dtm" : "2020-10-13T00:00:00Z",
+                        "system_update_dtm" : "2020-10-13T00:00:00Z"
+                        */
 
             },
 
@@ -291,6 +301,16 @@ sap.ui.define([
                         "start_date" : "",
                         "end_date" : ""
                     });
+
+                        /*
+                        ,
+                        "local_create_dtm" : "2020-10-13T00:00:00Z",
+                        "local_update_dtm" : "2020-10-13T00:00:00Z",
+                        "create_user_id" : "Admin",
+                        "update_user_id" : "Admin",
+                        "system_create_dtm" : "2020-10-13T00:00:00Z",
+                        "system_update_dtm" : "2020-10-13T00:00:00Z"
+                        */
             },
 
 			onDtlCopyRow : function () {
@@ -376,8 +396,6 @@ sap.ui.define([
                     };
 
                     this.fn_searchCodeLng(v_searchCond);
-                }else{
-                    this.byId("codeLngTable").destroyItems();
                 }
 
             },
@@ -434,6 +452,16 @@ sap.ui.define([
                         "language_cd" : "",
                         "code_name" : ""
                     });
+
+                        /*
+                        ,
+                        "local_create_dtm" : "2020-10-13T00:00:00Z",
+                        "local_update_dtm" : "2020-10-13T00:00:00Z",
+                        "create_user_id" : "Admin",
+                        "update_user_id" : "Admin",
+                        "system_create_dtm" : "2020-10-13T00:00:00Z",
+                        "system_update_dtm" : "2020-10-13T00:00:00Z"
+                        */
             },
 
 			onLngCopyRow : function () {
