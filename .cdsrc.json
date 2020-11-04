@@ -32,7 +32,7 @@
             "db/cds/cm/hrEmployeeMgr",             
             "db/cds/dp",
             "db/cds/dp/standardCommon",
-            "db/cds/dp/developmentReceipt",
+            "db/cds/dp/moldMgt",
             "db/cds/dp/detailSpecEntry",
             "db/cds/ep",
             "db/cds/ep/loiMgr",            
