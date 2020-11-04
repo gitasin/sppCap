@@ -1,6 +1,5 @@
 namespace cm;
 
-using { User } from '@sap/cds/common';
 using util from '../../util/util-model';
 using { cm as master } from './CM_CODE_MST-model';
 using { cm as language } from './CM_CODE_LNG-model';

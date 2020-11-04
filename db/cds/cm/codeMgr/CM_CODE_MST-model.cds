@@ -1,6 +1,5 @@
 namespace cm;
 
-using { User } from '@sap/cds/common';
 using util from '../../util/util-model';
 using { cm as detail } from './CM_CODE_DTL-model';
 
