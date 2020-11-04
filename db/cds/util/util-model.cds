@@ -1,4 +1,4 @@
-namespace cm;
+namespace util;
 
 using { User } from '@sap/cds/common';
 

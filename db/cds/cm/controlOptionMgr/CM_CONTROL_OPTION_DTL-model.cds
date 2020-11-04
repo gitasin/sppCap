@@ -1,7 +1,7 @@
 namespace cm;
 
 using { User } from '@sap/cds/common';
-using { cm as util } from '../../util/util-model';
+using util from '../../util/util-model';
 using { cm as master } from './CM_CONTROL_OPTION_MST-model';
 
 entity Control_Option_Dtl {
