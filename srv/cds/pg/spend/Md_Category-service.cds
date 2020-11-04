@@ -1,5 +1,5 @@
-using {pg as Group1} from '../../../../db/cds/pg/md/PG_MD_CATEGORY_ID-model';
-using {pg as Group2} from '../../../../db/cds/pg/md/PG_MD_CATEGORY_ITEM-model';
+using {pg as Group1} from '../../../../db/cds/pg/spend/PG_MD_CATEGORY_ID-model';
+using {pg as Group2} from '../../../../db/cds/pg/spend/PG_MD_CATEGORY_ITEM-model';
 
 namespace pg;
 

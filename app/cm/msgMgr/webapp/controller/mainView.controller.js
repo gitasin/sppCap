@@ -535,13 +535,6 @@ sap.ui.define([
                       rows = oTable.getRows(), 
                       oUiModel = this.getModel("ui");
 
-<<<<<<< HEAD
-                 this.getView().setBusy(true);
-
-                oUiModel.setProperty("/bEvent", "ModifyRow"); 
-
- 
-=======
                  
 
                 
@@ -552,7 +545,6 @@ sap.ui.define([
 
                 oUiModel.setProperty("/bEvent", "ModifyRow"); 
 
->>>>>>> 753a59f591c514307cbd8c3a8ecba3882a5aac16
                 that.getView().setBusy(true);
 
                     if (rows[oEvent.mParameters.rowIndex].getRowBindingContext().getValue("update_user_id") === 'M')              
@@ -561,10 +553,6 @@ sap.ui.define([
                     }
                     else
                     {
-<<<<<<< HEAD
-                        this.sUpdate_user_id = "Modify" ;
-                        rows[oEvent.mParameters.rowIndex].getRowBindingContext().setProperty("update_user_id", "M");
-=======
                         switch (oEvent.mParameters.columnIndex)
                         {
                             case "3" :
@@ -574,7 +562,6 @@ sap.ui.define([
                                  rows[oEvent.mParameters.rowIndex].getRowBindingContext().setProperty("update_user_id", "M");
                             default :
                         }                       
->>>>>>> 753a59f591c514307cbd8c3a8ecba3882a5aac16
                     }
    
 
@@ -582,12 +569,9 @@ sap.ui.define([
      
                 console.groupEnd();     
             },
-<<<<<<< HEAD
-=======
             OnLiveChange(oEvent){
                 var sNewValue = oEvent.getParameter("value");
             },
->>>>>>> 753a59f591c514307cbd8c3a8ecba3882a5aac16
 
             /**
              * @public

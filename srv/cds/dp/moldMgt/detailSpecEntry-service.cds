@@ -1,4 +1,4 @@
-using { dp as itemSpec } from '../../../../db/cds/dp/detailSpecEntry/DP_ITEM_SPEC-model';
+using { dp as itemSpec } from '../../../../db/cds/dp/moldMgt/DP_ITEM_SPEC-model';
 
 namespace dp;
 @path : '/dp.DetailSpecEntryService'
