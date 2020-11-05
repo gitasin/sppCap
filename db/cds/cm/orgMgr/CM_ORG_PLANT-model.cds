@@ -10,7 +10,7 @@ entity Org_Plant {
     plant_name : String(240)  not null @title: '플랜트명';
     use_flag : Boolean not null @title: '사용여부';
     purchase_org_code : String(10)  @title: '구매조직코드';
-    bizdivision_code : String(10)  @title: '사업본부코드';
+    bizdivision_code : String(10)  @title: '사업부코드';
     au_code : String(10)  @title: 'AU_CODE';
     hq_au_code : String(10)  @title: 'HQ_AU_CODE'; 
 }
