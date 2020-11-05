@@ -1,17 +1,11 @@
 namespace dp;
 
 using util from '../../util/util-model';
-using { dp as spec } from './DP_MOLD_ITEM_SPEC-model';
 
 entity Mold_Item {
     key affiliate_code               : String(4) not null  @title         : '관계사 지사코드';
     key org_code                     : String(3) not null  @title         : '사업부코드';
     key item_id                      : Integer64 not null  @title         : '도번 id';
-
-    children: Composition of one spec.Mold_Item_Spec
-        on children.org_code = org_code 
-        and children.item_id = item_id;
-
     part_no                      : String(50) not null @title         : '품번(도번)명';
     item_seq                     : Integer not null    @title         : '차수 ( 1호 금형, 2호 금형.....)';
     description                  : String(200)         @title         : '품명';
