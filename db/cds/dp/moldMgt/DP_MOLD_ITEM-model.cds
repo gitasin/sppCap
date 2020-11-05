@@ -4,9 +4,9 @@ using util from '../../util/util-model';
 using { dp as spec } from './DP_MOLD_ITEM_SPEC-model';
 
 entity Mold_Item {
-    affiliate_code               : String(4) not null  @title         : '관계사 지사코드';
-    org_code                     : String(3) not null  @title         : '사업부코드';
-    item_id                      : Integer64 not null  @title         : '도번 id';
+    key affiliate_code               : String(4) not null  @title         : '관계사 지사코드';
+    key org_code                     : String(3) not null  @title         : '사업부코드';
+    key item_id                      : Integer64 not null  @title         : '도번 id';
 
     children: Composition of one spec.Mold_Item_Spec
         on children.org_code = org_code 
