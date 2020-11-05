@@ -303,6 +303,9 @@ sap.ui.define([
 
                     var dtlBinding = this.byId("currencyLngTable").getBinding("items");
                     dtlBinding.resetChanges();
+                    //체크박스 클리어를 위해
+                    var oTable = this.byId("currencyLngTable");
+                    oTable.removeSelections(true);
                     this.getView().setBusy(true);
                     dtlBinding.filter(filters);
                     this.getView().setBusy(false);
@@ -502,9 +505,7 @@ sap.ui.define([
                     aItems[i].getCells()[0].setEditable(false); 
                     
                 }
-
-                var oTable = this.byId("currencyLngTable");
-                oTable.removeSelections(true);
+                
                 
                 // if(oEvent.getSource().getItems().length > 0){
                 //     var v_item = oEvent.getSource().getItems()[0];
