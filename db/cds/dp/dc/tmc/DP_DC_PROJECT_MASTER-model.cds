@@ -19,6 +19,8 @@ entity Dc_Project_Master {
     key tenant_id: String(5) not null @title: '테넌트ID';
     key project_code: String(50) not null @title: '프로젝트코드';
     project_name: String(200) @title: '프로젝트명';
+    operation_type: String(200) @title: '구매운영조직유형';	
+    operation_code: String(200) @title: '구매운영조직코드';	
     division_code: String(50) @title: 'DIVISION CODE';
     division_name: String(200) @title: 'DIVISION NAME';
     model_code: String(50) @title: '모델코드';

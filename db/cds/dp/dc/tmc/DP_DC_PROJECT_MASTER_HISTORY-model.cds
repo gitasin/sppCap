@@ -25,6 +25,8 @@ entity Dc_Project_Master_History {
         and ref.project_code = project_code;
 
     project_name: String(200) @title: '프로젝트명';
+    operation_type: String(200) @title: '구매운영조직유형';	
+    operation_code: String(200) @title: '구매운영조직코드';
     division_code: String(50) @title: 'DIVISION CODE';
     division_name: String(200) @title: 'DIVISION NAME';
     model_code: String(50) @title: '모델코드';
