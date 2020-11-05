@@ -13,14 +13,12 @@
 namespace dp;
 using { User } from '@sap/cds/common';
 using util from '../../../util/util-model';
-using {dp.Dc_Part_List as Part_List} from './DP_DC_PART_LIST-model';
+using {dp.Dc_Project_Part_List as Project_Part_List} from './DP_DC_PROJECT_PART_LIST-model';
 
-entity Dc_Part_List {
+entity Dc_Project_Part_List {
     key tenant_id: String(5) not null @title: '테넌트ID';
-    key model_code: String(50) not null @title: '모델코드';
+    key project_code: String(50) not null @title: '프로젝트코드';
     key item_number: String(50) not null @title: '품목번호';
-    operation_type: String(200) @title: '구매운영조직유형';
-    operation_code: String(200) @title: '구매운영조직코드';
     organization_id: Integer @title: 'ORGANIZATION ID';
     item_id: Integer @title: '품목ID';
     item_name: String(200) @title: '품목명';
@@ -39,6 +37,10 @@ entity Dc_Part_List {
     vendor_site_code: String(10) @title: 'VENDOR SITE CODE';
     source_type: String(1) @title: 'I(Import)/L(Local)/D(Domestic)';
     bom_type: String(1) @title: 'Bom Type(MBOM/EBOM 구분)';
+    change_request_empno: String(20) @title: '변경요청자사번';
+    change_request_date: Date @title: '변경요청일자';
+    change_request_flag: String(1) @title: 'Part변경요청 Flag Y(요청)/N(미요청)/C(완료)';
+    use_flag: Boolean @title: '사용여부';
 }
 
-  extend Dc_Part_List with util.Managed;
+  extend Dc_Project_Part_List with util.Managed;
