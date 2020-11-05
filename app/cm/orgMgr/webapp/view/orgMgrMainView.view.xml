@@ -1,4 +1,5 @@
 <mvc:View 
+    class="sapUiSizeCompact"
     controllerName="cm.orgMgr.controller.orgMgrMainView" 
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core"
@@ -9,7 +10,7 @@
     xmlns:form="sap.ui.layout.form"
     displayBlock="true">
 	 <App id="app">
-        <!-- <f:DynamicPage id="codeMgrPage" toggleHeaderOnTitleClick="true" headerExpanded="true">
+         <f:DynamicPage id="codeMgrPage" toggleHeaderOnTitleClick="true" headerExpanded="true">
             <f:title>
                 <f:DynamicPageTitle>
                     <f:heading>
@@ -21,67 +22,77 @@
                 <f:DynamicPageHeader pinnable="true">
                     <layout:HorizontalLayout>
                         <form:Form editable="true" width="100%">
-                            <form:formContainers>
-                                <form:FormContainer>
+                            <form:formContainers >
+                                <form:FormContainer >
                                     <form:formElements>
-                                        <form:FormElement label="Tenant">
-                                            <form:fields>
+                                        <form:FormElement label="테스트" >                                            
+                                            <form:fields>            													
+                                                <SearchField 
+                                                    id="search_currency_code" 
+                                                    width="100%"
+                                                    search=".onAddRow"/>
                                             </form:fields>
-                                        </form:FormElement>
-                                        <form:FormElement label="그룹코드">
-                                            <form:fields>
-                                                <Input id="search_group_code" width="100%"/>
-                                            </form:fields>
-                                        </form:FormElement>
+                                        </form:FormElement>  
+                                  
                                     </form:formElements>
                                 </form:FormContainer>
-                                <form:FormContainer>
+                                <form:FormContainer >
                                     <form:formElements>
-                                        <form:FormElement label="Company">
-                                            <form:fields>
+                                        <form:FormElement label="사용여부" >
+                                            <form:fields >
+                                                <ComboBox id="comboBox_use_yn"
+                                                    selectedKey="Y"
+                                                    width="350px">
+                                                    <core:Item key="Y" text="Yes"/>                                                            
+                                                    <core:Item key="N" text="No"/>
+                                                 </ComboBox>	
                                             </form:fields>
-                                        </form:FormElement>
-                                        <form:FormElement label="그룹 명">
-                                            <form:fields>
-                                                <Input id="search_group_name" width="100%"/>
-                                            </form:fields>
-                                        </form:FormElement>
+                                        </form:FormElement>                                          
                                     </form:formElements>
-                                </form:FormContainer>
-                                <form:FormContainer>
-                                    <form:formElements>
-                                        <form:FormElement label="Chain">
-                                            <form:fields>
-                                            </form:fields>
-                                        </form:FormElement>
-                                        <form:FormElement label="그룹 설명">
-                                            <form:fields>
-                                                <Input id="search_group_description" width="100%"/>
-                                            </form:fields>
-                                        </form:FormElement>
-                                    </form:formElements>
-                                </form:FormContainer>
-                                <form:FormContainer>
-                                    <form:formElements>
-                                        <form:FormElement label="사용여부">
-                                            <form:fields>
-                                            </form:fields>
-                                        </form:FormElement>
-                                    </form:formElements>
-                                </form:FormContainer>
+                                </form:FormContainer>                                                                
                             </form:formContainers>
                             <form:layout>
-                            <form:ResponsiveGridLayout columnsM="4" columnsL="4" columnsXL="4"/>
+                                <form:ResponsiveGridLayout columnsM="2" columnsL="2" columnsXL="2"/>
                             </form:layout>
                         </form:Form>
                     </layout:HorizontalLayout>
                     <HBox width="100%" alignItems="Center" alignContent="End" justifyContent="End">
                         <items>
-                            <Button text="검색" press="onSearch"/>
+                            <!-- <Button text="검색" press=".onCreate"  type="Transparent"/> -->
                         </items>
                     </HBox>
                 </f:DynamicPageHeader>
             </f:header>
+            <f:content>
+                <IconTabBar
+                    id="iconTabBar"
+                    headerBackgroundDesign="Transparent"
+                    class="sapUiResponsiveContentPadding">
+                    <items>
+                        <IconTabFilter id="TenantTab" text="TenantTab" key="Tenant">
+                            <mvc:XMLView viewName="cm.orgMgr.view.orgMgrTenantView"></mvc:XMLView>
+                        </IconTabFilter>
+                        <IconTabFilter id="CompanyTab" text="CompanyTab" key="Company">
+                            <mvc:XMLView viewName="cm.orgMgr.view.orgMgrCompanyView"></mvc:XMLView>
+                        </IconTabFilter>
+                        <IconTabFilter id="PurchasingTab" text="PurchasingTab" key="Purchasing">
+                            <mvc:XMLView viewName="cm.orgMgr.view.orgMgrPurchasingView"></mvc:XMLView>
+                        </IconTabFilter>
+                        <IconTabFilter id="PlantTab" text="PlantTab" key="Plant">
+                            <mvc:XMLView viewName="cm.orgMgr.view.orgMgrPlantView"></mvc:XMLView>
+                        </IconTabFilter>
+                        <IconTabFilter id="UnitTab" text="UnitTab" key="Unit">
+                            <mvc:XMLView viewName="cm.orgMgr.view.orgMgrUnitView"></mvc:XMLView>
+                        </IconTabFilter>
+                        <IconTabFilter id="DivisionTab" text="DivisionTab" key="Division">
+                            <mvc:XMLView viewName="cm.orgMgr.view.orgMgrDivisionView"></mvc:XMLView>
+                        </IconTabFilter>
+
+                        
+                    </items>
+                </IconTabBar>
+            </f:content>
+            <!--
             <f:content>
                 <Table  id="codeMstTable"
                         items="{
@@ -198,7 +209,7 @@
                         </ColumnListItem>
                     </items>
                 </Table>
-            </f:content>
-        </f:DynamicPage> -->
+            </f:content>-->
+        </f:DynamicPage> 
     </App>
 </mvc:View>
