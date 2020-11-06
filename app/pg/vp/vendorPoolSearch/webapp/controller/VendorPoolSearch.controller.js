@@ -42,9 +42,9 @@ sap.ui.define([
                 var search_repr_department_code = this.getView().byId("search_repr_department_code").getValue();
                 var search_evaluation_operation_unit_code = this.getView().byId("search_evaluation_operation_unit_code").getValue();
                 var search_managers_name = this.getView().byId("search_managers_name").getValue();
+                var search_vendor_pool_code = this.getView().byId("search_vendor_pool_code").getValue();
                 var search_vendor_code = this.getView().byId("search_vendor_code").getValue();
-                // var search_vendor_code_1 = this.getView().byId("search_vendor_code_1").getValue();
-                // var search_vendor_type_name = "";
+                var search_vendor_type_name = "";
 
                 if(!this.isValNull(search_repr_department_code)){
                     filters.push(new Filter("repr_department_code", FilterOperator.Contains, search_repr_department_code));
@@ -60,6 +60,9 @@ sap.ui.define([
                 
                 if(!this.isValNull(search_vendor_code)){
                     filters.push(new Filter("vendor_code", FilterOperator.Contains, search_vendor_code));
+                }
+                if(!this.isValNull(search_vendor_pool_code)){
+                    filters.push(new Filter("vendor_pool_code", FilterOperator.Contains, search_vendor_pool_code));
                 }
 
                 var oBinding = this.byId("vendorPoolSearchTable").getBinding("rows"); 
@@ -133,7 +136,7 @@ sap.ui.define([
                 var fnSuccess = function () {
                     oView.setBusy(false);
                     MessageToast.show("저장 되었습니다.");
-                    this.onDtlRefresh();
+                    // this.onDtlRefresh();
                 }.bind(this);
 
                 var fnError = function (oError) {
@@ -196,24 +199,25 @@ sap.ui.define([
                 // this.getView().byId("VpSupplierTable").setValue()
                 //this.byId("codeMstTable").getSelectedItems()
                 // var oSelected  = this.byId("codeMstTable").getSelectedContexts();
-                // if (supSelected.length > 0) {
+                if (supSelected.length > 0) {
 
-                //     for(var idx = 0; idx < supSelected.length; idx++){
-                //         //oSelected[idx].delete("$auto");
+                    for(var idx = 0; idx < supSelected.length; idx++){
+                        //oSelected[idx].delete("$auto");
 
-                //         var oView = this.getView();
-                //         oView.setBusy(true);
+                        var oView = this.getView();
+                        oView.setBusy(true);
 
-                //         supSelected[idx].delete("$auto").then(function () {
-                //             oView.setBusy(false);
-                //             MessageToast.show("삭제 되었습니다.");
-                //             this.onSearch();
-                //         }.bind(this), function (oError) {
-                //             oView.setBusy(false);
-                //             MessageBox.error(oError.message);
-                //         });
+                        supSelected[idx].delete("$auto").then(function () {
+                            oView.setBusy(false);
+                            MessageToast.show("삭제 되었습니다.");
+                            // this.onSearch();
+                            this.onDtlRefresh();
+                        }.bind(this), function (oError) {
+                            oView.setBusy(false);
+                            MessageBox.error(oError.message);
+                        });
 
-                //     }
+                    }
 
                     /*
                     var oView = this.getView();
@@ -229,9 +233,9 @@ sap.ui.define([
                     });
                 //     */
                     
-                // }else{
-                //     MessageBox.error("선택된 행이 없습니다.");
-                // }
+                }else{
+                    MessageBox.error("선택된 행이 없습니다.");
+                }
             },
 
 		});

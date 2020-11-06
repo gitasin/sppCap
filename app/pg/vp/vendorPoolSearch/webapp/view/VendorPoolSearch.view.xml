@@ -30,14 +30,14 @@
                                         <form:FormElement label="부서" >                                            
                                             <form:fields>            													
                                                 <SearchField 
-                                                    id="search_dept_code" 
+                                                    id="search_repr_department_code" 
                                                     width="100%"/>
                                             </form:fields>
                                         </form:FormElement>  
                                         <form:FormElement label="평가운영단위" >                                            
                                             <form:fields>            													
                                                 <SearchField 
-                                                    id="search_email_id" 
+                                                    id="search_evaluation_operation_unit_code" 
                                                     width="100%"/>
                                             </form:fields>
                                         </form:FormElement>  
@@ -48,14 +48,14 @@
                                         <form:FormElement label="작성자" >                                            
                                             <form:fields>            													
                                                 <SearchField 
-                                                    id="search_user_id" 
+                                                    id="search_managers_name" 
                                                     width="100%"/>
                                             </form:fields>
                                         </form:FormElement>  
                                         <form:FormElement label="Vendor Pool" >                                            
                                             <form:fields>            													
                                                 <SearchField 
-                                                    id="search_assign_type_code" 
+                                                    id="search_vendor_pool_code" 
                                                     width="100%"/>
                                             </form:fields>
                                         </form:FormElement>  
@@ -66,7 +66,7 @@
                                         <form:FormElement label="협력사" >                                            
                                             <form:fields>            													
                                                 <SearchField 
-                                                    id="search_user_english_name" 
+                                                    id="search_vendor_code" 
                                                     width="100%"/>
                                             </form:fields>
                                         </form:FormElement>                                         
