@@ -29,4 +29,4 @@ entity VI_Base_Price_Arl_Header {
     attached_file_no : String(30) not null @title: '첨부파일No';		
 }	
 
-extend Dc_Bom_List with util.Managed;
+extend VI_Base_Price_Arl_Header with util.Managed;
