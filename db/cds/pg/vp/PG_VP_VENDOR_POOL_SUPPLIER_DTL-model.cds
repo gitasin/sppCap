@@ -26,7 +26,7 @@ entity Vp_Vendor_Pool_Supplier_Dtl {
     evaluation_restrict_end_date : Date @title: '평가제한종료일자';
     inp_code : String(30) @title: 'I&P코드';
     rm_control_flag : Boolean @title: '위험관리제어여부';
-    supplier_basic_portion_rate : Decimal @title: '공급업체기준분배비율';
+    supplier_base_portion_rate : Decimal @title: '공급업체기준분배비율';
     use_flag : Boolean @title: '사용여부';
     register_reason_text : String(300) @title: '등록사유텍스트';
     register_approval_request_number : String(50) @title: '등록승인요청번호';

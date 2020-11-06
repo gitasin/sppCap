@@ -13,7 +13,7 @@ entity Vp_Vendor_Pool_Export_Mst {
     repr_department_code : String(40) @title: '대표부서코드';
     evaluation_operation_unit_code : String(30) @title: '평가운영단위코드';
     inp_type_code : String(30) @title: 'I&P유형코드';
-    mtlmob_basic_code : String(30) @title: '물동기준코드';
+    mtlmob_base_code : String(30) @title: '물동기준코드';
     regular_evaluation_flag : Boolean @title: '정기평가여부';
     industry_class_code : String(30) @title: '산업분류코드';
     sd_exception_flag : Boolean @title: '공급업체발굴예외여부';
@@ -28,11 +28,11 @@ entity Vp_Vendor_Pool_Export_Mst {
     parent_vendor_pool_code : String(30) @title: '상위협력사풀코드';
     leaf_flag : Boolean @title: '리프여부';
     level_number : Decimal @title: '레벨번호';
-    display_sequence : Decimal @title: '표시순번';
+    mark_sequence : Decimal @title: '표시순번';
     vendor_pool_path_sequence : Decimal @title: '협력사풀경로순번';
     vendor_pool_path_code : String(100) @title: '협력사풀경로코드';
     vendor_pool_path_name : String(240) @title: '협력사풀경로명';
-    vendor_pool_display_name : String(240) @title: '협력사풀표시명';
+    vendor_pool_mark_name : String(240) @title: '협력사풀표시명';
     vendor_pool_level1_code : String(30) @title: '협력사풀레벨1코드';
     vendor_pool_level2_code : String(30) @title: '협력사풀레벨2코드';
     vendor_pool_level3_code : String(30) @title: '협력사풀레벨3코드';

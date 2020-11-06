@@ -13,7 +13,7 @@ entity Vp_Vendor_Pool_Mst {
     repr_department_code : String(40) @title: '대표부서코드';
     evaluation_operation_unit_code : String(30) @title: '평가운영단위코드';
     inp_type_code : String(30) @title: 'I&P유형코드';
-    mtlmob_basic_code : String(30) @title: '물동기준코드';
+    mtlmob_base_code : String(30) @title: '물동기준코드';
     regular_evaluation_flag : Boolean @title: '정기평가여부';
     industry_class_code : String(30) @title: '산업분류코드';
     sd_exception_flag : Boolean @title: '공급업체발굴예외여부';
@@ -28,7 +28,7 @@ entity Vp_Vendor_Pool_Mst {
     parent_vendor_pool_code : String(30) @title: '상위협력사풀코드';
     leaf_flag : Boolean @title: '리프여부';
     level_number : Decimal @title: '레벨번호'; 
-    display_sequence : Decimal @title: '표시순번';
+    mark_sequence : Decimal @title: '표시순번';
     register_reason_text : String(300) @title: '등록사유텍스트';
     approval_request_number : String(50) @title: '승인요청번호';
     local_create_dtm: DateTime not null @title: '로컬등록시간';
